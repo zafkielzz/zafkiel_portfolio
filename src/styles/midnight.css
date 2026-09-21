@@ -478,3 +478,157 @@ html.route-changing main {
     height: auto !important;
   }
 }
+
+/* ========================================================
+   ENHANCED ATMOSPHERE & CURSOR LIGHTING (VIBRANT & DISTINCT)
+   ======================================================== */
+.hero-photo-image {
+  transition: filter 0.7s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+}
+
+.hero.mood-morning .hero-photo-image {
+  filter: saturate(0.9) contrast(1.06) brightness(0.92) !important;
+}
+
+.hero.mood-afternoon .hero-photo-image {
+  filter: saturate(1.18) contrast(1.1) brightness(0.96) sepia(0.06) !important;
+}
+
+.hero.mood-night .hero-photo-image {
+  filter: saturate(0.8) contrast(1.16) brightness(0.74) hue-rotate(180deg) !important;
+}
+
+/* Multi-layer Dynamic Cursor Spotlight */
+.cafe-light {
+  --light-x: 55%;
+  --light-y: 40%;
+  position: absolute !important;
+  z-index: 3 !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  display: block !important;
+  mix-blend-mode: screen !important;
+  transition: opacity 0.5s ease !important;
+}
+
+.cafe-light::before,
+.cafe-light::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  mix-blend-mode: screen !important;
+  transition: background 0.6s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+}
+
+/* DAWN: Crisp, radiant morning sunlight */
+.cafe-light.mood-morning::before {
+  background: radial-gradient(
+    ellipse 75% 65% at var(--light-x) var(--light-y),
+    rgba(255, 235, 185, 0.6) 0%,
+    rgba(255, 195, 115, 0.32) 35%,
+    rgba(235, 140, 50, 0.12) 62%,
+    transparent 82%
+  ) !important;
+}
+
+.cafe-light.mood-morning::after {
+  background: radial-gradient(
+    circle 340px at var(--light-x) var(--light-y),
+    rgba(255, 250, 225, 0.95) 0%,
+    rgba(255, 220, 140, 0.72) 22%,
+    rgba(245, 165, 70, 0.32) 50%,
+    transparent 78%
+  ) !important;
+}
+
+/* DAY: Rich golden hour & sunset amber warmth */
+.cafe-light.mood-afternoon::before {
+  background: radial-gradient(
+    ellipse 80% 70% at var(--light-x) var(--light-y),
+    rgba(255, 180, 80, 0.7) 0%,
+    rgba(240, 120, 35, 0.42) 36%,
+    rgba(210, 60, 20, 0.16) 65%,
+    transparent 85%
+  ) !important;
+}
+
+.cafe-light.mood-afternoon::after {
+  background: radial-gradient(
+    circle 380px at var(--light-x) var(--light-y),
+    rgba(255, 230, 150, 0.98) 0%,
+    rgba(255, 160, 50, 0.82) 24%,
+    rgba(225, 80, 25, 0.4) 52%,
+    transparent 78%
+  ) !important;
+}
+
+/* NIGHT: Nocturne studio - moonlight cyan & neon bioluminescence */
+.cafe-light.mood-night::before {
+  background: radial-gradient(
+    ellipse 80% 70% at var(--light-x) var(--light-y),
+    rgba(70, 225, 250, 0.6) 0%,
+    rgba(25, 155, 210, 0.38) 36%,
+    rgba(40, 60, 185, 0.18) 65%,
+    transparent 85%
+  ) !important;
+}
+
+.cafe-light.mood-night::after {
+  background: radial-gradient(
+    circle 360px at var(--light-x) var(--light-y),
+    rgba(210, 250, 255, 0.98) 0%,
+    rgba(65, 220, 250, 0.85) 22%,
+    rgba(45, 110, 235, 0.42) 50%,
+    transparent 78%
+  ) !important;
+}
+
+/* Atmosphere Switcher Theming */
+.hero.mood-morning .cafe-moods button.active {
+  background: rgba(245, 195, 115, 0.28) !important;
+  border-color: #f5c777 !important;
+  color: #fff2d6 !important;
+  box-shadow: 0 0 16px rgba(245, 195, 115, 0.45), inset 0 0 0 1px rgba(255, 220, 140, 0.5) !important;
+}
+
+.hero.mood-afternoon .cafe-moods button.active {
+  background: rgba(245, 120, 35, 0.32) !important;
+  border-color: #f58223 !important;
+  color: #ffe6d0 !important;
+  box-shadow: 0 0 18px rgba(245, 120, 35, 0.5), inset 0 0 0 1px rgba(255, 150, 60, 0.6) !important;
+}
+
+.hero.mood-night .cafe-moods button.active {
+  background: rgba(50, 195, 230, 0.32) !important;
+  border-color: #40d2f0 !important;
+  color: #d6f8ff !important;
+  box-shadow: 0 0 18px rgba(50, 195, 230, 0.55), inset 0 0 0 1px rgba(80, 225, 255, 0.6) !important;
+}
+
+.hero.mood-night .cafe-moods > div {
+  border-color: rgba(60, 190, 220, 0.35) !important;
+  background: rgba(14, 25, 35, 0.65) !important;
+}
+
+.hero.mood-night .eyebrow i {
+  background: #38e1ff !important;
+  box-shadow: 0 0 16px rgba(56, 225, 255, 0.9) !important;
+}
+
+/* Global Ambient Cursor Follow (for the rest of the page) */
+.ambient-cursor {
+  z-index: 0 !important;
+  top: var(--pointer-y) !important;
+  left: var(--pointer-x) !important;
+  width: 520px !important;
+  height: 520px !important;
+  transform: translate(-50%, -50%) !important;
+  opacity: 0.6 !important;
+  background: radial-gradient(circle, rgba(235, 175, 85, 0.22) 0%, rgba(215, 130, 50, 0.08) 38%, transparent 70%) !important;
+  filter: blur(14px) !important;
+  transition: opacity 0.35s ease !important;
+  pointer-events: none !important;
+  position: fixed !important;
+}

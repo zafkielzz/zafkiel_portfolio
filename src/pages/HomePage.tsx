@@ -34,11 +34,20 @@ export const HomePage: React.FC = () => {
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let animFrame: number;
+    const heroEl = el.closest('.hero');
     const handleMove = (e: PointerEvent) => {
       cancelAnimationFrame(animFrame);
       animFrame = requestAnimationFrame(() => {
-        el.style.setProperty('--light-x', `${((e.clientX / window.innerWidth) * 100).toFixed(1)}%`);
-        el.style.setProperty('--light-y', `${((e.clientY / window.innerHeight) * 100).toFixed(1)}%`);
+        if (heroEl) {
+          const rect = heroEl.getBoundingClientRect();
+          const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+          const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+          el.style.setProperty('--light-x', `${x.toFixed(1)}%`);
+          el.style.setProperty('--light-y', `${y.toFixed(1)}%`);
+        } else {
+          el.style.setProperty('--light-x', `${((e.clientX / window.innerWidth) * 100).toFixed(1)}%`);
+          el.style.setProperty('--light-y', `${((e.clientY / window.innerHeight) * 100).toFixed(1)}%`);
+        }
       });
     };
 
@@ -102,7 +111,7 @@ export const HomePage: React.FC = () => {
   return (
     <main id="index">
       {/* HERO SECTION */}
-      <section className="hero hero-photo">
+      <section className={`hero hero-photo mood-${atmosphere}`} data-atmosphere={atmosphere}>
         <img
           alt="Barista and creative studio workspace bathed in warm morning light"
           className="hero-photo-image"
