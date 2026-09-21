@@ -248,11 +248,11 @@ export const HomePage: React.FC = () => {
               <p>
                 {lang === 'en' ? (
                   <>
-                    Hello, I’m <strong>Đặng Phương Nam</strong> — a final-year Artificial Intelligence student at <strong>FPT University</strong>. My work spans multimodal deep learning, autonomous multi-agent systems, and production AI engineering. Author of a peer-reviewed scientific journal publication.
+                    Hello, I’m <strong>Đặng Phương Nam</strong> — a final-year Artificial Intelligence student at <strong>FPT University</strong>. My research focuses on multimodal deep learning, adaptive RAG routing, and on-device Edge AI. <strong>First Author (Tác giả chính)</strong> of accepted &amp; presented paper at <strong>IEEE IS'26</strong>.
                   </>
                 ) : (
                   <>
-                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, hệ thống Multi-Agent tự trị và kỹ thuật AI thực chiến. Tác giả công bố khoa học tại tạp chí chuyên ngành.
+                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, định tuyến RAG thích ứng và Edge AI tối ưu phần cứng. <strong>Tác giả chính (First Author)</strong> của công trình nghiên cứu khoa học được chấp thuận và trình bày tại hội nghị quốc tế <strong>IEEE IS'26</strong>.
                   </>
                 )}
               </p>
@@ -311,19 +311,23 @@ export const HomePage: React.FC = () => {
           </div>
           <article>
             <p className="eyebrow">
-              <i /> PEER-REVIEWED SCIENTIFIC JOURNAL PUBLICATION
+              <i /> ACCEPTED &amp; PRESENTED AT IEEE IS'26 CONFERENCE
             </p>
             <span className="featured-meta">
-              AUGUST 2026 · JOURNAL ARTICLE · MULTIMODAL AI
+              IEEE IS'26 · FIRST AUTHOR (TÁC GIẢ CHÍNH) · CONFLICT-AWARE RAG ROUTING
             </span>
-            <h2>{lang === 'en' ? 'Scientific Journal Publication: Multimodal AI' : 'Công Bố Khoa Học: Deep Learning Đa Phương Thức'}</h2>
+            <h2>
+              {lang === 'en'
+                ? 'Conflict-Aware RAG Routing: Balancing Cost and Accuracy via Context Contradiction'
+                : 'Điều Phối RAG Nhận Thức Xung Đột: Cân Bằng Chi Phí & Độ Chính Xác (IEEE IS\'26)'}
+            </h2>
             <p>
               {lang === 'en'
-                ? 'Peer-reviewed research paper accepted in international journal. Novel Adaptive Sparse Cross-Attention architecture achieving 38% latency reduction on edge TPUs with negligible perceptual fidelity loss.'
-                : 'Công trình nghiên cứu khoa học được xuất bản chính thức trên tạp chí chuyên ngành. Đề xuất cơ chế Sparse Cross-Attention đột phá giúp giảm 38% độ trễ suy luận trên chip biên TPU với độ chính xác bảo toàn.'}
+                ? 'Research paper accepted and presented at IEEE IS\'26: The 13th IEEE International Conference on Intelligent Systems (First Author: Dang Phuong Nam). Evaluated across 3,000 multi-hop questions (MuSiQue, HotpotQA, 2Wiki), the hybrid router saves ~35% of API calls while retaining 83.2%–92.2% of Always-LLM F1, and recovers up to +14.35 F1 in high-RRF/high-conflict regimes.'
+                : 'Công trình nghiên cứu khoa học được chấp thuận và trình bày tại IEEE IS\'26 (Đặng Phương Nam - Tác giả chính). Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki), bộ định tuyến hybrid tiết kiệm ~35% chi phí gọi API trong khi giữ lại 83.2%–92.2% F1 của Always-LLM, đặc biệt tăng tới +14.35 F1 trong vùng dữ liệu RRF cao nhưng mâu thuẫn cao.'}
             </p>
-            <Link to="/work/journal-publication">
-              {lang === 'en' ? 'VIEW FULL RESEARCH PAPER STUDY' : 'XEM CHI TIẾT CÔNG BỐ KHOA HỌC'} <b>→</b>
+            <Link to="/work/conflict-aware-rag-routing">
+              {lang === 'en' ? 'VIEW FULL IEEE IS\'26 RESEARCH CASE STUDY' : 'XEM CHI TIẾT CÔNG BỐ KHOA HỌC IEEE IS\'26'} <b>→</b>
             </Link>
           </article>
         </section>

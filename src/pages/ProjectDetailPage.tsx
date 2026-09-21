@@ -76,51 +76,91 @@ export const ProjectDetailPage: React.FC = () => {
             padding: '28px 32px',
             border: '1px solid var(--line)',
             borderRadius: '12px',
-            background: 'rgba(230, 155, 75, 0.05)',
+            background: 'rgba(230, 155, 75, 0.06)',
             backdropFilter: 'blur(10px)'
           }}
         >
           <div className="label" style={{ marginTop: 0, paddingTop: 0, borderTop: 0, marginBottom: '16px' }}>
-            <span>PEER-REVIEWED SCIENTIFIC PUBLICATION</span>
-            <span>OFFICIAL CITATION</span>
+            <span>CONFERENCE CITATION &amp; SCIENTIFIC PUBLICATION</span>
+            <span>ACCEPTED &amp; PRESENTED</span>
           </div>
           <h3 style={{ margin: '0 0 12px', fontSize: '20px', letterSpacing: '-0.03em', color: 'var(--text)' }}>
-            {project.publication.journal}
+            {project.publication.conference || project.publication.journal}
           </h3>
           <p style={{ margin: '0 0 8px', color: 'var(--muted)', fontSize: '13px', font: '12px var(--mono)' }}>
-            <strong>Authors:</strong> {project.publication.authors} · <strong>Date:</strong> {project.publication.date} {project.publication.doi && `· DOI: ${project.publication.doi}`}
+            <strong>Authors:</strong> <span style={{ color: '#fff3e0' }}>{project.publication.authors}</span> · <strong>Date:</strong> {project.publication.date}
           </p>
+          {project.publication.status && (
+            <p style={{ margin: '0 0 8px', color: '#e6aa60', fontSize: '12px', font: '500 12px var(--mono)' }}>
+              <strong>Status:</strong> {project.publication.status}
+            </p>
+          )}
           <p style={{ margin: '16px 0 20px', color: '#c3b09a', lineHeight: 1.65, fontSize: '15px' }}>
             <strong>Abstract:</strong> {project.publication.abstract}
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <a
-              href="/cv.pdf"
+              href={project.publication.pdfUrl || '/paper_93.pdf'}
               target="_blank"
-              download="Dang_Phuong_Nam_CV.pdf"
+              rel="noopener noreferrer"
+              download="Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf"
               className="random-note"
               style={{
                 textDecoration: 'none',
-                background: 'rgba(230, 155, 75, 0.18)',
+                background: 'rgba(230, 155, 75, 0.22)',
                 borderColor: 'var(--accent)',
-                color: 'var(--text)'
+                color: 'var(--text)',
+                fontWeight: 600
               }}
             >
-              <i>📄</i> DOWNLOAD PAPER ABSTRACT &amp; CV (PDF) <span>↓</span>
+              <i>📄</i> DOWNLOAD PAPER (PDF) <span>↓</span>
             </a>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="random-note"
+                style={{
+                  textDecoration: 'none',
+                  color: 'var(--text)'
+                }}
+              >
+                <i>⚡</i> VIEW RESEARCH REPOSITORY <span>↗</span>
+              </a>
+            )}
           </div>
         </section>
+      )}
+
+      {project.githubUrl && !project.publication && (
+        <div style={{ margin: '24px 0 32px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="random-note"
+            style={{
+              textDecoration: 'none',
+              background: 'rgba(230, 155, 75, 0.12)',
+              borderColor: 'var(--accent)',
+              color: 'var(--text)'
+            }}
+          >
+            <i>⚡</i> VIEW SOURCE CODE ON GITHUB <span>↗</span>
+          </a>
+        </div>
       )}
 
       <section className="case-copy">
         <div>
           <span>THE PROBLEM / CHALLENGE</span>
-          <h2>A need for orientation, clarity &amp; purpose.</h2>
+          <h2>Bối cảnh nghiên cứu &amp; Thách thức kỹ thuật</h2>
           <p>{project.challenge}</p>
         </div>
         <div>
           <span>THE OUTCOME / SOLUTION</span>
-          <h2>Considered engineering with lasting feedback.</h2>
+          <h2>Kiến trúc đề xuất &amp; Kết quả thực nghiệm</h2>
           <p>{project.outcome}</p>
         </div>
       </section>
@@ -162,21 +202,30 @@ export const ProjectDetailPage: React.FC = () => {
         <section className="case-evidence">
           {project.detail.artifacts && (
             <div>
-              <span>KEY ARTIFACTS</span>
+              <span>KEY ARTIFACTS &amp; DELIVERABLES</span>
               <ul>
-                {project.detail.artifacts.map((art) => (
-                  <li key={art}>
-                    <span>{art}</span>
-                    <b>COMPLETED</b>
-                  </li>
-                ))}
+                {project.detail.artifacts.map((art) => {
+                  const isInDev =
+                    project.year.includes('In Development') ||
+                    project.type.includes('Đang') ||
+                    project.role.includes('Đang');
+                  return (
+                    <li key={art}>
+                      <span>{art}</span>
+                      <b style={{ color: isInDev ? '#f6b73c' : '#7bc786' }}>
+                        {isInDev ? 'IN PROGRESS' : 'VERIFIED'}
+                      </b>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
           {project.detail.reflection && (
-            <blockquote>
-              “{project.detail.reflection}”
-            </blockquote>
+            <div className="case-takeaway-card">
+              <span>KEY TAKEAWAYS &amp; TECHNICAL CONCLUSION</span>
+              <p>{project.detail.reflection}</p>
+            </div>
           )}
         </section>
       )}

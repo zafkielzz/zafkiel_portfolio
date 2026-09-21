@@ -80,7 +80,7 @@ export const BootSequence: React.FC = () => {
       <div>
         <span>ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY</span>
         <b>
-          PHƯƠNG NAM
+          Zafkiel
           <br />
           AI STUDIO
         </b>

@@ -637,3 +637,114 @@ html[data-atmosphere="night"] .ambient-cursor {
     transparent 72%
   ) !important;
 }
+
+/* ========================================================
+   PROJECT CARD ACTIONS ALIGNMENT FIX
+   ======================================================== */
+.project-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-top: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+.project-actions .project-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 0 14px !important;
+  font: 500 11px var(--mono) !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  line-height: 30px !important;
+  height: 30px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.2, 0.75, 0.25, 1) !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+  white-space: nowrap !important;
+}
+
+.project-actions .project-action-btn.primary {
+  color: #fff !important;
+  background: rgba(230, 155, 75, 0.2) !important;
+  border: 1px solid rgba(230, 155, 75, 0.45) !important;
+}
+
+.project-actions .project-action-btn.primary:hover {
+  background: rgba(230, 155, 75, 0.35) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  transform: translateY(-1px) !important;
+}
+
+.project-actions .project-action-btn.secondary {
+  color: #d6c0a5 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+
+.project-actions .project-action-btn.secondary:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(240, 199, 142, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+.project-actions .project-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  padding: 0 10px !important;
+  border-radius: 6px !important;
+  font: 600 10px var(--mono) !important;
+  letter-spacing: 0.08em !important;
+  color: #f0be72 !important;
+  background: rgba(230, 155, 75, 0.12) !important;
+  border: 1px dashed rgba(230, 155, 75, 0.4) !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Technical Takeaway / Conclusion Box replacing generic blockquote */
+.case-takeaway-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  background: rgba(230, 155, 75, 0.04) !important;
+  border: 1px solid rgba(220, 183, 134, 0.16) !important;
+  border-radius: 10px !important;
+  padding: 24px 28px !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.25s ease, background 0.25s ease !important;
+}
+
+.case-takeaway-card:hover {
+  background: rgba(230, 155, 75, 0.07) !important;
+  border-color: rgba(230, 155, 75, 0.35) !important;
+}
+
+.case-takeaway-card span {
+  color: #e6aa60 !important;
+  font: 600 11px var(--mono) !important;
+  letter-spacing: 0.08em !important;
+  margin-bottom: 12px !important;
+  display: block !important;
+  text-transform: uppercase !important;
+}
+
+.case-takeaway-card p {
+  margin: 0 !important;
+  color: #ddcfbd !important;
+  font: 400 15px/1.7 var(--sans) !important;
+  letter-spacing: -0.01em !important;
+}
+
+

@@ -97,8 +97,8 @@ export const FooterPanel: React.FC = () => {
               <a href="/cv.pdf" target="_blank" download="Dang_Phuong_Nam_CV.pdf">
                 Download CV ↗
               </a>
-              <Link to="/work/journal-publication">
-                Journal Paper ↗
+              <Link to="/work/conflict-aware-rag-routing">
+                IEEE IS'26 Paper ↗
               </Link>
               <Link to="/contact">
                 Contact

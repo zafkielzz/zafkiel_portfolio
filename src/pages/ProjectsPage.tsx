@@ -74,9 +74,38 @@ export const ProjectsPage: React.FC = () => {
                 <div>
                   <h2>{proj.name}</h2>
                   <p>{proj.description}</p>
-                  <Link className="project-link" to={`/work/${proj.slug}`}>
-                    VIEW CASE STUDY →
-                  </Link>
+                  <div className="project-actions">
+                    <Link className="project-action-btn primary" to={`/work/${proj.slug}`}>
+                      VIEW CASE STUDY <span>→</span>
+                    </Link>
+                    {proj.githubUrl && (
+                      <a
+                        href={proj.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-action-btn secondary"
+                      >
+                        GITHUB REPO <span>↗</span>
+                      </a>
+                    )}
+                    {proj.publication && (
+                      <span className="project-badge">
+                        IEEE IS'26
+                      </span>
+                    )}
+                    {(proj.year.includes('In Development') || proj.type.includes('Đang')) && (
+                      <span
+                        className="project-badge"
+                        style={{
+                          color: '#f6b73c',
+                          background: 'rgba(246, 183, 60, 0.1)',
+                          borderColor: 'rgba(246, 183, 60, 0.35)'
+                        }}
+                      >
+                        IN DEVELOPMENT
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <aside>
                   <span>{proj.type}</span>
