@@ -13,8 +13,8 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
 
   const isHome = location.pathname === '/';
   const isProjects = location.pathname.startsWith('/work');
-  const isPhotos = location.pathname.startsWith('/photos');
-  const isPartners = location.pathname.startsWith('/partners');
+  const isEducation = location.pathname.startsWith('/education') || location.pathname.startsWith('/photos');
+  const isSkills = location.pathname.startsWith('/skills') || location.pathname.startsWith('/partners');
   const isContact = location.pathname === '/contact';
 
   // Track active section on home page when scrolling
@@ -136,18 +136,18 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
         PROJECTS
       </a>
       <a
-        className={isPhotos ? 'active' : ''}
-        href="/photos"
-        onClick={handleNavClick('/photos')}
+        className={isEducation ? 'active' : ''}
+        href="/education"
+        onClick={handleNavClick('/education')}
       >
-        PHOTOS
+        EDUCATION
       </a>
       <a
-        className={isPartners ? 'active' : ''}
-        href="/partners"
-        onClick={handleNavClick('/partners')}
+        className={isSkills ? 'active' : ''}
+        href="/skills"
+        onClick={handleNavClick('/skills')}
       >
-        PARTNERS
+        SKILLS
       </a>
 
       <button type="button" onClick={onOpenCommand} title="Open command palette (Ctrl+K)">

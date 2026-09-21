@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { POSTS, PROJECTS } from '../data/siteData';
+import { POSTS, PROJECTS, SKILLS_DATA, CERTIFICATES_DATA } from '../data/siteData';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -18,8 +18,8 @@ const STATIC_ROUTES: CommandItem[] = [
   { name: 'Index', type: 'Page', href: '/', icon: '↗' },
   { name: 'Blog', type: 'Section', href: '/#articles', icon: '↗' },
   { name: 'Projects', type: 'Page', href: '/work', icon: '↗' },
-  { name: 'Photography', type: 'Page', href: '/photos', icon: '↗' },
-  { name: 'Partners', type: 'Page', href: '/partners', icon: '↗' },
+  { name: 'Education & Certifications', type: 'Page', href: '/education', icon: '↗' },
+  { name: 'Technical Skills & Stack', type: 'Page', href: '/skills', icon: '↗' },
   { name: 'Library', type: 'Page', href: '/library', icon: '↗' },
   { name: 'Contact', type: 'Page', href: '/contact', icon: '↗' }
 ];
@@ -41,7 +41,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
           href: `/work/${p.slug}`,
           icon: '✦'
         })),
-        ...POSTS.slice(0, 5).map((p) => ({
+        ...POSTS.slice(0, 4).map((p) => ({
           name: p.title,
           type: p.tags.join(' · '),
           href: `/posts/${p.slug}`,
@@ -75,7 +75,32 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
       icon: '#'
     }));
 
-    return [...matchedRoutes, ...matchedProjects, ...matchedPosts];
+    const matchedSkills = SKILLS_DATA.filter(
+      (s) =>
+        s.name.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q) ||
+        s.summary.toLowerCase().includes(q) ||
+        s.tags.some((t) => t.toLowerCase().includes(q))
+    ).slice(0, 4).map((s) => ({
+      name: s.name,
+      type: `Skill · ${s.category}`,
+      href: `/skills`,
+      icon: '⚙'
+    }));
+
+    const matchedCerts = CERTIFICATES_DATA.filter(
+      (c) =>
+        c.title.toLowerCase().includes(q) ||
+        c.issuer.toLowerCase().includes(q) ||
+        c.skills.some((sk) => sk.toLowerCase().includes(q))
+    ).slice(0, 3).map((c) => ({
+      name: c.title,
+      type: `Certificate · ${c.issuer}`,
+      href: `/education`,
+      icon: '📜'
+    }));
+
+    return [...matchedRoutes, ...matchedProjects, ...matchedSkills, ...matchedCerts, ...matchedPosts];
   }, [query]);
 
   useEffect(() => {

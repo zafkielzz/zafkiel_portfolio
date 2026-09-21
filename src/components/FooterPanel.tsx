@@ -86,8 +86,8 @@ export const FooterPanel: React.FC = () => {
               <Link to="/">Home</Link>
               <Link to="/#articles">Blog</Link>
               <Link to="/work">Projects</Link>
-              <Link to="/photos">Photography</Link>
-              <Link to="/partners">Partners</Link>
+              <Link to="/education">Education &amp; Certs</Link>
+              <Link to="/skills">Technical Skills</Link>
               <Link to="/contact">Contact</Link>
             </span>
             <span>

@@ -9,8 +9,8 @@ import { FooterPanel } from './components/FooterPanel';
 import { HomePage } from './pages/HomePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
-import { PhotosPage } from './pages/PhotosPage';
-import { PartnersPage } from './pages/PartnersPage';
+import { EducationPage } from './pages/EducationPage';
+import { SkillsPage } from './pages/SkillsPage';
 import { LibraryPage } from './pages/LibraryPage';
 import { ContactPage } from './pages/ContactPage';
 import { PostDetailPage } from './pages/PostDetailPage';
@@ -40,8 +40,10 @@ export const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<ProjectsPage />} />
         <Route path="/work/:slug" element={<ProjectDetailPage />} />
-        <Route path="/photos" element={<PhotosPage />} />
-        <Route path="/partners" element={<PartnersPage />} />
+        <Route path="/education" element={<EducationPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
+        <Route path="/photos" element={<EducationPage />} />
+        <Route path="/partners" element={<SkillsPage />} />
         <Route path="/library" element={<LibraryPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/posts/:slug" element={<PostDetailPage />} />

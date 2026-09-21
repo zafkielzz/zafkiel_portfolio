@@ -6,5 +6,15 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          katex: ['katex'],
+          vendor: ['react', 'react-dom', 'react-router-dom', 'lucide-react']
+        }
+      }
+    }
   }
 });

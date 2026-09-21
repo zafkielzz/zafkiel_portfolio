@@ -88,6 +88,71 @@ export interface ContactItem {
   order: number;
 }
 
+export interface EducationItem {
+  degree: string;
+  major: string;
+  institution: string;
+  location: string;
+  period: string;
+  status: string;
+  description: string;
+  focusAreas: string[];
+  coursework: string[];
+}
+
+export interface PublicationItem {
+  slug: string;
+  title: string;
+  conference: string;
+  role: string;
+  date: string;
+  status: string;
+  abstract: string;
+  authors: string[];
+  paperPdf: string;
+  projectSlug: string;
+  postSlug: string;
+  githubUrl: string;
+  metrics: { label: string; value: string; note: string }[];
+}
+
+export interface CertificateItem {
+  id: string;
+  title: string;
+  issuer: string;
+  issuerBadge?: string;
+  issueDate: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  category: string;
+  skills: string[];
+  summary: string;
+  featured?: boolean;
+}
+
+export interface AcademicBadgeItem {
+  id: string;
+  code: string;
+  title: string;
+  issuer: string;
+  program: string;
+  description: string;
+  focus: string[];
+  credentialId?: string;
+  credentialUrl?: string;
+}
+
+export interface SkillItem {
+  id: string;
+  name: string;
+  category: 'AI & Deep Learning' | 'LLM & RAG' | 'Computer Vision' | 'Systems & Backend' | 'Hardware & Edge';
+  level: 'Core Mastery' | 'Advanced' | 'Proficient';
+  summary: string;
+  tags: string[];
+  relatedSlug?: string;
+  relatedLabel?: string;
+}
+
 export const POSTS: Post[] = [
   {
     "slug": "conflict-aware-rag-routing",
@@ -103,7 +168,7 @@ export const POSTS: Post[] = [
       "llm",
       "ai"
     ],
-    "content": "\nOur peer-reviewed research paper introduces Conflict-Aware RAG Routing, accepted and presented at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems (First Author: Dang Phuong Nam).\n\n## Motivation: Beyond Retrieval Relevance\n\nAdaptive model routing can reduce the cost of Retrieval-Augmented Generation (RAG), but the routing signal must accurately identify when a compact local model is likely to fail. Traditional retrieval-aware gates use relevance or rank-based confidence (such as Reciprocal Rank Fusion - RRF). However, high retrieval confidence does not mean the retrieved passages agree.\n\nWhen evidence contains intra-context contradiction or distracting facts, small language models (SLMs) suffer severe reasoning impairment, whereas calling expensive frontier API models for every query incurs unsustainable monetary and latency costs.\n\n## Proposed Architecture: 5-Feature Conflict-Aware Router\n\nWe design a reproducible context-conflict scoring pipeline and a learned router:\n\n1. **Bidirectional NLI Contradiction Scoring**: Evaluates the top 3 parent passages using `cross-encoder/nli-deberta-v3-small` in both input orders to eliminate directional bias: $q_{ij} = [S(p_i, p_j) + S(p_j, p_i)] / 2$. The aggregate conflict score is formulated as:\n   $$C = 0.7 \\max_{q \\in Q} q + 0.3 \\text{mean}_{q \\in Q} q$$\n2. **5-Feature Random Forest**: Combines Context Conflict ($C$) with Query Length, Retrieved Context Length, Chunk Lexical Overlap, and RRF Confidence across 500 trees.\n3. **Leakage-Resistant Nested 5-Fold Calibration**: Budget cutoffs ($b \\in \\{30\\%, 50\\%, 65\\%\\}$) are selected strictly from inner out-of-fold scores to prevent data leakage onto test instances.\n\n## Empirical Benchmark on 3,000 Multi-Hop Questions\n\nWe evaluated the complete pipeline across 3,000 multi-hop reasoning questions from **MuSiQue**, **HotpotQA**, and **2WikiMultiHopQA**, pairing local **Qwen2.5-1.5B-Instruct** with API **DeepSeek-V4-Flash**:\n\n- **Primary Deployment Result**: At an approximately 65% target budget (realized usage 63.9%–65.0% LLM calls), the hybrid router **saves ~35% of API calls** while retaining **83.2%–92.2% of Always-LLM token F1** (83.8% on MuSiQue, 83.2% on HotpotQA, and 92.2% on 2Wiki).\n- **Dataset-Dependent Incremental Effect**: At the 50% budget relative to RRF alone, the hybrid changes token F1 by −1.08 on MuSiQue (95% CI [−2.38, 0.24]), −0.03 on HotpotQA (95% CI [−1.91, 1.86]), and +1.48 on 2Wiki (95% CI [0.08, 2.87], pointwise CI excludes zero).\n- **Diagnostic Subgroup Discovery (High-RRF / High-Conflict)**: In instances where retrieval confidence is high (top third RRF) but passages contradict each other (top third conflict), standard RRF incorrectly retains queries on the SLM. In this subgroup, the hybrid router intervenes effectively, achieving dramatic F1 gains of **+14.35 points on HotpotQA** ($p = 0.006$) and **+6.50 points on 2Wiki** ($p = 0.006$).\n\n<PostCallout title=\"IEEE IS'26 Acceptance & First Authorship\">\nFirst Author: Dang Phuong Nam (FPT University). Accepted and presented at The 13th IEEE International Conference on Intelligent Systems (IEEE IS'26). Full paper available in research archive (paper_93.pdf).\n</PostCallout>\n\n<PostColumns>\n  <PostColumn title=\"Research Manuscript\">\nFull paper manuscript (paper_93.pdf) available for download with complete bootstrap confidence intervals and statistical verifications.\n  </PostColumn>\n  <PostColumn title=\"Reproducible Codebase\">\nComplete experimental pipeline, nested calibration scripts, and feature extractors are open-sourced on GitHub.\n  </PostColumn>\n</PostColumns>\n",
+    "content": "\nOur peer-reviewed research paper introduces Conflict-Aware RAG Routing, accepted and presented at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems (First Author: Dang Phuong Nam).\n\n## Motivation: Beyond Retrieval Relevance\n\nAdaptive model routing can reduce the cost of Retrieval-Augmented Generation (RAG), but the routing signal must accurately identify when a compact local model is likely to fail. Traditional retrieval-aware gates use relevance or rank-based confidence (such as Reciprocal Rank Fusion - RRF). However, high retrieval confidence does not mean the retrieved passages agree.\n\nWhen evidence contains intra-context contradiction or distracting facts, small language models (SLMs) suffer severe reasoning impairment, whereas calling expensive frontier API models for every query incurs unsustainable monetary and latency costs.\n\n## Proposed Architecture: 5-Feature Conflict-Aware Router\n\nWe design a reproducible context-conflict scoring pipeline and a learned router:\n\n1. **Bidirectional NLI Contradiction Scoring**: Evaluates the top 3 parent passages using `cross-encoder/nli-deberta-v3-small` in both input orders to eliminate directional bias: $q_{ij} = [S(p_i, p_j) + S(p_j, p_i)] / 2$. The aggregate conflict score is formulated as:\n   $$C = 0.7 \\max_{q \\in Q} q + 0.3 \\text{mean}_{q \\in Q} q$$\n2. **5-Feature Random Forest**: Combines Context Conflict ($C$) with Query Length, Retrieved Context Length, Chunk Lexical Overlap, and RRF Confidence across 500 trees.\n3. **Leakage-Resistant Nested 5-Fold Calibration**: Budget cutoffs ($b \\in \\{30\\%, 50\\%, 65\\%\\}$) are selected strictly from inner out-of-fold scores to prevent data leakage onto test instances.\n\n## Empirical Benchmark on 3,000 Multi-Hop Questions\n\nWe evaluated the complete pipeline across 3,000 multi-hop reasoning questions from **MuSiQue**, **HotpotQA**, and **2WikiMultiHopQA**, pairing local **Qwen2.5-1.5B-Instruct** with API **DeepSeek-V4-Flash**:\n\n- **Primary Deployment Result**: At an approximately 65% target budget (realized usage 63.9%–65.0% LLM calls), the hybrid router **saves ~35% of API calls** while retaining **83.2%–92.2% of Always-LLM token F1** (83.8% on MuSiQue, 83.2% on HotpotQA, and 92.2% on 2Wiki).\n- **Dataset-Dependent Incremental Effect**: At the 50% budget relative to RRF alone, the hybrid changes token F1 by −1.08 on MuSiQue (95% CI [−2.38, 0.24]), −0.03 on HotpotQA (95% CI [−1.91, 1.86]), and +1.48 on 2Wiki (95% CI [0.08, 2.87], pointwise CI excludes zero).\n- **Diagnostic Subgroup Discovery (High-RRF / High-Conflict)**: In instances where retrieval confidence is high (top third RRF) but passages contradict each other (top third conflict), standard RRF incorrectly retains queries on the SLM. In this subgroup, the hybrid router intervenes effectively, achieving dramatic F1 gains of **+14.35 points on HotpotQA** ($p = 0.006$) and **+6.50 points on 2Wiki** ($p = 0.006$).\n\n<PostCallout title=\"IEEE IS'26 Acceptance & First Authorship\">\nFirst Author: Dang Phuong Nam (FPT University). Accepted and presented at The 13th IEEE International Conference on Intelligent Systems (IEEE IS'26). Full paper available in research archive (paper_93.pdf).\n</PostCallout>\n\n<PostColumns>\n  <PostColumn title=\"Research Manuscript\">\nFull paper manuscript (paper_93.pdf) available for download with complete bootstrap confidence intervals and statistical verifications.\n  </PostColumn>\n  <PostColumn title=\"Reproducible Codebase\">\nComplete experimental pipeline, nested calibration scripts, and feature extractors are open-sourced on GitHub: [RAG_Router_Via_Context_Conflict](https://github.com/RAG-Routing-Via-Context-Confliction/RAG_Router_Via_Context_Conflict).\n  </PostColumn>\n</PostColumns>\n",
     "readingTime": 5
   },
   {
@@ -217,7 +282,7 @@ export const PROJECTS: ProjectDetail[] = [
     "image": "/images/design-desk.png",
     "role": "First Author (Tác giả chính) · AI Researcher",
     "challenge": "Các bộ định tuyến RAG thích ứng hiện nay chủ yếu dựa vào độ tương đồng hoặc điểm tin cậy xếp hạng (RRF), không đánh giá liệu các đoạn văn bản được nạp vào có mâu thuẫn dữ kiện với nhau hay không. Khi tài liệu truy xuất chứa mâu thuẫn nội tại hoặc thông tin gây nhiễu, các mô hình nhỏ gọn (SLM) rất dễ bị suy giảm suy luận, trong khi việc gọi API LLM lớn cho mọi câu hỏi gây lãng phí chi phí và độ trễ.",
-    "outcome": "Được chấp thuận và trình bày tại IEEE IS'26 (The 13th IEEE International Conference on Intelligent Systems). Đề xuất mô hình Random Forest 5 đặc trưng (Context Conflict C, Query Length, Context Length, Chunk Overlap, RRF Confidence) với quy trình hiệu chuẩn ngân sách lồng (nested 5-fold calibration chống rò rỉ dữ liệu). Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki) với Qwen2.5-1.5B-Instruct và DeepSeek-V4-Flash: ở mức ~65% lượt gọi, router tiết kiệm ~35% API calls trong khi giữ lại 83.2%–92.2% F1 của Always-LLM. Trong nhóm truy vấn có RRF cao nhưng mâu thuẫn cao (high-RRF/high-conflict), router can thiệp chuyển tiếp lên LLM, đạt F1 gain +14.35 trên HotpotQA và +6.50 trên 2Wiki so với RRF.",
+    "outcome": "Đề xuất mô hình Random Forest 5 đặc trưng (Context Conflict C, Query Length, Context Length, Chunk Overlap, RRF Confidence) với quy trình hiệu chuẩn ngân sách lồng (nested 5-fold calibration chống rò rỉ dữ liệu). Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki) với Qwen2.5-1.5B-Instruct và DeepSeek-V4-Flash: ở mức ~65% lượt gọi, router tiết kiệm ~35% API calls trong khi giữ lại 83.2%–92.2% F1 của Always-LLM. Trong nhóm truy vấn có RRF cao nhưng mâu thuẫn cao (high-RRF/high-conflict), router can thiệp chuyển tiếp lên LLM, đạt F1 gain +14.35 trên HotpotQA và +6.50 trên 2Wiki so với RRF.",
     "decisions": [
       [
         "Bidirectional NLI Context Conflict (C)",
@@ -870,3 +935,439 @@ export const SITE_METADATA = {
   "degree": "Bachelor of Science in Artificial Intelligence (Expected 2026)",
   "cvUrl": "/cv.pdf"
 };
+
+export const EDUCATION_DATA: EducationItem = {
+  degree: "Bachelor of Science in Information Technology",
+  major: "Artificial Intelligence (Trí tuệ Nhân tạo)",
+  institution: "FPT University (Đại học FPT)",
+  location: "Hanoi, Vietnam",
+  period: "2022 – 2026 (Expected Graduation)",
+  status: "Final-year Student / Senior Undergraduate",
+  description: "Chuyên sâu vào nghiên cứu và phát triển hệ thống Trí tuệ Nhân tạo hiện đại: Deep Learning đa phương thức, tối ưu hóa suy luận mô hình ngôn ngữ lớn (LLM/SLM), kiến trúc định tuyến RAG thích ứng và triển khai Edge AI tối ưu phần cứng.",
+  focusAreas: [
+    "Multimodal Deep Learning & Representation",
+    "Retrieval-Augmented Generation (RAG) & Adaptive Model Routing",
+    "Natural Language Inference (NLI) & Context Conflict Detection",
+    "On-device & Edge AI Inference Optimization (Jetson / TensorRT)"
+  ],
+  coursework: [
+    "Deep Learning & Neural Networks",
+    "Natural Language Processing (NLP)",
+    "Computer Vision & Pattern Recognition",
+    "Advanced Data Structures & Algorithms",
+    "Linear Algebra & Probability for Machine Learning",
+    "Distributed Systems & Cloud Computing",
+    "Software Engineering & System Architecture"
+  ]
+};
+
+export const PUBLICATION_DATA: PublicationItem = {
+  slug: "conflict-aware-rag-routing",
+  title: "Conflict-Aware RAG Routing: Balancing Cost and Accuracy via Context Contradiction",
+  conference: "IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems",
+  role: "First Author (Tác giả chính: Đặng Phương Nam)",
+  date: "August 2026",
+  status: "Peer-Reviewed, Accepted & Presented",
+  abstract: "Adaptive model routing reduces Retrieval-Augmented Generation (RAG) cost, but traditional retrieval confidence fails when retrieved passages contradict each other. We propose a bidirectional NLI context-conflict scoring mechanism and a 5-feature hybrid random forest router. Evaluated across 3,000 multi-hop reasoning questions (MuSiQue, HotpotQA, 2WikiMultiHopQA), our pipeline saves ~35% of frontier API calls while retaining 83.2%–92.2% of Always-LLM F1 score, with subgroup F1 gains up to +14.35 points in conflicting context scenarios.",
+  authors: [
+    "Đặng Phương Nam (First Author - FPT University)",
+    "AI Lab Faculty & Research Mentors"
+  ],
+  paperPdf: "/paper_93.pdf",
+  projectSlug: "conflict-aware-rag-routing",
+  postSlug: "conflict-aware-rag-routing",
+  githubUrl: "https://github.com/RAG-Routing-Via-Context-Confliction/RAG_Router_Via_Context_Conflict",
+  metrics: [
+    { label: "API Cost Saved", value: "~35%", note: "Target 65% budget calibration" },
+    { label: "Always-LLM F1 Retained", value: "83.2%–92.2%", note: "MuSiQue, HotpotQA, 2Wiki" },
+    { label: "Subgroup F1 Gain", value: "+14.35 pts", note: "High-conflict scenarios (p = 0.006)" },
+    { label: "Benchmark Scale", value: "3,000", note: "Multi-hop reasoning questions" }
+  ]
+};
+
+export const CERTIFICATES_DATA: CertificateItem[] = [
+  {
+    id: "cert-rl-alberta",
+    title: "Reinforcement Learning Specialization",
+    issuer: "University of Alberta • Alberta Machine Intelligence Institute (Amii)",
+    issueDate: "July 2026",
+    credentialId: "UAlberta-Amii-RL-2026",
+    credentialUrl: "https://www.coursera.org/verify/specialization/",
+    category: "Advanced AI & Research",
+    featured: true,
+    skills: [
+      "Markov Decision Processes (MDPs)",
+      "Dynamic Programming",
+      "Temporal-Difference Learning (TD)",
+      "Q-Learning & SARSA",
+      "Deep Q-Networks (DQN)",
+      "Policy Gradient & Actor-Critic"
+    ],
+    summary: "Rigorous 4-course specialization covering mathematical foundations and algorithms of reinforcement learning, exploration vs. exploitation trade-offs, function approximation, and deep policy gradient optimization taught by Martha White & Adam White (Amii)."
+  },
+  {
+    id: "cert-nlp-deeplearning-ai",
+    title: "Natural Language Processing Specialization",
+    issuer: "DeepLearning.AI",
+    issueDate: "October 2025",
+    credentialId: "0VK0BHTSO6JG",
+    credentialUrl: "https://www.coursera.org/verify/specialization/0VK0BHTSO6JG",
+    category: "Advanced AI & Research",
+    featured: true,
+    skills: [
+      "Transformer Architectures",
+      "Multi-Head Self-Attention",
+      "Sequence-to-Sequence Models",
+      "Word Embeddings (Word2Vec / GloVe)",
+      "Question Answering & NLI",
+      "DeBERTa / BERT Fine-Tuning"
+    ],
+    summary: "Comprehensive 4-course technical specialization covering sentiment analysis, word vectors, probabilistic language models, sequence models (LSTMs/GRUs), attention mechanisms, and Transformer fine-tuning directly relevant to NLP research."
+  },
+  {
+    id: "cert-nvidia-dli-dl",
+    title: "Fundamentals of Deep Learning",
+    issuer: "NVIDIA (Deep Learning Institute)",
+    issueDate: "July 2025",
+    credentialId: "CT2gJELTTTSKMklmVlQMuA",
+    credentialUrl: "https://learn.nvidia.com/certificates?id=CT2gJELTTTSKMklmVlQMuA",
+    category: "Advanced AI & Research",
+    featured: true,
+    skills: [
+      "GPU-Accelerated Computing",
+      "Convolutional Neural Networks (CNNs)",
+      "Computer Vision Architectures",
+      "Transfer Learning & Fine-Tuning",
+      "Pretrained Model Deployment",
+      "Inference Optimization"
+    ],
+    summary: "Hands-on competency in designing, training, and deploying deep neural networks for computer vision and NLP using PyTorch and GPU-accelerated computing on NVIDIA hardware."
+  },
+  {
+    id: "cert-ibm-enterprise-workflow",
+    title: "IBM AI Enterprise Workflow Specialization",
+    issuer: "IBM",
+    issueDate: "May 2026",
+    credentialId: "QJRJHKA4MZEE",
+    credentialUrl: "https://www.coursera.org/verify/specialization/QJRJHKA4MZEE",
+    category: "Enterprise AI & Systems",
+    featured: true,
+    skills: [
+      "Enterprise AI Lifecycle",
+      "Data Ingestion & Feature Engineering",
+      "Model Building & Evaluation",
+      "Automated Machine Learning (AutoML)",
+      "Model Serving & Containerization",
+      "Model Drift & Monitoring"
+    ],
+    summary: "6-course specialization focusing on end-to-end operationalization of AI in enterprise production: data pipelines, feature engineering, microservice deployment, API serving, model governance, and continuous performance monitoring."
+  },
+  {
+    id: "cert-sdlc-minnesota",
+    title: "Software Development Lifecycle Specialization",
+    issuer: "University of Minnesota",
+    issueDate: "June 2025",
+    credentialId: "B21JZZVNZP8A",
+    credentialUrl: "https://www.coursera.org/verify/specialization/B21JZZVNZP8A",
+    category: "Software Engineering",
+    skills: [
+      "SDLC Methodologies",
+      "Agile & Scrum Practices",
+      "Software Architecture & Design Patterns",
+      "Software Testing & Quality Assurance",
+      "Release Engineering & CI/CD"
+    ],
+    summary: "Systematic software engineering principles for architecting, designing, implementing, and delivering maintainable, production-ready software systems across iterative lifecycle phases."
+  },
+  {
+    id: "cert-project-management-uci",
+    title: "Project Management Principles and Practices Specialization",
+    issuer: "University of California, Irvine (UC Irvine)",
+    issueDate: "March 2026",
+    credentialId: "KSNFPP5E3P4U",
+    credentialUrl: "https://www.coursera.org/verify/specialization/KSNFPP5E3P4U",
+    category: "Engineering & Management",
+    skills: [
+      "Project Scoping & Charters",
+      "Work Breakdown Structure (WBS)",
+      "Risk Management & Mitigation",
+      "Budgeting & Schedule Planning",
+      "Stakeholder Communication"
+    ],
+    summary: "4-course specialization covering project initiation, scope management, work breakdown structures, critical path scheduling, risk mitigation, and executive reporting for technical initiatives."
+  },
+  {
+    id: "cert-ibm-ai-foundations",
+    title: "AI Foundations for Everyone Specialization",
+    issuer: "IBM",
+    issueDate: "June 2025",
+    credentialId: "923ZXF5S39PI",
+    credentialUrl: "https://www.coursera.org/verify/specialization/923ZXF5S39PI",
+    category: "AI Foundations",
+    skills: [
+      "AI Landscape & Taxonomies",
+      "Machine Learning Fundamentals",
+      "Deep Learning Intuition",
+      "AI Ethics & Fairness",
+      "Generative AI Concepts"
+    ],
+    summary: "Comprehensive survey of modern artificial intelligence capabilities, ethical governance considerations, machine learning concepts, and practical integration into enterprise ecosystems."
+  }
+];
+
+export const FPT_BADGES_DATA: AcademicBadgeItem[] = [
+  {
+    id: "badge-ks57-1",
+    code: "KS57_1",
+    title: "Digital Ecosystem: From Governance to Business",
+    issuer: "FPT University & Coursera",
+    program: "KS57 Program: Digital Transformation for IT Talents",
+    credentialId: "SOOS7JXUSz2jkuyV1Es9Eg",
+    credentialUrl: "https://www.coursera.org/verify/SOOS7JXUSz2jkuyV1Es9Eg",
+    description: "Equips FPT University IT students with fundamental digital transformation knowledge and competencies across key domains: public administration, business management, digital finance, and customer experience (CX/marketing). Prepares students to apply engineering expertise to real-world national digital transformation initiatives.",
+    focus: [
+      "Digital Governance & Public Administration",
+      "Enterprise Digital Ecosystems",
+      "Digital Finance & Fintech Models",
+      "Customer Experience (CX) Architecture"
+    ]
+  },
+  {
+    id: "badge-ks57-2",
+    code: "KS57_2",
+    title: "Key Activities of Digital Transformation",
+    issuer: "FPT University & Coursera",
+    program: "KS57 Program: Digital Transformation for IT Talents (Part 2)",
+    credentialId: "i_hoSnqiQoS4aEp6ooKECg",
+    credentialUrl: "https://www.coursera.org/verify/i_hoSnqiQoS4aEp6ooKECg",
+    description: "Focuses on the operational execution and core activities of digital transformation: business process re-engineering, roadmap structuring, legacy system migration, change management, and measuring digital adoption impact.",
+    focus: [
+      "Transformation Execution Frameworks",
+      "Process Re-Engineering & Automation",
+      "Enterprise Tech Adoption Roadmaps",
+      "Organizational Change Management"
+    ]
+  }
+];
+
+export const SKILLS_DATA: SkillItem[] = [
+  // AI & Deep Learning
+  {
+    id: "pytorch",
+    name: "PyTorch",
+    category: "AI & Deep Learning",
+    level: "Core Mastery",
+    summary: "Xây dựng và huấn luyện mô hình học sâu, custom loss functions, training loops, DistributedDataParallel (DDP), TensorBoard và mixed-precision (torch.cuda.amp).",
+    tags: ["Deep Learning", "Tensors", "Autograd", "Model Training", "CUDA"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "IEEE IS'26 Research"
+  },
+  {
+    id: "transformers",
+    name: "Hugging Face Transformers",
+    category: "AI & Deep Learning",
+    level: "Core Mastery",
+    summary: "Fine-tuning encoder-only & decoder models, cấu hình Custom Pipeline, tokenizers, cross-encoders cho bài toán NLI (DeBERTa-v3) và Quantization tích hợp.",
+    tags: ["NLP", "Transformers", "DeBERTa", "Tokenization", "Model Hub"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "Research Pipeline"
+  },
+  {
+    id: "scikit-learn",
+    name: "Scikit-Learn & Statistical ML",
+    category: "AI & Deep Learning",
+    level: "Core Mastery",
+    summary: "Ensemble learning (Random Forest, GBDT), nested cross-validation chống data leakage, hiệu chuẩn ngưỡng quyết định (threshold calibration) và phân tích feature importance.",
+    tags: ["Random Forest", "Nested Cross-Validation", "Feature Extraction", "Evaluation"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "5-Feature Router"
+  },
+  {
+    id: "tensorrt-onnx",
+    name: "ONNX Runtime & TensorRT",
+    category: "AI & Deep Learning",
+    level: "Advanced",
+    summary: "Chuyển đổi đồ thị tính toán PyTorch sang ONNX, tối ưu hóa layer fusion, FP16/INT8 post-training quantization để tăng tốc độ suy luận (inference speedup).",
+    tags: ["Model Optimization", "FP16 / INT8", "Graph Optimization", "Inference Acceleration"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "Inference Optimization"
+  },
+  {
+    id: "vllm-ollama",
+    name: "vLLM & Local LLM Serving",
+    category: "AI & Deep Learning",
+    level: "Advanced",
+    summary: "Triển khai serving mô hình ngôn ngữ cục bộ (Qwen, Llama, DeepSeek) với PagedAttention, continuous batching và quản lý KV cache hiệu năng cao.",
+    tags: ["LLM Serving", "PagedAttention", "KV-Cache", "Qwen2.5", "High Throughput"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "SLM Deployment"
+  },
+
+  // LLM & RAG
+  {
+    id: "adaptive-routing",
+    name: "Conflict-Aware Model Routing",
+    category: "LLM & RAG",
+    level: "Core Mastery",
+    summary: "Thiết kế cơ chế định tuyến thông minh giữa SLM cục bộ và API frontier model dựa trên xung đột ngữ cảnh (NLI contradiction) và ngân sách chi phí.",
+    tags: ["RAG Routing", "Cost Optimization", "NLI Contradiction", "Multi-Hop Reasoning"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "IEEE IS'26 Paper"
+  },
+  {
+    id: "nli-cross-encoders",
+    name: "NLI & Cross-Encoders",
+    category: "LLM & RAG",
+    level: "Core Mastery",
+    summary: "Đánh giá mức độ mâu thuẫn/đồng thuận giữa các đoạn văn trích xuất (passage pairs) với kỹ thuật chấm điểm 2 chiều đối xứng loại bỏ directional bias.",
+    tags: ["NLI", "Cross-Encoder", "DeBERTa-v3", "Contradiction Scoring"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "Context Conflict Score"
+  },
+  {
+    id: "vector-dbs",
+    name: "Vector Databases & Hybrid Search",
+    category: "LLM & RAG",
+    level: "Core Mastery",
+    summary: "Thiết lập pipeline tìm kiếm hỗn hợp kết hợp Dense Embedding (BGE / OpenAI) và Sparse BM25 cùng Reciprocal Rank Fusion (RRF) trên ChromaDB, FAISS và Milvus.",
+    tags: ["ChromaDB", "FAISS", "Milvus", "Hybrid Search", "RRF Fusion"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "Retrieval Architecture"
+  },
+  {
+    id: "langchain-llamaindex",
+    name: "LangChain & LlamaIndex",
+    category: "LLM & RAG",
+    level: "Advanced",
+    summary: "Xây dựng các agentic workflow, hierarchical chunking, multi-agent orchestration và recursive document indexing cho các bài toán phân tích tài liệu phức tạp.",
+    tags: ["Agentic AI", "Tool Calling", "Document Chunking", "Workflows"]
+  },
+  {
+    id: "eval-benchmarking",
+    name: "LLM & RAG Evaluation Metrics",
+    category: "LLM & RAG",
+    level: "Core Mastery",
+    summary: "Đo lường độ chính xác với Token F1, Exact Match (EM), ROUGE, BLEU, kết hợp bootstrap confidence intervals 95% và paired t-tests để thẩm định thống kê nghiêm ngặt.",
+    tags: ["Evaluation", "Token F1", "Bootstrap CI", "Statistical Significance"],
+    relatedSlug: "conflict-aware-rag-routing",
+    relatedLabel: "MuSiQue / HotpotQA Benchmark"
+  },
+
+  // Computer Vision
+  {
+    id: "clip-multimodal",
+    name: "Multimodal Embeddings & CLIP",
+    category: "Computer Vision",
+    level: "Advanced",
+    summary: "Ứng dụng không gian nhúng liên hợp hình ảnh - văn bản (contrastive language-image pre-training), phân loại zero-shot và truy xuất hình ảnh theo ngữ nghĩa.",
+    tags: ["CLIP", "Zero-Shot", "Joint Embeddings", "Cross-Modal Retrieval"]
+  },
+  {
+    id: "opencv",
+    name: "OpenCV & Image Processing",
+    category: "Computer Vision",
+    level: "Core Mastery",
+    summary: "Xử lý hình ảnh thời gian thực, trích xuất đặc trưng hình thái học, biến đổi không gian màu, phát hiện cạnh và lọc nhiễu tiền xử lý cho mô hình học máy.",
+    tags: ["Image Processing", "Filtering", "Edge Detection", "Real-Time Vision"]
+  },
+  {
+    id: "cnn-vit",
+    name: "CNNs & Vision Transformers (ViT)",
+    category: "Computer Vision",
+    level: "Advanced",
+    summary: "Kiến trúc mạng tích chập sâu (ResNet, ConvNeXt) và Vision Transformers cho tác vụ nhận dạng, trích xuất đặc trưng và phân loại ảnh y tế/vật thể.",
+    tags: ["ResNet", "ConvNeXt", "Vision Transformers", "Feature Extraction"]
+  },
+  {
+    id: "generative-diffusion",
+    name: "Latent Diffusion & Image Generation",
+    category: "Computer Vision",
+    level: "Proficient",
+    summary: "Cơ chế khuếch tán không gian tiềm ẩn (Latent Diffusion), conditioning vectors, cross-attention maps và tối ưu hóa sampling steps cho tác vụ tạo ảnh.",
+    tags: ["Diffusion Models", "Latent Space", "Generative AI", "Cross-Attention"]
+  },
+
+  // Systems & Backend
+  {
+    id: "python",
+    name: "Python (Advanced & Scientific)",
+    category: "Systems & Backend",
+    level: "Core Mastery",
+    summary: "Ngôn ngữ chủ đạo với lập trình hướng đối tượng nâng cao, async IO, type hints (mypy), NumPy, Pandas, SciPy phục vụ nghiên cứu và sản xuất hệ thống AI.",
+    tags: ["Python 3.11+", "NumPy", "Pandas", "AsyncIO", "Type Safety"]
+  },
+  {
+    id: "fastapi",
+    name: "FastAPI & AI Microservices",
+    category: "Systems & Backend",
+    level: "Core Mastery",
+    summary: "Xây dựng các backend API bất đồng bộ hiệu năng cao cho AI serving, streaming response (SSE / WebSocket), validation dữ liệu chặt chẽ qua Pydantic.",
+    tags: ["FastAPI", "Pydantic", "Streaming APIs", "Microservices", "REST"]
+  },
+  {
+    id: "docker",
+    name: "Docker & Containerization",
+    category: "Systems & Backend",
+    level: "Advanced",
+    summary: "Đóng gói ứng dụng AI với NVIDIA Container Toolkit (nvidia-docker), multi-stage builds tối ưu dung lượng image và đảm bảo tính tái lập (reproducibility).",
+    tags: ["Docker", "NVIDIA CUDA Container", "Multi-stage Build", "Deployment"]
+  },
+  {
+    id: "linux-bash",
+    name: "Linux & Bash Scripting",
+    category: "Systems & Backend",
+    level: "Core Mastery",
+    summary: "Làm việc chuyên sâu trên môi trường Ubuntu/Debian, quản trị tiến trình GPU (nvidia-smi), tự động hóa pipeline nghiên cứu bằng shell scripts.",
+    tags: ["Ubuntu / Debian", "Bash Shell", "GPU Monitoring", "Cron Jobs"]
+  },
+  {
+    id: "git-github",
+    name: "Git & Open Science Workflows",
+    category: "Systems & Backend",
+    level: "Core Mastery",
+    summary: "Quản lý mã nguồn nghiên cứu, branch workflows, release tag, open-source reproducibility artifacts và CI/CD tự động hóa kiểm thử.",
+    tags: ["Git", "GitHub Actions", "Reproducibility", "Version Control"]
+  },
+  {
+    id: "typescript-react",
+    name: "TypeScript & React",
+    category: "Systems & Backend",
+    level: "Advanced",
+    summary: "Xây dựng giao diện web phản hồi trực quan, hệ thống design system tối ưu tương tác, tích hợp visualizations và dashboards theo dõi mô hình AI.",
+    tags: ["React 18", "TypeScript", "Vite", "Modern Frontend", "Interactive UI"]
+  },
+
+  // Hardware & Edge
+  {
+    id: "cuda-acceleration",
+    name: "NVIDIA CUDA & GPU Acceleration",
+    category: "Hardware & Edge",
+    level: "Advanced",
+    summary: "Hiểu sâu kiến trúc phần cứng GPU NVIDIA (Tensor Cores, VRAM hierarchy), lập trình tối ưu hóa bộ nhớ, mixed-precision FP16/BF16.",
+    tags: ["CUDA", "Tensor Cores", "Mixed Precision", "VRAM Optimization"]
+  },
+  {
+    id: "edge-jetson",
+    name: "Edge AI & NVIDIA Jetson",
+    category: "Hardware & Edge",
+    level: "Advanced",
+    summary: "Triển khai mô hình deep learning trên các thiết bị nhúng (NVIDIA Jetson, Edge TPUs), tối ưu hóa điện năng tiêu thụ và độ trễ mili-giây thời gian thực.",
+    tags: ["NVIDIA Jetson", "Embedded AI", "Low Latency", "Edge Computing"]
+  },
+  {
+    id: "quantization-peft",
+    name: "Model Quantization (AWQ / GGUF / LoRA)",
+    category: "Hardware & Edge",
+    level: "Advanced",
+    summary: "Nén và lượng tử hóa mô hình 4-bit / 8-bit (bitsandbytes, AWQ, GGUF/llama.cpp), huấn luyện thích ứng tham số thấp LoRA/QLoRA trên GPU cá nhân.",
+    tags: ["4-bit / 8-bit", "AWQ", "GGUF", "QLoRA", "Memory Efficiency"]
+  }
+];
+
+export const HARDWARE_ENVIRONMENT = [
+  { label: "GPU Workstation", value: "NVIDIA RTX Series / CUDA 12.x", detail: "Primary training & inference benchmark rig" },
+  { label: "Edge Hardware", value: "NVIDIA Jetson Platform", detail: "On-device lightweight vision & SLM deployments" },
+  { label: "Operating System", value: "Ubuntu Linux LTS", detail: "Reproducible research pipeline & container host" },
+  { label: "Runtime & Drivers", value: "CUDA + cuDNN + TensorRT", detail: "Low-latency tensor execution environment" }
+];
+

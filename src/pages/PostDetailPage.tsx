@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { POSTS, Post } from '../data/siteData';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+import { POSTS, PROJECTS, Post } from '../data/siteData';
 
 export const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -64,6 +66,7 @@ export const PostDetailPage: React.FC = () => {
 
   const prevPost = postIndex > 0 ? POSTS[postIndex - 1] : POSTS[POSTS.length - 1];
   const nextPost = postIndex < POSTS.length - 1 ? POSTS[postIndex + 1] : POSTS[0];
+  const matchingProject = PROJECTS.find((p) => p.slug === post.slug);
 
   const handleToggleSave = () => {
     const savedKey = 'minh-notes-bookmarks';
@@ -88,19 +91,167 @@ export const PostDetailPage: React.FC = () => {
     setReactions((prev) => ({ ...prev, [key]: prev[key] + 1 }));
   };
 
+  // Helper to render inline formatting: LaTeX math ($...$), links [..](..), bold (**..**), code (`..`)
+  const renderInline = (text: string): React.ReactNode => {
+    if (!text) return null;
+
+    // Tokenize text into:
+    // 1) display math: $$...$$
+    // 2) inline math: $...$
+    // 3) markdown links: [text](url)
+    // 4) bold: **text**
+    // 5) inline code: `code`
+    const tokenRegex = /(\$\$[\s\S]+?\$\$|\$(?!\$)[^\$\n]+?\$|\[[^\]]+\]\([^)]+\)|\*\*[^*]+?\*\*|`[^`]+?`)/g;
+    const parts = text.split(tokenRegex);
+
+    return parts.map((part, i) => {
+      if (!part) return null;
+
+      // Display math $$...$$
+      if (part.startsWith('$$') && part.endsWith('$$')) {
+        const tex = part.slice(2, -2).trim();
+        try {
+          const html = katex.renderToString(tex, {
+            displayMode: true,
+            throwOnError: false,
+            output: 'htmlAndMathml'
+          });
+          return (
+            <div
+              key={i}
+              className="katex-math-block"
+              style={{
+                margin: '22px 0',
+                padding: '16px 20px',
+                background: 'rgba(230, 155, 75, 0.04)',
+                border: '1px solid rgba(230, 155, 75, 0.22)',
+                borderRadius: '8px',
+                overflowX: 'auto',
+                textAlign: 'center',
+                boxShadow: 'inset 0 0 16px rgba(0,0,0,0.25)'
+              }}
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          );
+        } catch (err) {
+          return (
+            <div key={i} style={{ margin: '16px 0', padding: '12px', background: '#222', borderRadius: '6px' }}>
+              <code>{tex}</code>
+            </div>
+          );
+        }
+      }
+
+      // Inline math $...$
+      if (part.startsWith('$') && part.endsWith('$')) {
+        const tex = part.slice(1, -1).trim();
+        try {
+          const html = katex.renderToString(tex, {
+            displayMode: false,
+            throwOnError: false,
+            output: 'htmlAndMathml'
+          });
+          return (
+            <span
+              key={i}
+              className="katex-math-inline"
+              style={{
+                padding: '0 2px',
+                color: '#ffeacc'
+              }}
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          );
+        } catch (err) {
+          return <code key={i}>{tex}</code>;
+        }
+      }
+
+      // Markdown link: [text](url)
+      if (part.startsWith('[') && part.includes('](')) {
+        const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (match) {
+          const [, linkText, url] = match;
+          const isExternal = url.startsWith('http');
+          return (
+            <a
+              key={i}
+              href={url}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+              style={{
+                color: 'var(--accent)',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                fontWeight: 500
+              }}
+            >
+              {linkText}
+            </a>
+          );
+        }
+      }
+
+      // Bold text **...**
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong key={i} style={{ color: '#fff3e0', fontWeight: 600 }}>
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+
+      // Inline code `...`
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code
+            key={i}
+            style={{
+              background: 'rgba(230, 155, 75, 0.12)',
+              border: '1px solid rgba(230, 155, 75, 0.25)',
+              borderRadius: '4px',
+              padding: '2px 7px',
+              font: '13px var(--mono)',
+              color: '#f7ca88'
+            }}
+          >
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+
+      return <React.Fragment key={i}>{part}</React.Fragment>;
+    });
+  };
+
   // Render markdown content segments
   const renderContent = (rawContent: string) => {
-    // Simple robust parser for our structured markdown
-    const blocks = rawContent.split('\n\n');
+    // Robust parser for markdown headings, lists, KaTeX math blocks, callouts, and columns
+    const blocks = rawContent.split(/\n\n+/);
     return blocks.map((block, idx) => {
       const trimmed = block.trim();
+      if (!trimmed) return null;
+
+      if (trimmed.startsWith('### ')) {
+        return (
+          <h3
+            key={idx}
+            className="article-subheading"
+            style={{ margin: '36px 0 14px', fontSize: '22px', letterSpacing: '-0.03em', color: '#f6ede0' }}
+          >
+            {renderInline(trimmed.replace('### ', ''))}
+          </h3>
+        );
+      }
+
       if (trimmed.startsWith('## ')) {
         return (
           <h2 key={idx} className="article-section-heading">
-            {trimmed.replace('## ', '')}
+            {renderInline(trimmed.replace('## ', ''))}
           </h2>
         );
       }
+
       if (trimmed.startsWith('<PostCallout')) {
         const titleMatch = trimmed.match(/title="([^"]+)"/);
         const title = titleMatch ? titleMatch[1] : 'Note';
@@ -119,10 +270,11 @@ export const PostDetailPage: React.FC = () => {
             <b style={{ font: '11px var(--mono)', color: 'var(--accent)', display: 'block', marginBottom: '8px' }}>
               {title}
             </b>
-            <p style={{ margin: 0, fontSize: '16px', lineHeight: '1.6' }}>{innerText}</p>
+            <p style={{ margin: 0, fontSize: '16px', lineHeight: '1.6' }}>{renderInline(innerText)}</p>
           </aside>
         );
       }
+
       if (trimmed.startsWith('<PostColumns>')) {
         const columns = trimmed.match(/<PostColumn title="([^"]+)">([\s\S]*?)<\/PostColumn>/g) || [];
         return (
@@ -144,13 +296,16 @@ export const PostDetailPage: React.FC = () => {
                   <b style={{ font: '12px var(--mono)', color: 'var(--accent)', display: 'block', marginBottom: '8px' }}>
                     {t}
                   </b>
-                  <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.55', color: 'var(--muted)' }}>{c}</p>
+                  <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.55', color: 'var(--muted)' }}>
+                    {renderInline(c)}
+                  </p>
                 </div>
               );
             })}
           </div>
         );
       }
+
       if (trimmed.startsWith('<PostImage')) {
         const srcMatch = trimmed.match(/src="([^"]+)"/);
         const altMatch = trimmed.match(/alt="([^"]+)"/);
@@ -170,9 +325,45 @@ export const PostDetailPage: React.FC = () => {
           </figure>
         );
       }
+
+      // Ordered list (1. 2. 3.)
+      if (/^\d+\.\s/m.test(trimmed)) {
+        const items = trimmed.split(/\n(?=\d+\.\s)/);
+        return (
+          <ol key={idx} style={{ paddingLeft: '24px', margin: '24px 0' }}>
+            {items.map((item, itemIdx) => {
+              const itemBody = item.replace(/^\d+\.\s*/, '').trim();
+              return (
+                <li key={itemIdx} style={{ marginBottom: '16px', lineHeight: '1.75' }}>
+                  {renderInline(itemBody)}
+                </li>
+              );
+            })}
+          </ol>
+        );
+      }
+
+      // Unordered list (- item)
+      if (/^-\s/m.test(trimmed)) {
+        const items = trimmed.split(/\n(?=-\s)/);
+        return (
+          <ul key={idx} style={{ paddingLeft: '24px', margin: '24px 0' }}>
+            {items.map((item, itemIdx) => {
+              const itemBody = item.replace(/^-\s*/, '').trim();
+              return (
+                <li key={itemIdx} style={{ marginBottom: '14px', lineHeight: '1.75' }}>
+                  {renderInline(itemBody)}
+                </li>
+              );
+            })}
+          </ul>
+        );
+      }
+
+      // Standard paragraph
       return (
-        <p key={idx} style={{ lineHeight: '1.7', margin: '20px 0' }}>
-          {trimmed}
+        <p key={idx} style={{ lineHeight: '1.75', margin: '20px 0' }}>
+          {renderInline(trimmed)}
         </p>
       );
     });
@@ -243,16 +434,147 @@ export const PostDetailPage: React.FC = () => {
         </button>
       </div>
 
-      <div className="article-actions">
+      <div className="article-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
         <button type="button" onClick={handleToggleSave} aria-pressed={isSaved}>
           {isSaved ? '★ SAVED IN SHELF' : '☆ SAVE'}
         </button>
         <button type="button" onClick={handleCopyLink}>
           ↗ COPY LINK
         </button>
+        {matchingProject && (
+          <Link
+            to={`/work/${matchingProject.slug}`}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '9px 12px',
+              borderRadius: '5px',
+              border: '1px solid rgba(230, 155, 75, 0.45)',
+              background: 'rgba(230, 155, 75, 0.1)',
+              color: 'var(--accent)',
+              font: '10px var(--mono)',
+              textDecoration: 'none',
+              letterSpacing: '0.04em'
+            }}
+          >
+            💼 VIEW CASE STUDY →
+          </Link>
+        )}
+        {matchingProject?.publication?.pdfUrl && (
+          <a
+            href={matchingProject.publication.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            download="Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '9px 12px',
+              borderRadius: '5px',
+              border: '1px solid rgba(230, 155, 75, 0.45)',
+              background: 'rgba(230, 155, 75, 0.1)',
+              color: 'var(--accent)',
+              font: '10px var(--mono)',
+              textDecoration: 'none',
+              letterSpacing: '0.04em'
+            }}
+          >
+            📄 PAPER PDF ↓
+          </a>
+        )}
+        {matchingProject?.githubUrl && (
+          <a
+            href={matchingProject.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '9px 12px',
+              borderRadius: '5px',
+              border: '1px solid var(--line)',
+              background: 'transparent',
+              color: 'var(--muted)',
+              font: '10px var(--mono)',
+              textDecoration: 'none',
+              letterSpacing: '0.04em'
+            }}
+          >
+            ⚡ GITHUB REPO ↗
+          </a>
+        )}
       </div>
 
       <article>{renderContent(post.content)}</article>
+
+      {matchingProject && (
+        <aside
+          style={{
+            margin: '48px 0 24px',
+            padding: '24px 28px',
+            border: '1px solid var(--line)',
+            borderRadius: '10px',
+            background: 'rgba(230, 155, 75, 0.05)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '16px'
+          }}
+        >
+          <div>
+            <span style={{ font: '10px var(--mono)', color: 'var(--accent)', letterSpacing: '0.08em', display: 'block', marginBottom: '6px' }}>
+              PROJECT CASE STUDY &amp; REPRODUCIBILITY
+            </span>
+            <p style={{ margin: 0, fontSize: '15px', color: '#e8ded0', fontFamily: 'Georgia, serif' }}>
+              Detailed architectural decisions, milestone logs, and verification artifacts.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <Link
+              to={`/work/${matchingProject.slug}`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '9px 14px',
+                borderRadius: '6px',
+                background: 'rgba(230, 155, 75, 0.2)',
+                border: '1px solid var(--accent)',
+                color: 'var(--text)',
+                font: '11px var(--mono)',
+                textDecoration: 'none'
+              }}
+            >
+              EXPLORE CASE STUDY →
+            </Link>
+            {matchingProject.githubUrl && (
+              <a
+                href={matchingProject.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 14px',
+                  borderRadius: '6px',
+                  border: '1px solid var(--line)',
+                  background: 'transparent',
+                  color: 'var(--muted)',
+                  font: '11px var(--mono)',
+                  textDecoration: 'none'
+                }}
+              >
+                GITHUB REPO ↗
+              </a>
+            )}
+          </div>
+        </aside>
+      )}
 
       {/* REACTION BAR */}
       <div

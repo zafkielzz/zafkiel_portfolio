@@ -481,9 +481,9 @@ export const HomePage: React.FC = () => {
             </div>
           </Link>
 
-          <Link className="collection-card photos" to="/photos">
+          <Link className="collection-card photos" to="/education">
             <img
-              alt="Photography and visual study"
+              alt="Education and research credentials"
               loading="lazy"
               decoding="async"
               style={{
@@ -499,16 +499,16 @@ export const HomePage: React.FC = () => {
               src="/images/studio-cafe.jpg"
             />
             <div>
-              <span>02 / PHOTOGRAPHY &amp; STUDIES</span>
-              <h3>Light, places, quiet moments.</h3>
-              <p>A visual journal of atmospheres, HUD interface studies, and design references.</p>
-              <b>VIEW PHOTO JOURNAL →</b>
+              <span>02 / EDUCATION &amp; CERTS</span>
+              <h3>Formal study &amp; publications.</h3>
+              <p>FPT University AI major, IEEE IS'26 First Author scientific publication, and verified credentials.</p>
+              <b>VIEW ACADEMIC RECORD →</b>
             </div>
           </Link>
 
-          <Link className="collection-card partners" to="/partners">
+          <Link className="collection-card partners" to="/skills">
             <img
-              alt="Partners and collaborative projects"
+              alt="Technical stack and infrastructure"
               loading="lazy"
               decoding="async"
               style={{
@@ -524,10 +524,10 @@ export const HomePage: React.FC = () => {
               src="/images/collection-partners.jpg"
             />
             <div>
-              <span>03 / PARTNERS</span>
-              <h3>Better things, together.</h3>
-              <p>Collaborations with labs, creative studios, and engineering teams.</p>
-              <b>WORK TOGETHER →</b>
+              <span>03 / TECHNICAL STACK</span>
+              <h3>Algorithms, models &amp; hardware.</h3>
+              <p>PyTorch, LLM routing pipelines, cross-encoders, and GPU/edge compute runtimes.</p>
+              <b>EXPLORE TECH STACK →</b>
             </div>
           </Link>
         </div>
@@ -541,7 +541,8 @@ export const HomePage: React.FC = () => {
             A quiet corner for <em>AI engineering, research notes, systems</em> and the ideas I build with intention.
           </h2>
           <p>
-            <Link to="/photos">PHOTO JOURNAL ↗</Link>
+            <Link to="/education">ACADEMIC RECORD ↗</Link>
+            <Link to="/skills">TECH STACK ↗</Link>
             <Link to="/contact">LET’S CONNECT ↗</Link>
           </p>
         </div>
