@@ -31,11 +31,27 @@ export const ProjectDetailPage: React.FC = () => {
         style={
           {
             '--one': project.colors[0],
-            '--two': project.colors[1]
+            '--two': project.colors[1],
+            position: 'relative',
+            overflow: 'hidden'
           } as React.CSSProperties
         }
       >
-        <span>{firstLetter}</span>
+        {project.image && (
+          <img
+            src={project.image}
+            alt={project.name}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: 0.45
+            }}
+          />
+        )}
+        <span style={{ position: 'relative', zIndex: 2 }}>{firstLetter}</span>
       </div>
 
       <section className="case-meta">
@@ -52,6 +68,49 @@ export const ProjectDetailPage: React.FC = () => {
           <b>{project.type}</b>
         </div>
       </section>
+
+      {project.publication && (
+        <section
+          style={{
+            margin: '36px 0',
+            padding: '28px 32px',
+            border: '1px solid var(--line)',
+            borderRadius: '12px',
+            background: 'rgba(230, 155, 75, 0.05)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <div className="label" style={{ marginTop: 0, paddingTop: 0, borderTop: 0, marginBottom: '16px' }}>
+            <span>PEER-REVIEWED SCIENTIFIC PUBLICATION</span>
+            <span>OFFICIAL CITATION</span>
+          </div>
+          <h3 style={{ margin: '0 0 12px', fontSize: '20px', letterSpacing: '-0.03em', color: 'var(--text)' }}>
+            {project.publication.journal}
+          </h3>
+          <p style={{ margin: '0 0 8px', color: 'var(--muted)', fontSize: '13px', font: '12px var(--mono)' }}>
+            <strong>Authors:</strong> {project.publication.authors} · <strong>Date:</strong> {project.publication.date} {project.publication.doi && `· DOI: ${project.publication.doi}`}
+          </p>
+          <p style={{ margin: '16px 0 20px', color: '#c3b09a', lineHeight: 1.65, fontSize: '15px' }}>
+            <strong>Abstract:</strong> {project.publication.abstract}
+          </p>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              download="Dang_Phuong_Nam_CV.pdf"
+              className="random-note"
+              style={{
+                textDecoration: 'none',
+                background: 'rgba(230, 155, 75, 0.18)',
+                borderColor: 'var(--accent)',
+                color: 'var(--text)'
+              }}
+            >
+              <i>📄</i> DOWNLOAD PAPER ABSTRACT &amp; CV (PDF) <span>↓</span>
+            </a>
+          </div>
+        </section>
+      )}
 
       <section className="case-copy">
         <div>

@@ -61,38 +61,46 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
   const handleNavClick = (targetPath: string, targetHash?: 'index' | 'articles') => (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (targetHash) {
+    // Clicking BLOG (#articles)
+    if (targetHash === 'articles') {
       if (!isHome) {
-        navigate(`/#${targetHash}`);
-        // Wait a tick for page mount
+        navigate('/#articles');
         setTimeout(() => {
-          if (targetHash === 'articles') {
-            scrollToArticles();
-          } else {
-            scrollToTop();
-          }
-        }, 80);
-      } else {
-        // Already on home page
-        if (location.hash !== `#${targetHash}`) {
-          window.history.replaceState(null, '', `/#${targetHash}`);
-        }
-        if (targetHash === 'articles') {
           scrollToArticles();
-        } else {
-          scrollToTop();
+        }, 60);
+      } else {
+        if (location.hash !== '#articles') {
+          window.history.replaceState(null, '', '/#articles');
         }
+        scrollToArticles();
+      }
+      return;
+    }
+
+    // Clicking INDEX or 〽
+    if (targetPath === '/' || targetHash === 'index') {
+      if (isHome) {
+        if (location.hash) {
+          window.history.replaceState(null, '', '/');
+        }
+        scrollToTop();
+      } else {
+        // Reset scroll position instantly before route change
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        navigate('/');
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        });
       }
       return;
     }
 
     // Direct page navigation
     if (location.pathname === targetPath) {
-      // Already on this page -> scroll to top
       scrollToTop();
     } else {
-      navigate(targetPath);
       window.scrollTo({ top: 0, behavior: 'instant' });
+      navigate(targetPath);
     }
   };
 
@@ -149,6 +157,16 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
       <LofiPlayer />
 
       <span />
+
+      <a
+        href="/cv.pdf"
+        target="_blank"
+        download="Dang_Phuong_Nam_CV.pdf"
+        title="Download Curriculum Vitae (PDF)"
+        style={{ color: 'var(--accent)' }}
+      >
+        CV ↓
+      </a>
 
       <a
         className={isContact ? 'active' : ''}

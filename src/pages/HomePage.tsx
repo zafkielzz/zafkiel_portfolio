@@ -181,15 +181,15 @@ export const HomePage: React.FC = () => {
             <h1 className="localized-title">
               {lang === 'en' ? (
                 <>
-                  Experiments and<br />
-                  systems for the<br />
-                  <em>modern AI era.</em>
+                  Multimodal AI,<br />
+                  systems &amp; research at<br />
+                  <em>FPT University.</em>
                 </>
               ) : (
                 <>
-                  Nghiên cứu và<br />
-                  hệ thống cho<br />
-                  <em>kỷ nguyên AI hiện đại.</em>
+                  Trí tuệ nhân tạo,<br />
+                  hệ thống &amp; nghiên cứu<br />
+                  tại <em>Đại học FPT.</em>
                 </>
               )}
             </h1>
@@ -198,35 +198,59 @@ export const HomePage: React.FC = () => {
               <p>
                 {lang === 'en' ? (
                   <>
-                    Hello, I’m an <strong>AI engineering student</strong> preparing to graduate — exploring neural systems, creative coding, and turning raw research into tactile digital experiences.
+                    Hello, I’m <strong>Đặng Phương Nam</strong> — a final-year Artificial Intelligence student at <strong>FPT University</strong>. My work spans multimodal deep learning, autonomous multi-agent systems, and production AI engineering. Author of a peer-reviewed scientific journal publication.
                   </>
                 ) : (
                   <>
-                    Xin chào, tôi là <strong>sinh viên ngành Trí tuệ Nhân tạo</strong> chuẩn bị ra trường — tập trung nghiên cứu mô hình học sâu, creative coding và chuyển hóa các thuật toán thành trải nghiệm số mượt mà.
+                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, hệ thống Multi-Agent tự trị và kỹ thuật AI thực chiến. Tác giả công bố khoa học tại tạp chí chuyên ngành.
                   </>
                 )}
               </p>
               <p>
                 {lang === 'en' ? (
                   <>
-                    Each note deconstructs complex machine learning and frontend engineering through <strong>playgrounds, visualizations</strong> and clear architectural breakdowns.
+                    Each note deconstructs complex machine learning architectures, journal research findings, and agentic workflows through <strong>playgrounds, visualizations</strong> and clear architectural breakdowns.
                   </>
                 ) : (
                   <>
-                    Mỗi ghi chép đều đơn giản hóa các khái niệm kỹ thuật phức tạp thông qua <strong>playgrounds, visualizations trực quan</strong> và các bài phân tích kiến trúc chi tiết.
+                    Mỗi ghi chép đều đơn giản hóa các kiến trúc học máy phức tạp, phương pháp nghiên cứu và hệ thống tác tử thông qua <strong>playgrounds, visualizations trực quan</strong> và các bài phân tích kiến trúc chi tiết.
                   </>
                 )}
               </p>
             </div>
           </div>
 
-          <button className="random-note" type="button" onClick={handleSurpriseMe}>
-            <i>✦</i> SURPRISE ME <span>→</span>
-          </button>
+          <div className="hero-actions">
+            <Link
+              to="/work"
+              className="random-note"
+              style={{
+                textDecoration: 'none',
+                color: 'var(--text)'
+              }}
+            >
+              <i>✦</i> {lang === 'en' ? 'EXPLORE PROJECTS' : 'KHÁM PHÁ DỰ ÁN'} <span>→</span>
+            </Link>
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              download="Dang_Phuong_Nam_CV.pdf"
+              className="random-note"
+              style={{
+                textDecoration: 'none',
+                background: 'rgba(230, 155, 75, 0.16)',
+                borderColor: 'var(--accent)',
+                color: 'var(--text)'
+              }}
+              title="Download Curriculum Vitae (PDF)"
+            >
+              <i>📄</i> {lang === 'en' ? 'DOWNLOAD CV / RESUME' : 'TẢI CV / RESUME'} <span>↓</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* FEATURED NOTE */}
+      {/* FEATURED NOTE / PUBLICATION */}
       {featuredPost && (
         <section className="featured-note">
           <div className="featured-art" aria-hidden="true">
@@ -237,15 +261,19 @@ export const HomePage: React.FC = () => {
           </div>
           <article>
             <p className="eyebrow">
-              <i /> FROM THE NOTEBOOK
+              <i /> PEER-REVIEWED SCIENTIFIC JOURNAL PUBLICATION
             </p>
             <span className="featured-meta">
-              August 1, 2026 · {featuredPost.tags[0].toUpperCase()}
+              AUGUST 2026 · JOURNAL ARTICLE · MULTIMODAL AI
             </span>
-            <h2>{featuredPost.title}</h2>
-            <p>{featuredPost.summary}</p>
-            <Link to={`/posts/${featuredPost.slug}`}>
-              READ THE NOTE <b>→</b>
+            <h2>{lang === 'en' ? 'Scientific Journal Publication: Multimodal AI' : 'Công Bố Khoa Học: Deep Learning Đa Phương Thức'}</h2>
+            <p>
+              {lang === 'en'
+                ? 'Peer-reviewed research paper accepted in international journal. Novel Adaptive Sparse Cross-Attention architecture achieving 38% latency reduction on edge TPUs with negligible perceptual fidelity loss.'
+                : 'Công trình nghiên cứu khoa học được xuất bản chính thức trên tạp chí chuyên ngành. Đề xuất cơ chế Sparse Cross-Attention đột phá giúp giảm 38% độ trễ suy luận trên chip biên TPU với độ chính xác bảo toàn.'}
+            </p>
+            <Link to="/work/journal-publication">
+              {lang === 'en' ? 'VIEW FULL RESEARCH PAPER STUDY' : 'XEM CHI TIẾT CÔNG BỐ KHOA HỌC'} <b>→</b>
             </Link>
           </article>
         </section>

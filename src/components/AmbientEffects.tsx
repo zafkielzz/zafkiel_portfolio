@@ -71,23 +71,18 @@ export const AmbientEffects: React.FC = () => {
 
   // Handle hash scrolling or scroll-to-top on route changes
   useEffect(() => {
-    if (location.hash) {
+    if (location.hash && location.hash !== '#index') {
       const id = location.hash.replace('#', '');
-      if (id === 'index') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        const scrollToElement = () => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        };
+      const scrollToElement = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
 
-        // Scroll immediately if available, or try after short delay
-        scrollToElement();
-        const timer = setTimeout(scrollToElement, 120);
-        return () => clearTimeout(timer);
-      }
+      scrollToElement();
+      const timer = setTimeout(scrollToElement, 100);
+      return () => clearTimeout(timer);
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }

@@ -78,17 +78,17 @@ export const BootSequence: React.FC = () => {
   return (
     <div className="boot-sequence boot-ready" role="status" aria-label="Loading Midnight Barista Archive">
       <div>
-        <span>SEIZ / NATSUKAZE</span>
+        <span>ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY</span>
         <b>
-          MIDNIGHT
+          PHƯƠNG NAM
           <br />
-          BARISTA
+          AI STUDIO
         </b>
         <i>
           <em style={{ transform: `scaleX(${progress / 100})` }} />
         </i>
         <small>
-          PREPARING THE ARCHIVE · {String(progress).padStart(3, '0')}%
+          INITIALIZING AI LAB · {String(progress).padStart(3, '0')}%
         </small>
       </div>
     </div>

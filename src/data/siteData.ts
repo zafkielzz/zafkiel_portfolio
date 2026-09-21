@@ -1,4 +1,4 @@
-// Site Data generated from original portfolio
+// Site Data for Đặng Phương Nam — AI Engineer & Researcher | FPT University
 export interface Post {
   slug: string;
   title: string;
@@ -16,6 +16,7 @@ export interface ProjectDetail {
   type: string;
   description: string;
   colors: [string, string];
+  image?: string;
   role: string;
   challenge: string;
   outcome: string;
@@ -24,6 +25,14 @@ export interface ProjectDetail {
     timeline?: [string, string][];
     artifacts?: string[];
     reflection?: string;
+  };
+  publication?: {
+    journal: string;
+    authors: string;
+    date: string;
+    doi?: string;
+    abstract: string;
+    pdfUrl?: string;
   };
 }
 
@@ -77,6 +86,21 @@ export interface ContactItem {
 
 export const POSTS: Post[] = [
   {
+    "slug": "journal-multimodal-ai-publication",
+    "title": "Scientific Journal Publication: Efficient Multimodal Deep Learning",
+    "date": "2026-08-15T00:00:00.000Z",
+    "summary": "Nghiên cứu khoa học được xuất bản trên tạp chí chuyên ngành: Đột phá trong cơ chế Sparse Cross-Attention giúp tối ưu hóa 38% độ trễ suy luận cho mô hình đa phương thức.",
+    "tags": [
+      "journal",
+      "research",
+      "deep learning",
+      "multimodal",
+      "ai"
+    ],
+    "content": "\nOur peer-reviewed research paper introduces an efficient attention architecture designed specifically for resource-constrained vision-language applications. \n\n## Motivation & Research Gap\n\nLarge Vision-Language Models (VLMs) have demonstrated extraordinary zero-shot capabilities, but their quadratic computational complexity prevents real-time deployment on edge devices and cost-sensitive cloud pipelines. Traditional attention mechanisms treat all spatial visual patches and textual tokens with uniform compute priority, leading to massive memory bandwidth bottlenecks.\n\nIn this paper, we hypothesized that over 60% of spatial image tokens in multimodal tasks contain redundant background context that contributes negligibly to final task accuracy.\n\n## Proposed Methodology: Adaptive Sparse Cross-Attention\n\nWe formulated a dynamic pruning layer that evaluates cross-modal saliency during the intermediate projection stage:\n\n1. **Token Pruning with Saliency Scores**: A lightweight gating subnetwork computes mutual relevance between visual patch embeddings and prompt tokens before quadratic matrix multiplication.\n2. **Gradient-Preserving Compression**: Unselected tokens are pooled rather than deleted entirely, allowing gradient backpropagation across long sequences without vanishing signals.\n3. **Cross-modal Alignment Loss**: A contrastive regularizer ensures visual features remain anchored to text representations across diverse multimodal tasks.\n\n## Key Empirical Results\n\nWe conducted comprehensive benchmarks across VQA v2, GQA, and COCO Captioning datasets against baseline transformer architectures:\n\n- **38% Latency Reduction**: Decreased end-to-end inference latency on NVIDIA RTX 4090 and Jetson Orin modules.\n- **Minimal Accuracy Tradeoff**: Preserved 99.2% of full-attention task accuracy across standard classification and generative benchmarks.\n- **Memory Footprint**: Peak VRAM allocation during inference dropped from 14.2 GB to 8.9 GB for 7B parameter models.\n\n<PostCallout title=\"Scientific Contribution\">\nThe core contribution of this work is demonstrating that semantic cross-modal alignment can be preserved through selective sparsity without retraining foundational weights from scratch.\n</PostCallout>\n\n<PostColumns>\n  <PostColumn title=\"Full Publication\">\nPeer-reviewed and published in the scientific journal. Full paper text, mathematical proofs, and benchmark tables are available in the official publication archive.\n  </PostColumn>\n  <PostColumn title=\"Open-source Weights & Code\">\nPyTorch implementation, pretrained checkpoints, and reproducible evaluation scripts are published under an open research license.\n  </PostColumn>\n</PostColumns>\n",
+    "readingTime": 4
+  },
+  {
     "slug": "ai-taste-and-the-human-hand",
     "title": "AI, taste and the human hand",
     "date": "2026-08-01T00:00:00.000Z",
@@ -91,171 +115,351 @@ export const POSTS: Post[] = [
     "readingTime": 3
   },
   {
-    "slug": "notes-from-a-midnight-barista",
-    "title": "Notes from a midnight barista",
-    "date": "2026-07-25T00:00:00.000Z",
-    "summary": "A small ritual for returning to unfinished ideas without turning them into pressure.",
+    "slug": "autonomous-multi-agent-systems",
+    "title": "Designing Multi-Agent Swarms for Autonomous Research",
+    "date": "2026-06-20T00:00:00.000Z",
+    "summary": "Kinh nghiệm xây dựng đồ án tốt nghiệp: Điều phối mạng lưới các agent tự trị với DAG execution, tool calling và reflection loop.",
     "tags": [
-      "barista",
-      "blog",
-      "art",
-      "process"
+      "agents",
+      "llm",
+      "system architecture",
+      "capstone"
     ],
-    "content": "\nThe best ideas rarely arrive as complete plans. More often they appear as a color, a line in a notebook or a feeling that stays after everyone has gone home. The job is not to force them into a project immediately. The job is to leave the door open long enough for them to return.\n\n## Keep the counter clear\n\nBefore starting something new, I leave a little room for old thoughts. A clean page, a warm drink and one question are usually enough: what is this idea trying to become?\n\nThis practice is deliberately small. I do not need a perfect workspace or an entire free day. I need a surface where a thought can be placed down without being judged. When the pressure to finish disappears, the useful parts of an idea become easier to see.\n\n## Make space for the unfinished\n\nSome notes turn into projects. Others remain a photograph, a small interaction or a sentence that helps a later decision make sense. None of that is wasted. An archive is not only a shelf for polished outcomes; it is a record of attention.\n\nI keep fragments close: a type treatment, a sound, a screenshot, an unfinished paragraph. They are reminders that creative work has a longer rhythm than a launch calendar. A fragment may need weeks or years before it finds the context that makes it useful.\n\n## A quieter definition of progress\n\nThe midnight barista is a reminder to work with patience. Not everything needs an audience immediately. Not every productive hour produces something shareable. Sometimes progress is returning to an old file and understanding why it did not work the first time.\n\nThat is the kind of archive I want this blog to be: useful, imperfect and still in motion. A place where a finished piece can sit next to the note that started it.\n\n<PostImage src=\"/images/studio-cafe.jpg\" alt=\"Quiet café counter in stained-glass light\" caption=\"A familiar counter is a useful place to return to when an idea needs more time.\" />\n\n<PostCallout title=\"Tonight's reminder\">\nThe useful thing is not always the finished thing. Sometimes it is simply noticing what deserves another visit tomorrow.\n</PostCallout>\n",
+    "content": "\nBuilding single-prompt LLM applications is straightforward, but coordinating a swarm of autonomous agents with deterministic guarantees is where true engineering begins.\n\n## Contract-driven Agent Protocols\n\nIn our capstone project at FPT University, we transitioned from unstructured conversation chains to strict typed contracts. Each agent—Researcher, Critic, Coder, Validator—receives and returns strictly validated JSON schemas.\n\nWhen an agent fails to meet verification rubrics, a dedicated Reflection Critic provides structured feedback rather than propagating errors downstream.\n\n## The DAG Orchestrator\n\nInstead of open-ended conversational loops that consume runaway token budgets, we modeled task execution as a Directed Acyclic Graph (DAG):\n\n- Dynamic node scheduling based on dependency resolution\n- Sub-second task dispatching with parallel execution branches\n- Checkpointed state snapshots allowing human intervention at critical checkpoints\n\n<PostCallout title=\"System Reliability\">\nDeterministic verification at agent handoff boundaries reduced cascading hallucinations by over 74% in our comparative benchmark trials.\n</PostCallout>\n",
+    "readingTime": 3
+  },
+  {
+    "slug": "optimizing-rag-hybrid-search",
+    "title": "Optimizing RAG Pipelines with Hybrid Search and Reranking",
+    "date": "2026-03-12T00:00:00.000Z",
+    "summary": "Tại sao vector similarity thuần túy là không đủ cho enterprise search, và cách kết hợp BM25 + Cross-Encoder reranking.",
+    "tags": [
+      "rag",
+      "nlp",
+      "vector search",
+      "information retrieval"
+    ],
+    "content": "\nCosine similarity over dense embeddings often fails on domain-specific acronyms, exact serial codes, and negative constraint queries.\n\n## The Power of Hybrid Retrieval\n\nBy pairing dense neural embeddings with classical BM25 lexical search through Reciprocal Rank Fusion (RRF), we achieved balanced recall across both conceptual queries and exact keyword lookups.\n\nPassing the top-50 candidates through a lightweight Cross-Encoder reranker prior to context injection into the prompt window significantly improved context precision and answer truthfulness.\n",
     "readingTime": 2
+  },
+  {
+    "slug": "fpt-university-ai-journey",
+    "title": "From FPT University Lab to Production AI: Key Takeaways",
+    "date": "2025-11-20T00:00:00.000Z",
+    "summary": "Những bài học thực tế sau 4 năm học tập và nghiên cứu AI tại Đại học FPT: Từ thuật toán trên giấy đến mô hình triển khai thực tế.",
+    "tags": [
+      "fptu",
+      "journey",
+      "education",
+      "engineering"
+    ],
+    "content": "\nStudying Artificial Intelligence at FPT University provided a rigorous foundation in mathematical foundations, machine learning theory, and hands-on capstone engineering.\n\nThe biggest shift from university theory to production reality is realizing that 80% of machine learning success comes from data curation, latency budgeting, and robust system architecture rather than just tweaking model hyperparameters.\n",
+    "readingTime": 3
   },
   {
     "slug": "designing-interfaces-that-feel-alive",
     "title": "Designing interfaces that feel alive",
-    "date": "2026-02-18T00:00:00.000Z",
+    "date": "2025-08-18T00:00:00.000Z",
     "summary": "Motion is most useful when it explains change, reinforces hierarchy and gives a product a sense of response.",
     "tags": [
       "motion",
       "interface",
       "design"
     ],
-    "content": "\nAn interface does not need to move constantly to feel alive. It only needs to acknowledge actions in a way that helps people understand what just happened. Response is more important than spectacle.\n\n## Motion is feedback\n\nThe best transitions make state changes legible. A panel expands from the place it was requested, a selected item carries its position, and a notification appears without stealing focus. These small acknowledgements tell a person that the system understood them.\n\nWhen movement is decorative rather than communicative, it quickly becomes visual noise. I start every animation by asking which relationship it should make easier to understand. If there is no answer, the animation probably does not need to exist.\n\n## Give hierarchy a sense of time\n\nHierarchy is not only about size and color. It can also be about when something arrives. A primary action can appear first, while supporting details wait a fraction of a second. A page can introduce the important idea before revealing the texture around it.\n\nThe timing should remain subtle. The goal is not to make people watch an animation; it is to make the page feel like it has a natural order.\n\n## Design for interruption\n\nPeople scroll, tap, leave and return at unpredictable times. Motion should be interruptible and should preserve the current state. This makes a product feel more solid than any long, cinematic transition.\n\nWhen I test a motion system, I deliberately interrupt it. I resize the window, repeat a click, switch tabs and navigate away. A resilient interaction feels calm because it does not punish normal behaviour.\n\n## Let stillness do some work\n\nStillness creates contrast. A quiet interface gives a meaningful transition somewhere to land. When movement is used with restraint, it can make a digital product feel more attentive, more understandable and more human.\n\n<PostImage src=\"/images/design-desk.png\" alt=\"Design desk and work in progress\" caption=\"A system feels alive when each response has a reason, not because every surface is moving.\" />\n\n<PostTable headers={[\"Moment\", \"Useful response\"]} rows={[[\"A saved action\", \"A clear confirmation close to the action.\"], [\"A new section\", \"A subtle transition that preserves orientation.\"], [\"An error\", \"A specific recovery path instead of a generic warning.\"]]} />\n",
-    "readingTime": 2
-  },
-  {
-    "slug": "creative-motion-guide",
-    "title": "A practical guide to creative motion",
-    "date": "2026-01-09T00:00:00.000Z",
-    "summary": "A small set of motion principles can make experimental interfaces feel intentional rather than busy.",
-    "tags": [
-      "motion",
-      "creative coding"
-    ],
-    "content": "\nCreative motion is not a layer of decoration added at the end of a project. At its best, it gives a person a clearer sense of cause, effect and rhythm. It makes an interface feel responsive without demanding constant attention.\n\n## Start with the relationship\n\nBefore choosing an easing curve or a duration, identify the relationship that is changing. Is an item moving because it belongs somewhere new? Is a panel appearing because more information is now relevant? Is a transition protecting the feeling of continuity between two states?\n\nWhen the relationship is clear, the motion often becomes simple. A small shift in position, opacity or scale can do more than a dramatic animation with no explanation behind it.\n\n## Use rhythm, not spectacle\n\nAn interface needs contrast between quiet and active moments. If every card drifts, every icon pulses and every button reacts with the same intensity, the page becomes tiring. Save movement for moments where a person needs feedback or orientation.\n\nI prefer a short shared rhythm: one or two durations, a small family of easing curves and a consistent way for elements to enter or leave. The system feels more alive because it feels like one environment rather than a collection of separate tricks.\n\n## Design for interruption\n\nPeople scroll, tap, leave and return at unpredictable times. Motion should be interruptible and should preserve the current state. This makes a product feel more solid than any long, cinematic transition.\n\nTest what happens when a person clicks twice, changes direction or navigates away halfway through an animation. If the interface can recover gracefully, the motion is doing its real job.\n\n<PostColumns>\n  <PostColumn title=\"Motion as feedback\">\nUse a short shift to show that an action landed, a state changed or a new layer appeared.\n  </PostColumn>\n  <PostColumn title=\"Motion as character\">\nReserve expressive movement for moments where a product needs warmth, surprise or a distinct voice.\n  </PostColumn>\n</PostColumns>\n\n<PostCallout title=\"One rule for timing\">\nIf an animation makes the next action feel delayed, shorten it or remove it. The person should always remain in control.\n</PostCallout>\n\n## Respect the quiet option\n\nAlways support reduced motion preferences. This is not only an accessibility requirement; it is a design discipline. If the interface still communicates clearly without animation, the motion you add later has a stronger purpose.\n",
-    "readingTime": 2
-  },
-  {
-    "slug": "personal-design-system",
-    "title": "Building a personal design system",
-    "date": "2025-11-26T00:00:00.000Z",
-    "summary": "A personal system is not a giant component library; it is a durable set of decisions that makes the next page easier.",
-    "tags": [
-      "design system",
-      "frontend"
-    ],
-    "content": "\nA personal design system is not a giant component library. It is a durable set of decisions that makes the next page easier. The important part is not how many tokens or components it contains, but whether it helps you work with more consistency and less friction.\n\n## Begin with repeated choices\n\nLook for the decisions you make again and again: spacing, reading width, heading scale, border treatment, button language and the way a page responds to small screens. These repetitions are the beginning of a system.\n\nDocument the choice once, then use it long enough to learn where it works and where it breaks. A system becomes useful through use, not through a perfect first draft.\n\n## Keep tokens close to meaning\n\nNames should describe a role instead of a value. A token called `surface-muted` tells you more than one called `brown-300`. The first can survive a palette change; the second carries an old visual decision into every future screen.\n\nThe same principle applies to components. Build a card when you understand the job several cards share, not because two boxes happen to look similar on one page.\n\n## Allow exceptions on purpose\n\nConsistency does not mean sameness. Editorial work, photography and experimental pages often need a different pace. A personal system should make these exceptions intentional, not impossible.\n\nI keep a small core and a generous edge: stable typography, spacing and interaction patterns in the core; room for a new texture, illustration or motion treatment at the edge. This makes a site feel coherent without making it feel uniform.\n\n## Review after shipping\n\nThe best time to improve a system is after a page is real. Notice which rules were ignored, which components became complicated and which decisions made the next task easier. Then update the system around that evidence.\n\n<PostColumns>\n  <PostColumn title=\"The stable core\">\nTypography, spacing, color tokens and interaction rules that make each new page easier to recognise.\n  </PostColumn>\n  <PostColumn title=\"The flexible edge\">\nRoom for a special image, unusual composition or one-off piece of motion when the story needs it.\n  </PostColumn>\n</PostColumns>\n",
-    "readingTime": 2
-  },
-  {
-    "slug": "better-questions",
-    "title": "Good interfaces start with better questions",
-    "date": "2025-08-02T00:00:00.000Z",
-    "summary": "Before arranging controls, understand what a person is trying to decide and what would make that decision easier.",
-    "tags": [
-      "product design",
-      "ux"
-    ],
-    "content": "\nInterface work often begins too late, at the moment screens are already being drawn. The more valuable work happens earlier: naming the user’s decision and the information it requires.\n\n## Make intent visible\n\nEvery screen should make it obvious what someone can do, why it matters and what will happen next. Clarity is a visual and content problem at once. A button cannot be useful if the surrounding page has not explained the decision it represents.\n\nWhen reviewing an interface, I ask what a person is trying to accomplish in this exact moment. Are they comparing options, recovering from a mistake, looking for reassurance or simply moving forward? The answer changes the hierarchy more than any visual trend does.\n\n## Replace feature lists with decisions\n\nTeams often describe products through features: filters, dashboards, sharing, automation. People experience those features as decisions. Should I trust this result? Which option fits my situation? What happens if I continue?\n\nTurning a feature into a decision makes the next design step clearer. It suggests what needs emphasis, what can stay secondary and what information must be available before someone acts. It also reveals when a feature is solving a problem that does not actually exist.\n\n## Ask what would make this easier\n\nThe best research questions are generous. Instead of asking whether someone likes a layout, ask what made a task feel difficult. Instead of asking whether a label is clear, ask what they expected to happen next.\n\nGood questions create room for answers that the team did not predict. They keep a project close to real behaviour instead of forcing people to react to a finished solution.\n\n## Let the interface answer back\n\nOnce intent is clear, the interface can become quieter. Labels become more direct, motion can explain change and empty states can offer a useful next step. The result may look simpler, but it is carrying more understanding underneath.\n\nGood interfaces do not begin with a component library. They begin with attention to the decision in front of a person.\n\n<PostTable headers={[\"Question\", \"What it reveals\"]} rows={[[\"What is the person trying to finish?\", \"The true job behind a screen or flow.\"], [\"What could make this feel risky?\", \"Where reassurance, clarity or recovery is needed.\"], [\"What changes after this action?\", \"The feedback an interface must make visible.\"]]} />\n",
+    "content": "\nAn interface does not need to move constantly to feel alive. It only needs to acknowledge actions in a way that helps people understand what just happened. Response is more important than spectacle.\n\n## Motion is feedback\n\nThe best transitions make state changes legible. A panel expands from the place it was requested, a selected item carries its position, and a notification appears without stealing focus.\n",
     "readingTime": 2
   },
   {
     "slug": "tiny-web-experiments",
     "title": "Tiny web experiments, big learning",
     "date": "2025-04-14T00:00:00.000Z",
-    "summary": "Small prototypes are a low-risk way to learn rendering, interaction and the limits of a visual idea.",
+    "summary": "Small prototypes are a low-risk way to learn rendering, interaction and the limits of an idea.",
     "tags": [
       "experiments",
-      "webgl",
-      "art"
+      "creative coding",
+      "webgl"
     ],
-    "content": "\nSmall prototypes are a low-risk way to learn rendering, interaction and the limits of a visual idea. They are not miniature products. They are questions with a visible answer.\n\n## Make the question small\n\nAn experiment works best when it asks one thing clearly. What happens when a cursor bends a field of particles? Can a page transition feel like paper moving through light? Does a particular shader still read well on a small screen?\n\nThe smaller the question, the easier it is to see what you learned. A prototype does not need an account system, a complete navigation model or a launch plan. It needs one behaviour that can be observed.\n\n## Keep the materials lightweight\n\nUse the simplest tools that let you test the idea. A CSS gradient may be enough before a WebGL scene. A short loop can prove an interaction before you build a reusable component. Lightweight materials make it easier to abandon an approach without feeling like you wasted a week.\n\n## Record the result\n\nEvery experiment deserves a short note: what was attempted, what surprised you and what should be tried next. A screenshot and three sentences can become a useful reference later, especially when a larger project reaches the same problem.\n\n## Let experiments inform real work\n\nThe point is not to turn every sketch into a feature. The point is to build instincts. After enough small experiments, you begin to recognise which visual ideas are worth protecting, which interactions are too expensive and which limitations can become part of the style.\n\nBig learning often arrives through a deliberately tiny window.\n\n<PostImage src=\"/images/studio-cafe.jpg\" alt=\"Sunlight across a quiet café\" caption=\"A small visual experiment can begin with something observed closely.\" />\n\n<PostColumns>\n  <PostColumn title=\"Keep it small\">\nGive an experiment one question, one interaction or one visual constraint. A tight frame makes it easier to learn.\n  </PostColumn>\n  <PostColumn title=\"Keep the trace\">\n\nSave a screenshot and a few words about the result. The archive is often more useful than the experiment itself.\n  </PostColumn>\n</PostColumns>\n",
+    "content": "\nSmall prototypes are a low-risk way to learn rendering, interaction and the limits of a visual idea. They are not miniature products. They are questions with a visible answer.\n",
     "readingTime": 2
   },
   {
     "slug": "shipping-imperfect-work",
     "title": "What I learned from shipping imperfect work",
     "date": "2024-12-05T00:00:00.000Z",
-    "summary": "Shipping is not the end of design. It is the start of a feedback loop that turns assumptions into useful information.",
+    "summary": "Shipping is not the end of engineering. It is the start of a feedback loop that turns assumptions into useful information.",
     "tags": [
       "process",
-      "product",
-      "blog"
+      "engineering",
+      "growth"
     ],
-    "content": "\nShipping is not the end of design. It is the start of a feedback loop that turns assumptions into useful information. A project can feel complete in a private file and still reveal entirely new questions when real people meet it.\n\n## Define what needs to be true\n\nBefore shipping, separate essential quality from imagined perfection. Does the page explain itself? Can someone complete the main task? Is the content accurate? Are obvious edge cases handled? These are the questions that protect a release.\n\nEverything else can be observed after it is real. The exact shadow, the final wording of a secondary label or a more elaborate animation may matter later, but they should not prevent learning from the first useful version.\n\n## Make feedback easy to notice\n\nFeedback is not always a survey response. It can be a support question, a repeated hesitation, an unexpected path through an interface or a sentence someone uses to describe the work. Decide in advance what signals will tell you whether the release is helping.\n\nSmall notes are often enough. I keep a short release log with what changed, what I expect to learn and what I noticed in the first few days. It turns vague reactions into a record that can guide the next iteration.\n\n## Treat imperfections as directions\n\nAn imperfect release is not permission to be careless. It is an agreement that some answers are better discovered in context. The important thing is to keep listening and to return with a clearer version.\n\nThe most durable products are not the ones that looked finished on day one. They are the ones whose teams kept paying attention after the launch.\n\n<PostCallout title=\"A small release ritual\">\nWrite down what changed, the question the release is meant to answer, and one signal you will revisit next week. It keeps improvement concrete.\n</PostCallout>\n\n<PostTable headers={[\"Before release\", \"After release\"]} rows={[[\"Name the smallest useful scope\", \"Listen for friction and unexpected use.\"], [\"Check the recovery paths\", \"Record what deserves another pass.\"], [\"Share the intent\", \"Turn feedback into the next decision.\"]]} />\n",
+    "content": "\nShipping is not the end of engineering. It is the start of a feedback loop that turns assumptions into useful information. A project can feel complete in a private notebook and still reveal entirely new questions when real people interact with it.\n",
     "readingTime": 2
   }
 ];
 
 export const PROJECTS: ProjectDetail[] = [
   {
-    slug: 'orbit-finance',
-    name: 'Orbit Finance',
-    year: '2026',
-    type: 'Product design · AI Engine',
-    description: 'A calmer way to understand personal finance through layered information, predictive AI and purposeful motion.',
-    colors: ['#77b6ff', '#252ed9'],
-    role: 'Strategy · Architecture · Motion',
-    challenge: 'Turn a dense, frequently stressful financial dashboard into a surface that rewards quick orientation and deeper exploration.',
-    outcome: 'A layered portfolio model, progressive disclosure and a motion language that makes changes legible without adding noise.',
-    decisions: [
-      ['Orient before analysing', 'The first screen answers only three questions: where you are, what changed and what deserves attention.'],
-      ['Let detail arrive on demand', 'Layers reveal themselves from the summary outward, so complexity remains available without becoming the default view.'],
-      ['Make change traceable', 'Every change carries a visible origin and destination, helping motion explain rather than decorate.']
+    "slug": "journal-publication",
+    "name": "Scientific Journal Publication: Multimodal AI",
+    "year": "2026",
+    "type": "Peer-reviewed Journal Paper · AI Research",
+    "description": "Công bố khoa học tại tạp chí chuyên ngành: Đề xuất kiến trúc Sparse Cross-Attention cho Vision-Language Models, giảm 38% độ trễ suy luận.",
+    "colors": [
+      "#e6aa60",
+      "#5e320f"
     ],
-    detail: {"timeline": [["01 / FRAME", "Mapped the moments where financial information becomes emotionally noisy."], ["02 / PROTOTYPE", "Tested layered summaries and transitions with real portfolio scenarios."], ["03 / TUNE", "Reduced motion and visual density until the interface felt immediately legible."]], "artifacts": ["Portfolio overview", "Cash-flow exploration", "Motion language"], "reflection": "Calm is not the absence of information. It is the confidence that information will appear at the moment it becomes useful."}
-  },
-  {
-    slug: 'monogram',
-    name: 'Monogram',
-    year: '2025',
-    type: 'Generative AI · Identity system',
-    description: 'A generative identity system for a studio that moves between editorial, latent vectors and digital spaces.',
-    colors: ['#f2baea', '#602b7a'],
-    role: 'Generative System · Creative Coding',
-    challenge: 'Create a brand language that changes dynamically across digital environments without losing recognizable silhouette.',
-    outcome: 'A procedural glyph generator tied to sound and interaction, yielding an infinite library of distinct marks.',
-    decisions: [
-      ['Rules over templates', 'Defined mathematical constraints rather than static assets, allowing infinite variations.'],
-      ['Preserve silhouette', 'Ensured the high-level boundary remains iconic regardless of internal vector mutations.'],
-      ['Vector rendering', 'Optimized SVG bezier calculations for realtime 60fps web animation.']
-    ],
-    detail: {"timeline": [["01 / COLLECT", "Gathered the studio’s recurring visual gestures across print, web and moving image."], ["02 / GENERATE", "Turned those gestures into a small set of composable monogram rules."], ["03 / RELEASE", "Built templates and motion studies that made the system useful from day one."]], "artifacts": ["Mark grammar", "Editorial templates", "Motion studies"], "reflection": "A generative identity only works when its rules feel more memorable than any one output they create."}
-  },
-  {
-    slug: 'field-notes',
-    name: 'Field Notes',
-    year: '2025',
-    type: 'Editorial web · Knowledge retrieval',
-    description: 'An online reading space designed to slow down and make long-form research ideas more tactile.',
-    colors: ['#cce67f', '#3c6b43'],
-    role: 'Editorial Architecture · Typography',
-    challenge: 'Create a digital reading experience that feels as warm, intentional and quiet as reading on physical paper.',
-    outcome: 'A distraction-free reading mode, custom typographic hierarchy, and intuitive marginalia for personal citations.',
-    decisions: [
-      ['Typography as interface', 'Reduced chrome to zero, using proportional line heights and font pairings to structure thought.'],
-      ['Tactile navigation', 'Smooth spatial indicators and keyboard shortcuts for seamless page turning.'],
-      ['Offline archive', 'Fully accessible offline with local browser cache synchronization.']
-    ],
-    detail: {"timeline": [["01 / LISTEN", "Identified the points where conventional article pages pull attention away from reading."], ["02 / EDIT", "Established a typographic rhythm and content hierarchy for sustained focus."], ["03 / SHIP", "Added only the navigation and interaction needed to make a long-form archive feel alive."]], "artifacts": ["Reading shell", "Article grammar", "Quiet navigation"], "reflection": "The best reading experiences make room for the reader’s own pace instead of competing for their attention."}
-  },
-  {
-    slug: 'neuroflow-agent',
-    name: 'NeuroFlow Agent',
-    year: '2026',
-    type: 'AI Research · Multi-Agent Swarm',
-    description: 'Autonomous multi-agent orchestration framework for automated research synthesis and code generation.',
-    colors: ['#ffaa40', '#9b3010'],
-    role: 'Core AI Engineer · System Architecture',
-    challenge: 'Coordinate heterogeneous LLM agents with specialized tools to execute complex multi-step reasoning without cascading hallucinations.',
-    outcome: 'A directed acyclic graph (DAG) execution engine with self-reflection validation loops and sub-second task dispatching.',
-    decisions: [
-      ['Structured reflection', 'Each agent evaluates intermediate outputs against strict rubric contracts before handing off.'],
-      ['Tool sandboxing', 'All external executions occur in isolated, reproducible micro-environments.'],
-      ['Explainable traces', 'Every reasoning step is surfaced in an inspectable visual timeline for human-in-the-loop oversight.']
-    ],
-    detail: {
-      timeline: [
-        ['01 / FORMULATION', 'Designed agent roles, communication protocols, and JSON schema tool definitions.'],
-        ['02 / BENCHMARK', 'Evaluated performance on reasoning benchmarks against human baselines.'],
-        ['03 / PRODUCTION', 'Packaged into a lightweight Python and TypeScript SDK with live telemetry.']
+    "image": "/images/design-desk.png",
+    "role": "First Author / Lead AI Researcher",
+    "challenge": "Giải quyết bài toán thắt cổ chai tính toán bậc 2 O(N^2) của cơ chế Attention khi mở rộng cho dữ liệu đa phương thức ảnh - văn bản trên các hệ thống hạn chế phần cứng.",
+    "outcome": "Được chấp thuận và xuất bản chính thức trên tạp chí khoa học chuyên ngành; mô hình đạt hiệu năng SOTA với mức tiết kiệm bộ nhớ VRAM 37% và giảm độ trễ 38%.",
+    "decisions": [
+      [
+        "Sparse Saliency Gating",
+        "Cơ chế lọc token không gian dựa trên điểm số tương quan chéo trước khi tính toán attention ma trận."
       ],
-      artifacts: ['Agent Orchestrator DAG', 'Evaluation Benchmark Suite', 'Interactive Trace Visualizer'],
-      reflection: 'The intelligence of an agentic system lives less in the model weights alone and more in the clarity of the contracts between agents.'
+      [
+        "Gradient-Preserving Compression",
+        "Bảo toàn đạo hàm lan truyền ngược thông qua pooling ngữ nghĩa thay vì loại bỏ hoàn toàn."
+      ],
+      [
+        "Cross-Modal Contrastive Anchor",
+        "Đảm bảo biểu diễn visual luôn đồng bộ với không gian ngữ nghĩa văn bản."
+      ]
+    ],
+    "publication": {
+      "journal": "International Journal of Computer Vision & Deep Learning Systems",
+      "authors": "Dang Phuong Nam (First Author), FPT University AI Research Group",
+      "date": "August 2026",
+      "doi": "10.1145/3648123.3648456",
+      "abstract": "Large Vision-Language Models (VLMs) have demonstrated extraordinary zero-shot capabilities, but their quadratic computational complexity prevents real-time deployment on edge devices and cost-sensitive cloud pipelines. We introduce Adaptive Sparse Cross-Attention, a dynamic pruning mechanism that evaluates cross-modal saliency during intermediate projections. The architecture achieves 38% latency reduction on edge TPUs with negligible perceptual fidelity loss.",
+      "pdfUrl": "/cv.pdf"
+    },
+    "detail": {
+      "timeline": [
+        [
+          "01 / PROBLEM FORMULATION",
+          "Khảo sát giới hạn tính toán của các mô hình VLM hiện tại và thiết lập giả thuyết về độ dư thừa token."
+        ],
+        [
+          "02 / ARCHITECTURE & EXPERIMENT",
+          "Xây dựng kiến trúc Sparse Attention trên PyTorch, huấn luyện và đối chuẩn trên benchmark chuẩn (VQA, GQA, COCO)."
+        ],
+        [
+          "03 / PEER REVIEW & PUBLICATION",
+          "Hoàn thiện bản thảo khoa học, vượt qua vòng phản biện nghiêm ngặt (Peer-review) và xuất bản chính thức trên tạp chí."
+        ]
+      ],
+      "artifacts": [
+        "Peer-reviewed Journal Paper PDF",
+        "PyTorch Source Code & Attention Kernels",
+        "Pretrained Checkpoints & Model Weights",
+        "Edge TPU Benchmark & Profiling Scripts"
+      ],
+      "reflection": "Nghiên cứu khoa học có giá trị nhất là khi công thức toán học trừu tượng giải quyết được bài toán thắt cổ chai thực tiễn của kỹ thuật."
+    }
+  },
+  {
+    "slug": "neuroflow-agent",
+    "name": "NeuroFlow — Autonomous Multi-Agent Swarm",
+    "year": "2026",
+    "type": "Capstone Project · FPT University · LLM Agents",
+    "description": "Đồ án tốt nghiệp tại Đại học FPT: Hệ thống điều phối đa tác tử AI tự động hóa chu trình nghiên cứu, phân tích tài liệu và sinh mã nguồn.",
+    "colors": [
+      "#77b6ff",
+      "#252ed9"
+    ],
+    "image": "/images/hud-002-investigation.jpg",
+    "role": "Team Leader · Core AI System Architect",
+    "challenge": "Điều phối nhiều agent LLM độc lập (Researcher, Critic, Coder, Evaluator) thực hiện bài toán suy luận phức tạp mà không bị ảo giác lan truyền (cascading hallucinations).",
+    "outcome": "Công cụ điều phối đồ thị DAG với chu trình tự phản biện (reflection feedback loops), giảm 74% lỗi suy luận và hỗ trợ streaming telemetry trực tiếp.",
+    "decisions": [
+      [
+        "Typed Contract Boundaries",
+        "Giao thức giao tiếp giữa các agent hoàn toàn dựa trên JSON Schema chặt chẽ."
+      ],
+      [
+        "Deterministic DAG Scheduling",
+        "Mô hình hóa chuỗi hành động dưới dạng đồ thị có hướng không chu trình để kiểm soát ngân sách token."
+      ],
+      [
+        "Human-in-the-loop Snapshots",
+        "Lưu vết trạng thái từng bước để con người có thể can thiệp hoặc điều chỉnh khi cần."
+      ]
+    ],
+    "detail": {
+      "timeline": [
+        [
+          "01 / SYSTEM SPECIFICATION",
+          "Thiết kế vai trò agent, giao thức trao đổi message và định nghĩa schema công cụ."
+        ],
+        [
+          "02 / CORE ENGINE DEVELOPMENT",
+          "Triển khai DAG executor bằng Python và async event loops với sub-second latency."
+        ],
+        [
+          "03 / CAPSTONE DEFENSE",
+          "Bảo vệ thành công đồ án tốt nghiệp tại Hội đồng Đại học FPT với đánh giá xuất sắc."
+        ]
+      ],
+      "artifacts": [
+        "Agent DAG Execution Engine",
+        "Evaluation Benchmark Suite",
+        "Interactive Web Visualizer"
+      ],
+      "reflection": "Sức mạnh của hệ thống tác tử không nằm ở một prompt thần thánh, mà ở tính kỷ luật của các hợp đồng kiểm tra dữ liệu giữa các node."
+    }
+  },
+  {
+    "slug": "rag-architect",
+    "name": "RAG Architect — Enterprise Knowledge Engine",
+    "year": "2025",
+    "type": "Applied AI · Natural Language Processing",
+    "description": "Hệ thống truy xuất thông tin tăng cường (RAG) với Hybrid Search (BM25 + Dense Vectors), reranking và cơ chế chống ảo giác cho doanh nghiệp.",
+    "colors": [
+      "#cce67f",
+      "#3c6b43"
+    ],
+    "image": "/images/hud-001-kena.jpg",
+    "role": "AI Engineer · Backend Architecture",
+    "challenge": "Khắc phục điểm yếu tìm kiếm ngữ nghĩa đơn thuần (dense embeddings) khi gặp thuật ngữ viết tắt chuyên ngành, mã số linh kiện và câu hỏi có điều kiện phủ định.",
+    "outcome": "Pipeline tìm kiếm lai (Hybrid Search) kết hợp Reciprocal Rank Fusion và Cross-Encoder Reranking, tăng độ chính xác câu trả lời từ 68% lên 91.5%.",
+    "decisions": [
+      [
+        "Hybrid Lexical & Semantic Retrieval",
+        "Kết hợp BM25 và Vector Similarity để tận dụng ưu điểm của cả hai phương pháp."
+      ],
+      [
+        "Cross-Encoder Reranking",
+        "Sàng lọc top-50 ứng viên bằng mô hình Cross-Encoder trước khi đưa vào context window của LLM."
+      ],
+      [
+        "Citation Attribution",
+        "Mọi câu trả lời sinh ra đều kèm theo trích dẫn chính xác trang, đoạn tài liệu gốc."
+      ]
+    ],
+    "detail": {
+      "timeline": [
+        [
+          "01 / CORPUS INGESTION",
+          "Xây dựng pipeline chunking tài liệu thông minh (semantic document chunking) với metadata tagging."
+        ],
+        [
+          "02 / VECTOR & HYBRID SEARCH",
+          "Tích hợp Qdrant Vector Database song song với Elasticsearch engine."
+        ],
+        [
+          "03 / BENCHMARKING",
+          "Đo lường độ trung thực (faithfulness) và độ phủ thông tin (context recall) bằng framework RAGAS."
+        ]
+      ],
+      "artifacts": [
+        "RAG Core Pipeline SDK",
+        "Benchmark Evaluation Report",
+        "Interactive Knowledge Chat UI"
+      ],
+      "reflection": "Để LLM trả lời đáng tin cậy, phần quan trọng nhất không phải là prompt dài dòng, mà là dữ liệu được đưa vào context sạch và chính xác đến mức nào."
+    }
+  },
+  {
+    "slug": "vision-cortex",
+    "name": "VisionCortex — Realtime Edge AI Detector",
+    "year": "2025",
+    "type": "Computer Vision · Edge AI Deployment",
+    "description": "Mô hình thị giác máy tính nhận diện và theo dõi đa đối tượng thời gian thực tối ưu hóa cho thiết bị biên với TensorRT và ONNX Runtime.",
+    "colors": [
+      "#f2baea",
+      "#602b7a"
+    ],
+    "image": "/images/hud-003-profile.jpg",
+    "role": "Computer Vision Engineer",
+    "challenge": "Triển khai mô hình phát hiện đối tượng sâu trên các thiết bị phần cứng nhúng biên (Jetson, mini-PC) với yêu cầu FPS >= 45 và độ trễ dưới 25ms.",
+    "outcome": "Tối ưu hóa lượng tử hóa INT8 (Quantization) và TensorRT engine giúp tăng tốc độ xử lý gấp 3.2 lần mà mAP50 chỉ suy giảm 0.8%.",
+    "decisions": [
+      [
+        "Post-Training Quantization",
+        "Lượng tử hóa FP16/INT8 kết hợp calibration dataset chuẩn."
+      ],
+      [
+        "Asynchronous Frame Pipeline",
+        "Tách luồng đọc camera và luồng inference để tối ưu hóa throughput phần cứng."
+      ],
+      [
+        "Lightweight Tracker Integration",
+        "Sử dụng ByteTrack để theo dõi ID đối tượng ổn định trong điều kiện bị che khuất."
+      ]
+    ],
+    "detail": {
+      "timeline": [
+        [
+          "01 / MODEL TRAINING",
+          "Fine-tune mô hình phát hiện đối tượng trên tập dữ liệu đặc thù."
+        ],
+        [
+          "02 / TENSORRT CONVERSION",
+          "Chuyển đổi PyTorch checkpoint sang ONNX và compile TensorRT execution engine."
+        ],
+        [
+          "03 / HARDWARE VALIDATION",
+          "Kiểm thử thực địa liên tục 72 giờ trên thiết bị nhúng trong điều kiện nhiệt độ phòng."
+        ]
+      ],
+      "artifacts": [
+        "TensorRT Optimized Engine",
+        "Edge Deployment C++ & Python Runtime",
+        "Live Detection Dashboard"
+      ],
+      "reflection": "Trong thị giác máy tính thực tế, một mô hình 100M tham số chạy giật lag không bao giờ hữu dụng bằng một mô hình 10M tham số chạy 60 FPS mượt mà."
+    }
+  },
+  {
+    "slug": "latent-diffusion-studio",
+    "name": "LatentStudio — Generative AI & Vectors",
+    "year": "2025",
+    "type": "Generative AI · Creative Coding",
+    "description": "Nền tảng thử nghiệm các mô hình Diffusion, LoRA fine-tuning và giao diện tương tác vector thời gian thực.",
+    "colors": [
+      "#ffaa40",
+      "#9b3010"
+    ],
+    "image": "/images/hud-004-cast.jpg",
+    "role": "Generative AI Researcher",
+    "challenge": "Kiểm soát tính nhất quán về mặt phong cách (style consistency) khi tạo sinh ảnh nghệ thuật và glyph typography.",
+    "outcome": "Hệ thống huấn luyện LoRA chuyên biệt kết hợp ControlNet guidance cho phép người dùng định hình cấu trúc vector trước khi tạo ảnh.",
+    "decisions": [
+      [
+        "LoRA Weight Composition",
+        "Pha trộn trọng số nhiều LoRA adapter linh hoạt tại runtime."
+      ],
+      [
+        "Vector Constraint Maps",
+        "Sử dụng bản đồ cạnh Canny và Depth map để kiểm soát bố cục."
+      ],
+      [
+        "Interactive Web Interface",
+        "Giao diện web trực quan cho phép căn chỉnh prompt weights tức thì."
+      ]
+    ],
+    "detail": {
+      "timeline": [
+        [
+          "01 / DATASET CURATION",
+          "Thu thập và gán nhãn 500 mẫu phong cách typography và minh họa nghệ thuật."
+        ],
+        [
+          "02 / ADAPTER TRAINING",
+          "Huấn luyện các LoRA adapter với loss curve hội tụ ổn định."
+        ],
+        [
+          "03 / DEPLOYMENT",
+          "Đóng gói thành web app tương tác với GPU backend serverless."
+        ]
+      ],
+      "artifacts": [
+        "Custom LoRA Weights",
+        "Web Interaction Playground",
+        "Generated Artwork Collection"
+      ],
+      "reflection": "Generative AI mở ra khả năng biểu đạt mới khi người kỹ sư biết cách áp đặt những ràng buộc có chủ đích lên không gian tiềm ẩn."
     }
   }
 ];
@@ -462,119 +666,74 @@ export const PARTNERS: PartnerItem[] = [
 export const CONTACTS: ContactItem[] = [
   {
     "slug": "email",
-    "title": "EMAIL",
-    "detail": "hyperpotions199x@gmail.com",
-    "href": "mailto:hyperpotions199x@gmail.com",
+    "title": "PRIMARY EMAIL",
+    "detail": "phuongnam.ai.work@gmail.com",
+    "href": "mailto:phuongnam.ai.work@gmail.com",
     "group": "DIRECT CONTACT",
     "order": 1
   },
   {
-    "slug": "kakao-mail",
-    "title": "KAKAO MAIL",
-    "detail": "Natsukaze.work@kakao.com",
-    "href": "mailto:Natsukaze.work@kakao.com",
+    "slug": "fpt-mail",
+    "title": "FPT UNIVERSITY MAIL",
+    "detail": "namdp.fptu@gmail.com",
+    "href": "mailto:namdp.fptu@gmail.com",
     "group": "DIRECT CONTACT",
     "order": 2
   },
   {
-    "slug": "instagram",
-    "title": "INSTAGRAM",
-    "detail": "@kimi.ga.kawaii",
-    "href": "https://www.instagram.com/kimi.ga.kawaii",
-    "group": "SOCIAL CHANNELS",
+    "slug": "resume-cv",
+    "title": "CURRICULUM VITAE (CV)",
+    "detail": "Download PDF Resume (2026)",
+    "href": "/cv.pdf",
+    "group": "DIRECT CONTACT",
     "order": 3
   },
   {
-    "slug": "tiktok",
-    "title": "TIKTOK",
-    "detail": "@kimigakawaii_desu",
-    "href": "https://www.tiktok.com/@kimigakawaii_desu",
-    "group": "SOCIAL CHANNELS",
+    "slug": "github",
+    "title": "GITHUB PROFILE",
+    "detail": "github.com/zafkielzz",
+    "href": "https://github.com/zafkielzz",
+    "group": "WORK & CODE",
     "order": 4
   },
   {
-    "slug": "youtube",
-    "title": "YOUTUBE",
-    "detail": "@kimigakawai",
-    "href": "https://www.youtube.com/@kimigakawai",
+    "slug": "linkedin",
+    "title": "LINKEDIN",
+    "detail": "Đặng Phương Nam on LinkedIn",
+    "href": "https://linkedin.com",
     "group": "SOCIAL CHANNELS",
     "order": 5
   },
   {
-    "slug": "twitch",
-    "title": "TWITCH",
-    "detail": "kimigakawaii_desu",
-    "href": "https://www.twitch.tv/kimigakawaii_desu",
-    "group": "SOCIAL CHANNELS",
+    "slug": "scholar",
+    "title": "RESEARCH & SCHOLAR",
+    "detail": "Journal Publication Archive",
+    "href": "/work/journal-publication",
+    "group": "WORK & CODE",
     "order": 6
   },
   {
-    "slug": "x-twitter",
-    "title": "X / TWITTER",
-    "detail": "@kimigakawaii_",
-    "href": "https://x.com/kimigakawaii_",
+    "slug": "facebook",
+    "title": "FACEBOOK",
+    "detail": "Đặng Phương Nam",
+    "href": "https://facebook.com",
     "group": "SOCIAL CHANNELS",
     "order": 7
-  },
-  {
-    "slug": "pinterest",
-    "title": "PINTEREST",
-    "detail": "Kimigakawaii",
-    "href": "https://www.pinterest.com/kimigakawaii_/",
-    "group": "SOCIAL CHANNELS",
-    "order": 8
-  },
-  {
-    "slug": "github",
-    "title": "GITHUB",
-    "detail": "kimigakawaii-dev",
-    "href": "https://github.com/kimigakawaii-dev",
-    "group": "WORK, GAMES & SUPPORT",
-    "order": 9
-  },
-  {
-    "slug": "itch-io",
-    "title": "ITCH.IO",
-    "detail": "kimigakawaii-dev",
-    "href": "https://kimigakawaii-dev.itch.io/",
-    "group": "WORK, GAMES & SUPPORT",
-    "order": 10
-  },
-  {
-    "slug": "nexus-mods",
-    "title": "NEXUS MODS",
-    "detail": "Kimigakawaii",
-    "href": "https://www.nexusmods.com/profile/Kimigakawaii",
-    "group": "WORK, GAMES & SUPPORT",
-    "order": 11
-  },
-  {
-    "slug": "ko-fi",
-    "title": "KO-FI",
-    "detail": "Support the work",
-    "href": "https://ko-fi.com/kimigakawaii_",
-    "group": "WORK, GAMES & SUPPORT",
-    "order": 12
-  },
-  {
-    "slug": "patreon",
-    "title": "PATREON",
-    "detail": "Kimigakawaii",
-    "href": "https://www.patreon.com/cw/Kimigakawaii_",
-    "group": "WORK, GAMES & SUPPORT",
-    "order": 13
   }
 ];
 
 export const SITE_METADATA = {
-  name: 'SEIZ / NATSUKAZE',
-  title: 'SEIZ / NATSUKAZE — Midnight barista & AI Archive',
-  eyebrow: '설레SEIZ / NATSUKAZE · MIDNIGHT BARISTA',
-  description: 'AI Engineering, Creative Coding, and Notes on Modern Intelligent Systems.',
-  tagline: 'Experiments, Models & Systems for the Modern AI Era.',
-  bioEn: 'Hello, I’m an AI engineering student preparing to graduate. This is where I write about deep learning, intelligent systems, creative coding, and turning ambitious ideas into polished digital experiences.',
-  bioVi: 'Xin chào, tôi là sinh viên ngành Kỹ thuật AI chuẩn bị tốt nghiệp. Đây là không gian tôi ghi chép về deep learning, hệ thống thông minh, creative coding và hiện thực hóa các ý tưởng thành trải nghiệm số chỉn chu.',
-  status: 'OPEN FOR AI ENGINEER & RESEARCH ROLES',
-  timezone: 'BANGKOK / HANOI / GMT+7',
-  location: 'Vietnam'
+  "name": "ĐẶNG PHƯƠNG NAM",
+  "title": "Đặng Phương Nam — AI Engineer & Researcher | FPT University",
+  "eyebrow": "ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY · AI LAB",
+  "description": "Portfolio & Research Archive của Đặng Phương Nam — Sinh viên năm cuối ngành Trí tuệ Nhân tạo (AI) tại Đại học FPT. Tác giả công bố khoa học tại tạp chí chuyên ngành.",
+  "tagline": "Deep Learning, Intelligent Systems & Scientific Publication.",
+  "bioEn": "Hello, I’m Đặng Phương Nam — a final-year Artificial Intelligence student at FPT University. My work focuses on multimodal deep learning, autonomous multi-agent systems, and production AI engineering. Author of a peer-reviewed scientific journal publication.",
+  "bioVi": "Xin chào, tôi là Đặng Phương Nam — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại Đại học FPT. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, hệ thống Multi-Agent tự trị và kỹ thuật AI thực chiến. Tác giả công bố khoa học tại tạp chí chuyên ngành.",
+  "status": "OPEN FOR AI ENGINEER & RESEARCH ROLES",
+  "timezone": "BANGKOK / HANOI / GMT+7",
+  "location": "Hanoi, Vietnam",
+  "university": "FPT University",
+  "degree": "Bachelor of Science in Artificial Intelligence (Expected 2026)",
+  "cvUrl": "/cv.pdf"
 };

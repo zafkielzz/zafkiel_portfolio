@@ -52,6 +52,21 @@ export const ProjectsPage: React.FC = () => {
                 aria-label={`Read ${proj.name} case study`}
                 to={`/work/${proj.slug}`}
               >
+                {proj.image && (
+                  <img
+                    src={proj.image}
+                    alt={proj.name}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      opacity: 0.65,
+                      transition: 'transform 0.5s cubic-bezier(0.2, 0.72, 0.2, 1), opacity 0.3s ease'
+                    }}
+                  />
+                )}
                 <b>{numStr}</b>
                 <span>{firstLetter}</span>
               </Link>

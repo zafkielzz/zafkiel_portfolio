@@ -8,7 +8,7 @@ export const ContactPage: React.FC = () => {
 
   const directContacts = CONTACTS.filter((c) => c.group === 'DIRECT CONTACT');
   const socialContacts = CONTACTS.filter((c) => c.group === 'SOCIAL CHANNELS');
-  const workContacts = CONTACTS.filter((c) => c.group === 'WORK, GAMES & SUPPORT');
+  const workContacts = CONTACTS.filter((c) => c.group === 'WORK & CODE' || c.group === 'WORK, GAMES & SUPPORT');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,14 +42,14 @@ export const ContactPage: React.FC = () => {
             Find me across the <em>web.</em>
           </h1>
           <p className="contact-lede">
-            Contact me directly, explore my code repositories, discuss AI roles or collaborations—all neatly collected below.
+            Contact me directly, explore my code repositories, discuss AI roles or research collaborations—all neatly collected below.
           </p>
         </div>
       </section>
 
       <div className="contact-status">
         <i />
-        <span>GRADUATING AI STUDENT · EXPLORING OPPORTUNITIES</span>
+        <span>ĐẶNG PHƯƠNG NAM · FINAL-YEAR AI STUDENT @ FPT UNIVERSITY</span>
         <small>2026 EDITION</small>
       </div>
 

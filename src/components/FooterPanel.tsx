@@ -59,7 +59,7 @@ export const FooterPanel: React.FC = () => {
         <div className="footer-meta">
           <div>
             <span>
-              <strong>IDENTITY</strong>MIDNIGHT BARISTA · AI ARCHIVE
+              <strong>IDENTITY</strong>ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY
             </span>
             <span>
               <strong>BROWSER</strong>{meta.browser}
@@ -71,7 +71,7 @@ export const FooterPanel: React.FC = () => {
               <strong>VIEWPORT</strong>{meta.size}
             </span>
             <span>
-              <strong>TIMEZONE</strong>BANGKOK / HANOI (GMT+7)
+              <strong>TIMEZONE</strong>HANOI / GMT+7
             </span>
             <span>
               <strong>STATUS</strong>ONLINE
@@ -91,16 +91,18 @@ export const FooterPanel: React.FC = () => {
               <Link to="/contact">Contact</Link>
             </span>
             <span>
-              <a href="https://github.com/kimigakawaii-dev" target="_blank" rel="noreferrer">
+              <a href="https://github.com/zafkielzz" target="_blank" rel="noreferrer">
                 GitHub
               </a>
-              <a href="https://www.instagram.com/kimi.ga.kawaii" target="_blank" rel="noreferrer">
-                Instagram
+              <a href="/cv.pdf" target="_blank" download="Dang_Phuong_Nam_CV.pdf">
+                Download CV ↗
               </a>
-              <a href="https://ko-fi.com/kimigakawaii_" target="_blank" rel="noreferrer">
-                Support
-              </a>
-              <a href="/rss.xml">RSS</a>
+              <Link to="/work/journal-publication">
+                Journal Paper ↗
+              </Link>
+              <Link to="/contact">
+                Contact
+              </Link>
             </span>
           </div>
         </div>
@@ -111,8 +113,8 @@ export const FooterPanel: React.FC = () => {
       </section>
 
       <footer>
-        <span>© 2026 KIMIGAKAWAII</span>
-        <span>BUILT WITH CURIOSITY</span>
+        <span>© 2026 ĐẶNG PHƯƠNG NAM</span>
+        <span>FPT UNIVERSITY · AI RESEARCH ARCHIVE</span>
       </footer>
     </>
   );
