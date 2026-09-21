@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { BootSequence } from './components/BootSequence';
 import { AmbientEffects } from './components/AmbientEffects';
 import { Dock } from './components/Dock';
@@ -42,8 +42,8 @@ export const App: React.FC = () => {
         <Route path="/work/:slug" element={<ProjectDetailPage />} />
         <Route path="/education" element={<EducationPage />} />
         <Route path="/skills" element={<SkillsPage />} />
-        <Route path="/photos" element={<EducationPage />} />
-        <Route path="/partners" element={<SkillsPage />} />
+        <Route path="/photos" element={<Navigate to="/education" replace />} />
+        <Route path="/partners" element={<Navigate to="/skills" replace />} />
         <Route path="/library" element={<LibraryPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/posts/:slug" element={<PostDetailPage />} />

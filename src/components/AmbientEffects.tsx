@@ -59,7 +59,7 @@ export const AmbientEffects: React.FC = () => {
 
     const targets = Array.from(
       document.querySelectorAll(
-        '.featured-note,.playground,.writing-stats,.history,.reading-index,.about,.glossary-list article,.library-list article,.now-grid section,.article .reaction-bar,.article .related,.article .article-nav,.project-grid,.photo-feature,.photo-notes article,.contact-sheet,.created-sheet,.photo-archive,.partner-process,.partner-directory,.partners-hub,.contact-status,.contact-links>a,.contact-links>button,.contact-foot'
+        '.featured-note,.playground,.writing-stats,.history,.reading-index,.about,.glossary-list article,.library-list article,.now-grid section,.article .reaction-bar,.article .related,.article .article-nav,.project-grid,.contact-status,.contact-links>a,.contact-links>button,.contact-foot'
       )
     );
 

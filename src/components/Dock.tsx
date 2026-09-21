@@ -13,8 +13,8 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
 
   const isHome = location.pathname === '/';
   const isProjects = location.pathname.startsWith('/work');
-  const isEducation = location.pathname.startsWith('/education') || location.pathname.startsWith('/photos');
-  const isSkills = location.pathname.startsWith('/skills') || location.pathname.startsWith('/partners');
+  const isEducation = location.pathname.startsWith('/education');
+  const isSkills = location.pathname.startsWith('/skills');
   const isContact = location.pathname === '/contact';
 
   // Track active section on home page when scrolling
