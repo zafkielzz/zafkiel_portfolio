@@ -5,6 +5,23 @@ export const AmbientEffects: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const location = useLocation();
 
+  // Initialize atmosphere attribute across all pages
+  useEffect(() => {
+    const saved = localStorage.getItem('cafe-mood');
+    if (saved && ['morning', 'afternoon', 'night'].includes(saved)) {
+      document.documentElement.setAttribute('data-atmosphere', saved);
+    } else if (!document.documentElement.getAttribute('data-atmosphere')) {
+      document.documentElement.setAttribute('data-atmosphere', 'morning');
+    }
+  }, []);
+
+  useEffect(() => {
+    // If not on homepage, definitely not in hero
+    if (location.pathname !== '/') {
+      document.body.classList.remove('in-hero');
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     let animFrame: number;
     const onPointerMove = (e: PointerEvent) => {

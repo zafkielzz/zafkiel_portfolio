@@ -480,25 +480,25 @@ html.route-changing main {
 }
 
 /* ========================================================
-   ENHANCED ATMOSPHERE & CURSOR LIGHTING (VIBRANT & DISTINCT)
+   BALANCED ATMOSPHERE & UNIFIED CURSOR LIGHTING
    ======================================================== */
 .hero-photo-image {
   transition: filter 0.7s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
 }
 
 .hero.mood-morning .hero-photo-image {
-  filter: saturate(0.9) contrast(1.06) brightness(0.92) !important;
+  filter: saturate(0.9) contrast(1.05) brightness(0.92) !important;
 }
 
 .hero.mood-afternoon .hero-photo-image {
-  filter: saturate(1.18) contrast(1.1) brightness(0.96) sepia(0.06) !important;
+  filter: saturate(1.15) contrast(1.08) brightness(0.95) sepia(0.06) !important;
 }
 
 .hero.mood-night .hero-photo-image {
   filter: saturate(0.8) contrast(1.16) brightness(0.74) hue-rotate(180deg) !important;
 }
 
-/* Multi-layer Dynamic Cursor Spotlight */
+/* Single-layer Soft Hero Spotlight (Not glaring, perfectly calibrated) */
 .cafe-light {
   --light-x: 55%;
   --light-y: 40%;
@@ -506,82 +506,47 @@ html.route-changing main {
   z-index: 3 !important;
   inset: 0 !important;
   pointer-events: none !important;
-  opacity: 1 !important;
+  opacity: var(--light-opacity, 0.85) !important;
   display: block !important;
   mix-blend-mode: screen !important;
-  transition: opacity 0.5s ease !important;
+  transition: opacity 0.4s ease, background 0.6s ease !important;
 }
 
 .cafe-light::before,
 .cafe-light::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  mix-blend-mode: screen !important;
-  transition: background 0.6s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+  display: none !important;
 }
 
-/* DAWN: Crisp, radiant morning sunlight */
-.cafe-light.mood-morning::before {
+/* DAWN: Warm, soft golden morning light (gentle on eyes) */
+.cafe-light.mood-morning {
   background: radial-gradient(
-    ellipse 75% 65% at var(--light-x) var(--light-y),
-    rgba(255, 235, 185, 0.6) 0%,
-    rgba(255, 195, 115, 0.32) 35%,
-    rgba(235, 140, 50, 0.12) 62%,
-    transparent 82%
-  ) !important;
-}
-
-.cafe-light.mood-morning::after {
-  background: radial-gradient(
-    circle 340px at var(--light-x) var(--light-y),
-    rgba(255, 250, 225, 0.95) 0%,
-    rgba(255, 220, 140, 0.72) 22%,
-    rgba(245, 165, 70, 0.32) 50%,
-    transparent 78%
+    circle 420px at var(--light-x) var(--light-y),
+    rgba(255, 230, 175, 0.46) 0%,
+    rgba(255, 195, 115, 0.24) 32%,
+    rgba(235, 140, 50, 0.08) 58%,
+    transparent 80%
   ) !important;
 }
 
 /* DAY: Rich golden hour & sunset amber warmth */
-.cafe-light.mood-afternoon::before {
+.cafe-light.mood-afternoon {
   background: radial-gradient(
-    ellipse 80% 70% at var(--light-x) var(--light-y),
-    rgba(255, 180, 80, 0.7) 0%,
-    rgba(240, 120, 35, 0.42) 36%,
-    rgba(210, 60, 20, 0.16) 65%,
-    transparent 85%
-  ) !important;
-}
-
-.cafe-light.mood-afternoon::after {
-  background: radial-gradient(
-    circle 380px at var(--light-x) var(--light-y),
-    rgba(255, 230, 150, 0.98) 0%,
-    rgba(255, 160, 50, 0.82) 24%,
-    rgba(225, 80, 25, 0.4) 52%,
-    transparent 78%
+    circle 440px at var(--light-x) var(--light-y),
+    rgba(255, 190, 95, 0.52) 0%,
+    rgba(245, 130, 45, 0.28) 34%,
+    rgba(210, 65, 25, 0.1) 62%,
+    transparent 82%
   ) !important;
 }
 
 /* NIGHT: Nocturne studio - moonlight cyan & neon bioluminescence */
-.cafe-light.mood-night::before {
+.cafe-light.mood-night {
   background: radial-gradient(
-    ellipse 80% 70% at var(--light-x) var(--light-y),
-    rgba(70, 225, 250, 0.6) 0%,
-    rgba(25, 155, 210, 0.38) 36%,
-    rgba(40, 60, 185, 0.18) 65%,
-    transparent 85%
-  ) !important;
-}
-
-.cafe-light.mood-night::after {
-  background: radial-gradient(
-    circle 360px at var(--light-x) var(--light-y),
-    rgba(210, 250, 255, 0.98) 0%,
-    rgba(65, 220, 250, 0.85) 22%,
-    rgba(45, 110, 235, 0.42) 50%,
-    transparent 78%
+    circle 430px at var(--light-x) var(--light-y),
+    rgba(110, 235, 255, 0.48) 0%,
+    rgba(35, 170, 215, 0.25) 34%,
+    rgba(50, 80, 200, 0.09) 62%,
+    transparent 80%
   ) !important;
 }
 
@@ -617,18 +582,58 @@ html.route-changing main {
   box-shadow: 0 0 16px rgba(56, 225, 255, 0.9) !important;
 }
 
-/* Global Ambient Cursor Follow (for the rest of the page) */
+/* ========================================================
+   GLOBAL AMBIENT CURSOR (Active across page below Hero)
+   ======================================================== */
 .ambient-cursor {
+  position: fixed !important;
   z-index: 0 !important;
   top: var(--pointer-y) !important;
   left: var(--pointer-x) !important;
   width: 520px !important;
   height: 520px !important;
   transform: translate(-50%, -50%) !important;
-  opacity: 0.6 !important;
-  background: radial-gradient(circle, rgba(235, 175, 85, 0.22) 0%, rgba(215, 130, 50, 0.08) 38%, transparent 70%) !important;
-  filter: blur(14px) !important;
-  transition: opacity 0.35s ease !important;
+  filter: blur(16px) !important;
+  mix-blend-mode: screen !important;
   pointer-events: none !important;
-  position: fixed !important;
+  transition: opacity 0.35s ease, background 0.5s ease !important;
+  opacity: 0.72 !important;
+}
+
+/* When pointer is inside Hero: Completely hide ambient cursor to prevent duplicate light */
+body.in-hero .ambient-cursor {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Atmosphere-synchronized global ambient light below hero */
+.ambient-cursor,
+html[data-atmosphere="morning"] .ambient-cursor {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(245, 190, 110, 0.32) 0%,
+    rgba(220, 140, 60, 0.14) 38%,
+    rgba(180, 95, 30, 0.04) 60%,
+    transparent 72%
+  ) !important;
+}
+
+html[data-atmosphere="afternoon"] .ambient-cursor {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 155, 65, 0.36) 0%,
+    rgba(225, 100, 35, 0.16) 38%,
+    rgba(185, 65, 20, 0.04) 60%,
+    transparent 72%
+  ) !important;
+}
+
+html[data-atmosphere="night"] .ambient-cursor {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(75, 220, 245, 0.34) 0%,
+    rgba(30, 150, 205, 0.15) 38%,
+    rgba(50, 80, 180, 0.04) 60%,
+    transparent 72%
+  ) !important;
 }

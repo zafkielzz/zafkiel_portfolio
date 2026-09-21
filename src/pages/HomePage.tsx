@@ -23,44 +23,85 @@ export const HomePage: React.FC = () => {
   // Load atmosphere from local storage
   useEffect(() => {
     const saved = localStorage.getItem('cafe-mood') as Atmosphere;
-    if (saved && ['morning', 'afternoon', 'night'].includes(saved)) {
-      setAtmosphere(saved);
-    }
+    const initial = saved && ['morning', 'afternoon', 'night'].includes(saved) ? saved : 'morning';
+    setAtmosphere(initial);
+    document.documentElement.setAttribute('data-atmosphere', initial);
   }, []);
 
-  // Atmospheric cursor light follow
+  // Atmospheric cursor light follow & hero boundary detection
   useEffect(() => {
     const el = cafeLightRef.current;
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let animFrame: number;
-    const heroEl = el.closest('.hero');
-    const handleMove = (e: PointerEvent) => {
+    const heroEl = el.closest('.hero') as HTMLElement | null;
+
+    const updateLight = (e?: PointerEvent) => {
       cancelAnimationFrame(animFrame);
       animFrame = requestAnimationFrame(() => {
-        if (heroEl) {
-          const rect = heroEl.getBoundingClientRect();
-          const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
-          const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
-          el.style.setProperty('--light-x', `${x.toFixed(1)}%`);
-          el.style.setProperty('--light-y', `${y.toFixed(1)}%`);
+        if (!heroEl) return;
+        const rect = heroEl.getBoundingClientRect();
+
+        // If hero is scrolled completely off the screen, hide hero light
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+          el.style.setProperty('--light-opacity', '0');
+          document.body.classList.remove('in-hero');
+          return;
+        }
+
+        if (e) {
+          const isInside =
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom;
+
+          if (isInside) {
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            el.style.setProperty('--light-x', `${x.toFixed(1)}%`);
+            el.style.setProperty('--light-y', `${y.toFixed(1)}%`);
+            el.style.setProperty('--light-opacity', '1');
+            document.body.classList.add('in-hero');
+          } else {
+            // Pointer is OUTSIDE the hero (e.g. scrolled down to articles or hovering nav)
+            el.style.setProperty('--light-opacity', '0');
+            document.body.classList.remove('in-hero');
+          }
         } else {
-          el.style.setProperty('--light-x', `${((e.clientX / window.innerWidth) * 100).toFixed(1)}%`);
-          el.style.setProperty('--light-y', `${((e.clientY / window.innerHeight) * 100).toFixed(1)}%`);
+          // Triggered on scroll
+          if (rect.bottom <= 60) {
+            el.style.setProperty('--light-opacity', '0');
+            document.body.classList.remove('in-hero');
+          }
         }
       });
     };
 
-    window.addEventListener('pointermove', handleMove, { passive: true });
+    const handlePointerMove = (e: PointerEvent) => updateLight(e);
+    const handleScroll = () => updateLight();
+    const handleMouseLeave = () => {
+      el.style.setProperty('--light-opacity', '0');
+      document.body.classList.remove('in-hero');
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
     return () => {
       cancelAnimationFrame(animFrame);
-      window.removeEventListener('pointermove', handleMove);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.body.classList.remove('in-hero');
     };
   }, []);
 
   const changeAtmosphere = (mood: Atmosphere) => {
     setAtmosphere(mood);
     localStorage.setItem('cafe-mood', mood);
+    document.documentElement.setAttribute('data-atmosphere', mood);
   };
 
   // Tags list
