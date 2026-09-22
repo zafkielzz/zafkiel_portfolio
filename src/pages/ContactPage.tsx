@@ -100,8 +100,29 @@ export const ContactPage: React.FC = () => {
         </section>
       </div>
 
+      {/* COZY FIRESIDE BANNER */}
+      <div className="contact-campfire-banner">
+        <div className="campfire-icon-frame">
+          <img
+            src="/images/collaboration-fire.gif"
+            alt="Warm pixel-art hearth Calcifer"
+            width={72}
+            height={72}
+          />
+        </div>
+        <div className="campfire-text">
+          <span className="eyebrow">
+            <i /> PULL UP A CHAIR BY THE FIRE · HỢP TÁC &amp; NGHIÊN CỨU
+          </span>
+          <b>Warm conversations &amp; open opportunities.</b>
+          <p>
+            Whether you want to discuss AI research findings (IEEE IS'26), explore engineering collaborations, or share creative ideas—the hearth is always burning.
+          </p>
+        </div>
+      </div>
+
       {/* QUICK INQUIRY FORM */}
-      <section style={{ maxWidth: '640px', margin: '80px auto 40px', padding: '0 24px' }}>
+      <section style={{ maxWidth: '640px', margin: '60px auto 40px', padding: '0 24px' }}>
         <div className="label" style={{ marginBottom: '24px' }}>
           <span>SEND A DISPATCH</span>
           <span>DIRECT MESSAGE</span>

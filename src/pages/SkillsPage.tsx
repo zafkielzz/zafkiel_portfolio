@@ -295,6 +295,28 @@ export const SkillsPage: React.FC = () => {
         </div>
       </section>
 
+      {/* COLLABORATION & BENCHMARKING CARD */}
+      <div className="skills-collab-card">
+        <div className="skills-collab-fire">
+          <img
+            src="/images/collaboration-fire.gif"
+            alt="Warm pixel hearth Calcifer"
+            width={68}
+            height={68}
+          />
+        </div>
+        <div className="skills-collab-copy">
+          <span>COLLABORATION &amp; BENCHMARKING</span>
+          <b>Have a challenging AI or systems engineering problem?</b>
+          <p>
+            Always open to collaborating on multimodal architectures, custom RAG evaluation benchmarks, and hardware-accelerated model deployment.
+          </p>
+          <Link to="/contact" className="skills-collab-btn">
+            LET’S CONNECT →
+          </Link>
+        </div>
+      </div>
+
       {/* ENGINEERING ARCHITECTURE PHILOSOPHY */}
       <section style={{ margin: '80px 0 20px', padding: '28px', border: '1px dashed var(--line)', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.01)' }}>
         <span style={{ color: 'var(--accent)', font: '600 10px var(--mono)', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>

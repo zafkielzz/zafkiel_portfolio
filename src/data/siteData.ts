@@ -126,50 +126,59 @@ export const POSTS: Post[] = [
       "rag",
       "routing",
       "nlp",
-      "llm",
-      "ai"
+      "llm"
     ],
     "content": "\nOur peer-reviewed research paper introduces Conflict-Aware RAG Routing, accepted and presented at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems (First Author: Dang Phuong Nam).\n\n## Motivation: Beyond Retrieval Relevance\n\nAdaptive model routing can reduce the cost of Retrieval-Augmented Generation (RAG), but the routing signal must accurately identify when a compact local model is likely to fail. Traditional retrieval-aware gates use relevance or rank-based confidence (such as Reciprocal Rank Fusion - RRF). However, high retrieval confidence does not mean the retrieved passages agree.\n\nWhen evidence contains intra-context contradiction or distracting facts, small language models (SLMs) suffer severe reasoning impairment, whereas calling expensive frontier API models for every query incurs unsustainable monetary and latency costs.\n\n## Proposed Architecture: 5-Feature Conflict-Aware Router\n\nWe design a reproducible context-conflict scoring pipeline and a learned router:\n\n1. **Bidirectional NLI Contradiction Scoring**: Evaluates the top 3 parent passages using `cross-encoder/nli-deberta-v3-small` in both input orders to eliminate directional bias: $q_{ij} = [S(p_i, p_j) + S(p_j, p_i)] / 2$. The aggregate conflict score is formulated as:\n   $$C = 0.7 \\max_{q \\in Q} q + 0.3 \\text{mean}_{q \\in Q} q$$\n2. **5-Feature Random Forest**: Combines Context Conflict ($C$) with Query Length, Retrieved Context Length, Chunk Lexical Overlap, and RRF Confidence across 500 trees.\n3. **Leakage-Resistant Nested 5-Fold Calibration**: Budget cutoffs ($b \\in \\{30\\%, 50\\%, 65\\%\\}$) are selected strictly from inner out-of-fold scores to prevent data leakage onto test instances.\n\n## Empirical Benchmark on 3,000 Multi-Hop Questions\n\nWe evaluated the complete pipeline across 3,000 multi-hop reasoning questions from **MuSiQue**, **HotpotQA**, and **2WikiMultiHopQA**, pairing local **Qwen2.5-1.5B-Instruct** with API **DeepSeek-V4-Flash**:\n\n- **Primary Deployment Result**: At an approximately 65% target budget (realized usage 63.9%–65.0% LLM calls), the hybrid router **saves ~35% of API calls** while retaining **83.2%–92.2% of Always-LLM token F1** (83.8% on MuSiQue, 83.2% on HotpotQA, and 92.2% on 2Wiki).\n- **Dataset-Dependent Incremental Effect**: At the 50% budget relative to RRF alone, the hybrid changes token F1 by −1.08 on MuSiQue (95% CI [−2.38, 0.24]), −0.03 on HotpotQA (95% CI [−1.91, 1.86]), and +1.48 on 2Wiki (95% CI [0.08, 2.87], pointwise CI excludes zero).\n- **Diagnostic Subgroup Discovery (High-RRF / High-Conflict)**: In instances where retrieval confidence is high (top third RRF) but passages contradict each other (top third conflict), standard RRF incorrectly retains queries on the SLM. In this subgroup, the hybrid router intervenes effectively, achieving dramatic F1 gains of **+14.35 points on HotpotQA** ($p = 0.006$) and **+6.50 points on 2Wiki** ($p = 0.006$).\n\n<PostCallout title=\"IEEE IS'26 Acceptance & First Authorship\">\nFirst Author: Dang Phuong Nam (FPT University). Accepted and presented at The 13th IEEE International Conference on Intelligent Systems (IEEE IS'26). Full paper available in research archive (paper_93.pdf).\n</PostCallout>\n\n<PostColumns>\n  <PostColumn title=\"Research Manuscript\">\nFull paper manuscript (paper_93.pdf) available for download with complete bootstrap confidence intervals and statistical verifications.\n  </PostColumn>\n  <PostColumn title=\"Reproducible Codebase\">\nComplete experimental pipeline, nested calibration scripts, and feature extractors are open-sourced on GitHub: [RAG_Router_Via_Context_Conflict](https://github.com/RAG-Routing-Via-Context-Confliction/RAG_Router_Via_Context_Conflict).\n  </PostColumn>\n</PostColumns>\n",
     "readingTime": 5
   },
   {
-    "slug": "ai-taste-and-the-human-hand",
-    "title": "AI, taste and the human hand",
-    "date": "2026-08-01T00:00:00.000Z",
-    "summary": "AI can make more options, but it cannot decide which detail deserves to stay. That is still a question of taste.",
+    "slug": "probabilistic-stock-breakout-vietnam",
+    "title": "Probabilistic Modeling of Stock Breakout Success in the Vietnamese Equity Market",
+    "date": "2026-07-10T00:00:00.000Z",
+    "summary": "Công trình nghiên cứu khoa học tại ICITDA 2026 (Đồng tác giả: Đặng Phương Nam): Mô hình hóa xác suất breakout thành công từ nền tích lũy trên TTCK Việt Nam bằng LightGBM và các đặc trưng VCP / SEPA, đạt Precision@10 = 90.0% trên tập out-of-sample.",
     "tags": [
-      "ai",
-      "art",
-      "blog",
-      "creative coding"
+      "icitda 2026",
+      "research",
+      "quantitative finance"
     ],
-    "content": "\nAI has made the first draft cheaper. Images, prompts, code fragments and variations can arrive before the coffee has cooled. That speed is useful, but it changes where the real work begins.\n\n## More options are not more direction\n\nWhen almost anything can be generated, selection becomes part of the craft. A useful creative process needs constraints: a feeling to protect, an audience to respect and a reason for every element that remains. Without those things, a hundred options simply become a more polished form of indecision.\n\nI start with a small brief before opening any tool. It can be as simple as three words, a reference image and one sentence about the response I want from a person. The brief is not there to limit surprise. It is there to give surprise somewhere useful to land.\n\n## Use the machine as a sketchbook\n\nAI is most helpful when it sits early in the process. I use it to test a composition, question an assumption or make a strange connection quickly. It can produce a rough visual direction, a first code experiment or a list of names that I would not have reached alone.\n\nThe final decision still happens slowly. I compare an output against the surrounding page, the tone of the writing and the expectations of the person reading it. A good result is not the most detailed or the most technically impressive one. It is the one that makes the larger piece more coherent.\n\n## Taste is a practice\n\nTaste is not simply preference. It is the ability to notice when something is almost right, then keep working until it becomes clear. It is shaped by references, repetition, conversations and time away from the screen.\n\nThat is why the human hand still matters. It decides when to stop, what to remove and which imperfect detail makes the work feel alive. The goal is not to make work that looks generated. The goal is to make work that feels considered.\n\n## Leave room for responsibility\n\nSpeed does not remove responsibility. Before publishing, I check where an idea came from, whether a reference is being treated fairly and whether the output is useful for the people it reaches. Tools can increase capacity, but they do not replace judgement.\n\nThe most exciting future is not one where people disappear from creative work. It is one where more people can spend their attention on the decisions that matter.\n\n<PostCallout title=\"A practical test\">\nIf a generated idea cannot explain what it is helping a reader notice, it is probably decoration rather than direction.\n</PostCallout>\n\n<PostColumns>\n  <PostColumn title=\"Let AI accelerate\">\nUse it for rough options, early language, alternate compositions and questions that widen a first draft.\n  </PostColumn>\n  <PostColumn title=\"Keep judgement human\">\nUse your own context to decide what belongs, what needs care and what should be removed entirely.\n  </PostColumn>\n</PostColumns>\n",
-    "readingTime": 3
+    "content": "\nOur co-authored research paper, accepted at **The 11th International Conference on Information Technology and Digital Applications (ICITDA 2026)**, formulates stock breakout prediction during price consolidation phases as an event-driven probabilistic machine learning problem on the Vietnamese equity market.\n\n<PostCallout title=\"ICITDA 2026 Acceptance & Co-Authorship\">\nAuthors: Doan Duy Long, Tran Huy Tuan, Dang Phuong Nam, Cao Van Mai (Faculty of Artificial Intelligence, FPT University, Vietnam). Accepted at the 2026 11th International Conference on Information Technology and Digital Applications (ICITDA). (Archive Manuscript · Non-presented).\n</PostCallout>\n\n## Motivation: The False Breakout Problem in Emerging Markets\n\nBreakout trading strategies—such as horizontal resistance breakouts, Donchian channels, and Mark Minervini's Specific Entry Point Analysis (SEPA)—aim to capture rapid acceleration from price consolidation bases. However, classical technical analysis relies on fixed deterministic rules (e.g. price crossing a fixed band), which frequently produce **false breakouts (bẫy tăng giá / bull traps)** in emerging equity markets like Vietnam (VNINDEX).\n\nInstead of treating every price breakout as an equally valid trade, we formulate breakout evaluation as a **probabilistic signal filtering problem**: estimating the calibrated likelihood that a given breakout event will yield a positive risk-adjusted outcome before hitting its stop-loss.\n\n## Causal Data Pipeline & Market Universe\n\nTo prevent lookahead bias and market manipulation artifacts, we enforce strict constraints:\n- **Trading Universe**: 255 liquid Vietnamese equities on HOSE/HNX with market capitalization exceeding 2,500 billion VND (2010–2026), aligned with historical VNINDEX daily data.\n- **Strict Causal Integrity**: All features at time $t$ are derived strictly using information available at $t-1$:\n  $$X_t \\leftarrow X_{t-1}$$\n- **Event Definition & Trade Simulation**: A candidate breakout is identified when the closing price exceeds a 60–100 day rolling ceiling with ATR volatility below threshold. The trade is simulated with entry at the next day's open, Take-Profit ($TP = \\text{Entry} + k \\times \\text{ATR}$), and Stop-Loss ($SL = \\text{Entry} - k \\times \\text{ATR}$) within a 120-day horizon.\n\n## SEPA-Inspired Quantitative Feature Engineering\n\nWe reformulate Minervini's discretionary SEPA methodology into quantitative, computable features:\n\n1. **Volatility Contraction Pattern (VCP)**: Measures successive narrowing of price swings within the consolidation base:\n   $$\\text{VCP Ratio} = \\frac{\\text{ATR}_{14}}{\\text{ATR}_{60}}$$\n   alongside 60-day base depth and 20-day rolling standard deviation of returns.\n2. **Relative Strength (RS Line)**: Tracks individual stock performance relative to the broader VNINDEX benchmark:\n   $$\\text{RS}_t = \\frac{P_{\\text{stock}, t}}{P_{\\text{market}, t}}$$\n   Cross-sectional percentile ranking identifies stocks exhibiting market leadership before breaking out.\n3. **Volume Dry-Up & Breakout Surge**: Compares breakout volume against its 20-day moving average:\n   $$\\text{Vol Ratio}_t = \\frac{V_t}{\\text{SMA}_{20}(V_t)}$$\n4. **Market Regime Conditioning**: VNINDEX trend slopes (MA50, MA200) and rolling drawdowns categorize market state into Downtrend, Neutral, and Uptrend.\n\n## LightGBM Modeling & Dynamic Imbalance Handling\n\nWe train a gradient boosted tree model (**LightGBM**) with 2,000 estimators, learning rate 0.02, early stopping, and dynamic class reweighting:\n$$\\text{scale\\_pos\\_weight} = \\frac{1 - p}{p}$$\nwhere $p$ is the positive class ratio. Time-series cross-validation (`TimeSeriesSplit`, 3 folds) on pre-2024 data ensures no temporal leakage.\n\n## Empirical Out-of-Sample Results (2024–2026 Test Set)\n\nThe framework is benchmarked on an out-of-sample test set from 2024 onwards consisting of 216 strictly time-separated breakout events:\n\n- **Baseline Market Win Rate**: 49.07% (near random coin-flip due to market noise and false breakouts).\n- **High-Conviction Decile Selection (Top-K)**:\n  - **Precision@10 = 0.9000 (90.00% Win Rate)** across the top 10 ranked breakout setups.\n  - **Precision@6 = 0.8333 (83.33% Win Rate)**.\n  - Top 5% percentile win rate: **90.0%**; Top 20% percentile: **74.42%**.\n- **Calibrated Threshold Strategy ($P > 0.8$)**:\n  - Sample size: 40 trades.\n  - **Win Rate: 72.5%**.\n  - **Profit Factor: 4.89** (Average return per trade **+13.94%**, Total return **5.58x**).\n- **Market Regime Robustness**:\n  - Neutral Market Regime: 29 trades, **75.86% Win Rate**.\n  - Uptrend Market Regime: 11 trades, **72.73% Win Rate**.\n\n<PostColumns>\n  <PostColumn title=\"Full Research Manuscript\">\nThe full paper manuscript (icitda_2026_stock_breakout.pdf) is publicly available for academic and quant research review.\n  </PostColumn>\n  <PostColumn title=\"Signal Ranking Insight\">\nThe model's primary value is not directional price guessing, but opportunity ranking: discarding low-probability false breakouts and concentrating capital on asymmetric upside setups.\n  </PostColumn>\n</PostColumns>\n",
+    "readingTime": 5
+  },
+  {
+    "slug": "stock-multitask-transformer",
+    "title": "Multi-Task Transformer for Stock Trend Prediction & Self-Rationalization",
+    "date": "2026-05-18T00:00:00.000Z",
+    "summary": "Đồ án tốt nghiệp tại ĐH FPT (Đặng Phương Nam - Team Leader): Thiết kế kiến trúc Decoder-Only SLM đa nhiệm xử lý dữ liệu lai (chuỗi thời gian giá, văn bản tài chính, ESG) nhằm dự báo xu hướng và tự động sinh giải trình.",
+    "tags": [
+      "capstone",
+      "multimodal",
+      "quantitative finance"
+    ],
+    "content": "\nOur Capstone Project at FPT University tackles a fundamental challenge in quantitative AI: bridging numerical time-series forecasting with textual qualitative reasoning through a unified, parameter-efficient architecture.\n\n## The Dual Modality Dilemma in Equity Markets\n\nQuantitative models traditionally process numerical time series (OHLCV prices, technical factors) via RNNs or specialized Transformers, while fundamental sentiment is extracted independently using LLMs. These disjoint pipelines discard crucial cross-modal correlations:\n- Price movements cannot explain *why* an anomaly occurred.\n- Large LLMs cannot reliably predict numerical volatility or risk boundaries.\n\n## Architecture: Shared Decoder-Only SLM Backbone\n\nWe propose a unified multi-task architecture built on a compact 0.5B parameter language model (Qwen2.5-0.5B) capable of running on edge or consumer GPUs (VRAM < 8GB):\n\n1. **Hybrid Modality Encoders**:\n   - **Time-Series (PatchTST)**: Price series partitioned into non-overlapping patches ($W = 30$ days) with temporal positional encodings.\n   - **Financial Text**: Earnings transcripts and MD&A filings tokenized with segment embeddings.\n   - **Continuous ESG & Fundamentals**: Continuous vector embeddings avoiding categorical discretization.\n2. **Dual-Head Multi-Task Decoding**:\n   - Classification Head: Extracts hidden states from the dedicated `[DECISION]` token for multi-class trend prediction (Up / Neutral / Down).\n   - Autoregressive Generation Head: Generates structured financial rationalization explaining the factors behind the quantitative decision.\n3. **Consistency Loss via NLI Verification**:\n   To prevent hallucinated or conflicting justifications, an auxiliary NLI loss penalizes divergence between the predicted direction and the generated explanation:\n   $$\\mathcal{L}_{\\text{total}} = \\mathcal{L}_{\\text{trend}} + \\lambda_1 \\mathcal{L}_{\\text{gen}} + \\lambda_2 \\mathcal{L}_{\\text{consistency}}$$\n\n<PostCallout title=\"Local On-Premise Deployment\">\nDesigned for privacy-sensitive enterprise environments, the complete model runs locally on consumer-grade hardware (single NVIDIA RTX 4060, < 8GB VRAM) with 4-bit quantization, eliminating continuous cloud API costs.\n</PostCallout>\n",
+    "readingTime": 4
   },
   {
     "slug": "autonomous-multi-agent-systems",
     "title": "Designing Multi-Agent Swarms for Autonomous Research",
-    "date": "2026-06-20T00:00:00.000Z",
-    "summary": "Kinh nghiệm xây dựng đồ án tốt nghiệp: Điều phối mạng lưới các agent tự trị với DAG execution, tool calling và reflection loop.",
+    "date": "2026-03-20T00:00:00.000Z",
+    "summary": "Nghiên cứu điều phối hệ thống Agentic AI: Điều phối mạng lưới các agent tự trị với DAG execution, tool calling và reflection loop.",
     "tags": [
       "agents",
       "llm",
-      "system architecture",
-      "capstone"
+      "system architecture"
     ],
-    "content": "\nBuilding single-prompt LLM applications is straightforward, but coordinating a swarm of autonomous agents with deterministic guarantees is where true engineering begins.\n\n## Contract-driven Agent Protocols\n\nIn our capstone project at FPT University, we transitioned from unstructured conversation chains to strict typed contracts. Each agent—Researcher, Critic, Coder, Validator—receives and returns strictly validated JSON schemas.\n\nWhen an agent fails to meet verification rubrics, a dedicated Reflection Critic provides structured feedback rather than propagating errors downstream.\n\n## The DAG Orchestrator\n\nInstead of open-ended conversational loops that consume runaway token budgets, we modeled task execution as a Directed Acyclic Graph (DAG):\n\n- Dynamic node scheduling based on dependency resolution\n- Sub-second task dispatching with parallel execution branches\n- Checkpointed state snapshots allowing human intervention at critical checkpoints\n\n<PostCallout title=\"System Reliability\">\nDeterministic verification at agent handoff boundaries reduced cascading hallucinations by over 74% in our comparative benchmark trials.\n</PostCallout>\n",
+    "content": "\nBuilding single-prompt LLM applications is straightforward, but coordinating a swarm of autonomous agents with deterministic guarantees is where true engineering begins.\n\n## Contract-driven Agent Protocols\n\nIn our research systems at FPT University, we transitioned from unstructured conversation chains to strict typed contracts. Each agent—Researcher, Critic, Coder, Validator—receives and returns strictly validated JSON schemas.\n\nWhen an agent fails to meet verification rubrics, a dedicated Reflection Critic provides structured feedback rather than propagating errors downstream.\n\n## The DAG Orchestrator\n\nInstead of open-ended conversational loops that consume runaway token budgets, we modeled task execution as a Directed Acyclic Graph (DAG):\n\n- Dynamic node scheduling based on dependency resolution\n- Sub-second task dispatching with parallel execution branches\n- Checkpointed state snapshots allowing human intervention at critical checkpoints\n\n<PostCallout title=\"System Reliability\">\nDeterministic verification at agent handoff boundaries reduced cascading hallucinations by over 74% in our comparative benchmark trials.\n</PostCallout>\n",
     "readingTime": 3
   },
   {
     "slug": "optimizing-rag-hybrid-search",
     "title": "Optimizing RAG Pipelines with Hybrid Search and Reranking",
-    "date": "2026-03-12T00:00:00.000Z",
+    "date": "2026-01-12T00:00:00.000Z",
     "summary": "Tại sao vector similarity thuần túy là không đủ cho enterprise search, và cách kết hợp BM25 + Cross-Encoder reranking.",
     "tags": [
       "rag",
       "nlp",
-      "vector search",
-      "information retrieval"
+      "vector search"
     ],
     "content": "\nCosine similarity over dense embeddings often fails on domain-specific acronyms, exact serial codes, and negative constraint queries.\n\n## The Power of Hybrid Retrieval\n\nBy pairing dense neural embeddings with classical BM25 lexical search through Reciprocal Rank Fusion (RRF), we achieved balanced recall across both conceptual queries and exact keyword lookups.\n\nPassing the top-50 candidates through a lightweight Cross-Encoder reranker prior to context injection into the prompt window significantly improved context precision and answer truthfulness.\n",
     "readingTime": 2
@@ -178,54 +187,13 @@ export const POSTS: Post[] = [
     "slug": "fpt-university-ai-journey",
     "title": "From FPT University Lab to Production AI: Key Takeaways",
     "date": "2025-11-20T00:00:00.000Z",
-    "summary": "Những bài học thực tế sau 4 năm học tập và nghiên cứu AI tại Đại học FPT: Từ thuật toán trên giấy đến mô hình triển khai thực tế.",
+    "summary": "Những bài học thực tế sau 4 năm học tập và nghiên cứu AI tại Đại học FPT: Từ thuật toán trên giấy đến mô hình thực nghiệm và công bố khoa học.",
     "tags": [
       "fptu",
-      "journey",
-      "education",
-      "engineering"
+      "research"
     ],
     "content": "\nStudying Artificial Intelligence at FPT University provided a rigorous foundation in mathematical foundations, machine learning theory, and hands-on capstone engineering.\n\nThe biggest shift from university theory to production reality is realizing that 80% of machine learning success comes from data curation, latency budgeting, and robust system architecture rather than just tweaking model hyperparameters.\n",
     "readingTime": 3
-  },
-  {
-    "slug": "designing-interfaces-that-feel-alive",
-    "title": "Designing interfaces that feel alive",
-    "date": "2025-08-18T00:00:00.000Z",
-    "summary": "Motion is most useful when it explains change, reinforces hierarchy and gives a product a sense of response.",
-    "tags": [
-      "motion",
-      "interface",
-      "design"
-    ],
-    "content": "\nAn interface does not need to move constantly to feel alive. It only needs to acknowledge actions in a way that helps people understand what just happened. Response is more important than spectacle.\n\n## Motion is feedback\n\nThe best transitions make state changes legible. A panel expands from the place it was requested, a selected item carries its position, and a notification appears without stealing focus.\n",
-    "readingTime": 2
-  },
-  {
-    "slug": "tiny-web-experiments",
-    "title": "Tiny web experiments, big learning",
-    "date": "2025-04-14T00:00:00.000Z",
-    "summary": "Small prototypes are a low-risk way to learn rendering, interaction and the limits of an idea.",
-    "tags": [
-      "experiments",
-      "creative coding",
-      "webgl"
-    ],
-    "content": "\nSmall prototypes are a low-risk way to learn rendering, interaction and the limits of a visual idea. They are not miniature products. They are questions with a visible answer.\n",
-    "readingTime": 2
-  },
-  {
-    "slug": "shipping-imperfect-work",
-    "title": "What I learned from shipping imperfect work",
-    "date": "2024-12-05T00:00:00.000Z",
-    "summary": "Shipping is not the end of engineering. It is the start of a feedback loop that turns assumptions into useful information.",
-    "tags": [
-      "process",
-      "engineering",
-      "growth"
-    ],
-    "content": "\nShipping is not the end of engineering. It is the start of a feedback loop that turns assumptions into useful information. A project can feel complete in a private notebook and still reveal entirely new questions when real people interact with it.\n",
-    "readingTime": 2
   }
 ];
 
@@ -290,6 +258,67 @@ export const PROJECTS: ProjectDetail[] = [
         "Nested 5-Fold Calibration & Out-of-Fold Evaluation Pipeline"
       ],
       "reflection": "Context conflict không phải là thước đo độ khó phổ quát cho mọi tập dữ liệu (hiệu quả thực tế phụ thuộc vào phân phối dữ liệu truy xuất). Giá trị thực tiễn cốt lõi của nghiên cứu nằm ở việc nhận diện các vùng lỗi ngoại lệ (high-RRF / high-conflict) — khi điểm tin cậy xếp hạng đánh giá sai độ phức tạp của các đoạn văn bản xung đột — để hỗ trợ can thiệp chuyển tiếp kịp thời."
+    }
+  },
+  {
+    "slug": "probabilistic-stock-breakout-vietnam",
+    "name": "Probabilistic Modeling of Stock Breakout Success in the Vietnamese Equity Market",
+    "year": "2026",
+    "type": "Scientific Publication · ICITDA 2026 (Accepted · Archive Manuscript)",
+    "description": "Nghiên cứu khoa học được chấp thuận tại ICITDA 2026 (Đồng tác giả: Đặng Phương Nam): Mô hình hóa xác suất breakout thành công từ nền tích lũy trên TTCK Việt Nam bằng LightGBM kết hợp bộ đặc trưng Minervini SEPA / VCP, đạt Precision@10 = 90.0% và Win Rate 72.5% tại ngưỡng P > 0.8.",
+    "colors": [
+      "#4ade80",
+      "#14532d"
+    ],
+    "image": "/images/collection-projects.jpg",
+    "role": "Co-Author (Đồng tác giả) · Quantitative ML Researcher",
+    "challenge": "Chiến lược giao dịch breakout từ nền tích lũy (consolidation base) rất phổ biến trong phân tích kỹ thuật nhưng thường xuyên gặp phải hiện tượng bẫy tăng giá (false breakouts / bull traps) tại các thị trường cận biên/mới nổi như Việt Nam (VNINDEX). Các hệ thống truyền thống (Donchian, kênh giá cố định) hoạt động mang tính định tính, thiếu xác suất định lượng và không có cơ chế lọc bỏ nhiễu cấu trúc thị trường.",
+    "outcome": "Xây dựng khung mô hình hóa xác suất theo sự kiện (event-driven) trên vũ trụ 255 cổ phiếu thanh khoản cao sàn HOSE/HNX (vốn hóa > 2,500 tỷ VND) giai đoạn 2010–2026 với cấu trúc nhân quả nghiêm ngặt X_t ← X_{t-1} triệt tiêu lookahead bias. Mô hình LightGBM được tối ưu hóa cùng bộ đặc trưng SEPA / VCP nén biến động và động lượng khối lượng. Đánh giá out-of-sample nghiêm ngặt (2024–2026, 216 sự kiện breakout thực tế): Top-10 dự báo đạt Win Rate 90.00% (Precision@10 = 0.9000); tại ngưỡng xác suất P > 0.8 đạt Win Rate 72.5% với Profit Factor 4.89 và lợi nhuận bình quân +13.94%/giao dịch, duy trì độ ổn định vượt trội trong cả thị trường Neutral (Win Rate 75.86%) lẫn Uptrend (Win Rate 72.73%).",
+    "decisions": [
+      [
+        "Causal Feature Engineering & Zero-Lookahead Pipeline",
+        "Triệt tiêu hoàn toàn rò rỉ dữ liệu tương lai bằng nguyên tắc nhân quả nghiêm ngặt X_t ← X_{t-1}, đồng bộ dữ liệu OHLCV điều chỉnh của 255 cổ phiếu lớn với chỉ số VNINDEX từ 2010 đến 2026."
+      ],
+      [
+        "Định lượng hóa chiến lược Minervini SEPA & Mô hình nén biến động (VCP)",
+        "Chuyển hóa triết lý giao dịch đà tăng trưởng SEPA thành các đặc trưng toán học kiểm chứng được: tỷ số nén ATR(14)/ATR(60), độ sâu nền tích lũy 60 ngày, độ co hẹp phương sai 20 ngày, sức mạnh giá tương quan (RS Line so với VNINDEX) và tỷ lệ nổ vol breakout so với MA20."
+      ],
+      [
+        "Hiệu chuẩn xác suất LightGBM & Lọc tín hiệu bất đối xứng (Precision@10 = 90%)",
+        "Huấn luyện LightGBM với dynamic class reweighting (scale_pos_weight) và TimeSeriesSplit validation. Thay vì chỉ phân loại nhị phân thông thường, mô hình đóng vai trò bộ xếp hạng cơ hội (opportunity ranking filter), cô đọng các lệnh thắng lớn ở nhóm xác suất cao nhất (Top 5% đạt 90% Win Rate, P > 0.8 đạt Profit Factor 4.89)."
+      ]
+    ],
+    "publication": {
+      "conference": "2026 11th International Conference on Information Technology and Digital Applications (ICITDA)",
+      "journal": "The 11th International Conference on Information Technology and Digital Applications (ICITDA 2026)",
+      "authors": "Doan Duy Long, Tran Huy Tuan, Dang Phuong Nam (Đồng tác giả), Cao Van Mai (Faculty of Artificial Intelligence, FPT University)",
+      "date": "Accepted · 2026",
+      "status": "Accepted at ICITDA 2026 · Archive Manuscript (Non-presented)",
+      "abstract": "This paper proposes a probabilistic modeling framework to estimate the likelihood of successful stock breakouts during price consolidation phases in the Vietnamese equity market. Formulating breakout prediction as a supervised machine learning task, we construct a causal feature set capturing price compression, volatility contraction (VCP), volume dynamics, and multi-horizon trend alignment inspired by Minervini's SEPA methodology. Evaluated on a strictly causal panel of 255 liquid Vietnamese equities (>2,500 billion VND market cap) from 2010 to 2026, the trained LightGBM model achieves strong ranking concentration on an out-of-sample test set (2024–2026, 216 breakout events). While the baseline market win rate is 49.07%, the model's Top-10 predictions achieve a 90.00% win rate (Precision@10 = 0.9000, Top-5% = 90.0%). Under a calibrated probability threshold P > 0.8, the strategy realizes a 72.5% win rate, a profit factor of 4.89, and an average trade return of +13.94%, demonstrating high regime robustness across both neutral and bullish market environments.",
+      "pdfUrl": "/icitda_2026_stock_breakout.pdf"
+    },
+    "detail": {
+      "timeline": [
+        [
+          "01 / MARKET PHENOMENON & CAUSAL FORMULATION",
+          "Khảo sát thực trạng false breakouts trên thị trường chứng khoán Việt Nam (VNINDEX); xây dựng pipeline thu thập dữ liệu panel 255 cổ phiếu vốn hóa > 2,500 tỷ VND (2010–2026) với nguyên tắc nhân quả X_t ← X_{t-1}."
+        ],
+        [
+          "02 / SEPA & VCP QUANTITATIVE FEATURE EXTRACTION",
+          "Mô hình hóa các chỉ báo nén biến động ATR(14)/ATR(60), sức mạnh tương đối RS Line, đột biến thanh khoản và áp lực kháng cự 30 ngày; lọc cứng các cổ phiếu không đạt chuẩn đà tăng trưởng."
+        ],
+        [
+          "03 / LIGHTGBM MODELING & OUT-OF-SAMPLE BENCHMARK",
+          "Kiểm định chuỗi thời gian TimeSeriesSplit; đánh giá out-of-sample trên 216 sự kiện breakout từ năm 2024 trở đi. Bài báo được bình duyệt và chấp thuận tại hội nghị quốc tế ICITDA 2026."
+        ]
+      ],
+      "artifacts": [
+        "Full Research Manuscript (icitda_2026_stock_breakout.pdf)",
+        "Strict Causal Data Ingestion & Panel Construction Pipeline",
+        "SEPA / VCP Quantitative Feature Engineering Module",
+        "LightGBM Probability Calibration & Regime Backtest Suite"
+      ],
+      "reflection": "Điểm cốt lõi của nghiên cứu định lượng tài chính không phải là cố gắng dự báo chính xác từng bước nhảy giá ngẫu nhiên, mà là đóng vai trò như một bộ lọc chất lượng (signal filter): kiên nhẫn loại bỏ các bẫy tăng giá giả và chỉ giải ngân vào những cơ hội breakout có xác suất bất đối xứng cao nhất."
     }
   },
   {
@@ -746,6 +775,37 @@ export const PUBLICATION_DATA: PublicationItem = {
     { label: "Benchmark Scale", value: "3,000", note: "Multi-hop reasoning questions" }
   ]
 };
+
+export const ICITDA_PUBLICATION_DATA: PublicationItem = {
+  slug: "probabilistic-stock-breakout-vietnam",
+  title: "Probabilistic Modeling of Stock Breakout Success during Consolidation Phases in the Vietnamese Equity Market",
+  conference: "ICITDA 2026: The 11th International Conference on Information Technology and Digital Applications",
+  role: "Co-Author (Đồng tác giả: Đặng Phương Nam)",
+  date: "2026",
+  status: "Accepted · Archive Manuscript (Non-presented)",
+  abstract: "Breakout strategies from price consolidation frequently suffer from false breakouts in emerging markets. We propose a probabilistic modeling framework combining strictly causal data alignment (X_t ← X_{t-1}) over 255 liquid Vietnamese equities (2010–2026) with Minervini SEPA-inspired volatility contraction (VCP) and volume dynamics. On a 2024–2026 out-of-sample test set (216 breakout events), our LightGBM model achieves Precision@10 = 0.9000 (90.0% win rate vs. 49.07% market baseline) and a 72.5% win rate with 4.89 profit factor at P > 0.8.",
+  authors: [
+    "Doan Duy Long (FPT University)",
+    "Tran Huy Tuan (FPT University)",
+    "Đặng Phương Nam (FPT University)",
+    "Cao Van Mai (Faculty of Artificial Intelligence, FPT University)"
+  ],
+  paperPdf: "/icitda_2026_stock_breakout.pdf",
+  projectSlug: "probabilistic-stock-breakout-vietnam",
+  postSlug: "probabilistic-stock-breakout-vietnam",
+  githubUrl: "https://github.com/zafkielzz",
+  metrics: [
+    { label: "Top-10 Precision", value: "90.00%", note: "Precision@10 (vs 49.07% baseline)" },
+    { label: "P > 0.8 Win Rate", value: "72.5%", note: "40 out-of-sample trades" },
+    { label: "Profit Factor", value: "4.89", note: "Simulated P > 0.8 threshold" },
+    { label: "Equities Universe", value: "255", note: "HOSE/HNX market cap > 2,500B VND" }
+  ]
+};
+
+export const PUBLICATIONS_LIST: PublicationItem[] = [
+  PUBLICATION_DATA,
+  ICITDA_PUBLICATION_DATA
+];
 
 export const CERTIFICATES_DATA: CertificateItem[] = [
   {

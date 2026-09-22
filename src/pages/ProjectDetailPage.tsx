@@ -82,7 +82,7 @@ export const ProjectDetailPage: React.FC = () => {
         >
           <div className="label" style={{ marginTop: 0, paddingTop: 0, borderTop: 0, marginBottom: '16px' }}>
             <span>CONFERENCE CITATION &amp; SCIENTIFIC PUBLICATION</span>
-            <span>ACCEPTED &amp; PRESENTED</span>
+            <span>{project.publication.status ? project.publication.status.toUpperCase() : 'ACCEPTED'}</span>
           </div>
           <h3 style={{ margin: '0 0 12px', fontSize: '20px', letterSpacing: '-0.03em', color: 'var(--text)' }}>
             {project.publication.conference || project.publication.journal}
@@ -103,7 +103,11 @@ export const ProjectDetailPage: React.FC = () => {
               href={project.publication.pdfUrl || '/paper_93.pdf'}
               target="_blank"
               rel="noopener noreferrer"
-              download="Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf"
+              download={
+                project.publication.pdfUrl?.includes('icitda')
+                  ? 'Dang_Phuong_Nam_ICITDA_2026_Stock_Breakout_Modeling.pdf'
+                  : 'Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf'
+              }
               className="random-note"
               style={{
                 textDecoration: 'none',
@@ -115,6 +119,16 @@ export const ProjectDetailPage: React.FC = () => {
             >
               <i>📄</i> DOWNLOAD PAPER (PDF) <span>↓</span>
             </a>
+            <Link
+              to={`/posts/${project.slug}`}
+              className="random-note"
+              style={{
+                textDecoration: 'none',
+                color: 'var(--text)'
+              }}
+            >
+              <i>📖</i> READ TECHNICAL NOTE <span>→</span>
+            </Link>
             {project.githubUrl && (
               <a
                 href={project.githubUrl}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { POSTS, SITE_METADATA } from '../data/siteData';
 import { ScrambleText } from '../components/ScrambleText';
+import { GitHubPulse } from '../components/GitHubPulse';
 
 type Atmosphere = 'morning' | 'afternoon' | 'night';
 type Language = 'en' | 'vi';
@@ -19,6 +20,28 @@ export const HomePage: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState('all');
   const cafeLightRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  // Controlled game-style entrance reveal
+  useEffect(() => {
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      document.documentElement.classList.contains('boot-finished') ||
+      window.sessionStorage.getItem('midnightbarista-booted')
+    ) {
+      const timer = setTimeout(() => setIsRevealed(true), 60);
+      return () => clearTimeout(timer);
+    }
+
+    const onBootDone = () => setIsRevealed(true);
+    window.addEventListener('boot-sequence-finished', onBootDone);
+    const fallback = setTimeout(() => setIsRevealed(true), 1500);
+
+    return () => {
+      window.removeEventListener('boot-sequence-finished', onBootDone);
+      clearTimeout(fallback);
+    };
+  }, []);
 
   // Load atmosphere from local storage
   useEffect(() => {
@@ -139,16 +162,6 @@ export const HomePage: React.FC = () => {
 
   const totalReadingMinutes = POSTS.reduce((acc, p) => acc + p.readingTime, 0);
 
-  // Generate deterministic heatmap data (12 weeks x 7 days or 12x4 blocks)
-  const heatmapLevels = useMemo(() => {
-    return [
-      [1, 2, 0, 3, 1, 4, 2, 0, 1, 3, 2, 4],
-      [2, 0, 3, 1, 2, 0, 3, 4, 2, 1, 3, 2],
-      [0, 3, 1, 2, 4, 1, 2, 3, 0, 2, 4, 3],
-      [3, 1, 4, 0, 2, 3, 1, 2, 4, 3, 1, 2]
-    ];
-  }, []);
-
   return (
     <main id="index">
       {/* HERO SECTION */}
@@ -174,7 +187,7 @@ export const HomePage: React.FC = () => {
           aria-hidden="true"
         />
 
-        <div className="cafe-moods" aria-label="Atmosphere">
+        <div className={`cafe-moods ${isRevealed ? 'hero-game-revealed' : 'hero-game-hidden'}`} aria-label="Atmosphere">
           <span>ATMOSPHERE</span>
           <div>
             {ATMOSPHERES.map((item) => (
@@ -193,7 +206,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <a
-          className="hero-scroll"
+          className={`hero-scroll ${isRevealed ? 'hero-game-revealed' : 'hero-game-hidden'}`}
           href="#articles"
           onClick={(e) => {
             e.preventDefault();
@@ -205,7 +218,7 @@ export const HomePage: React.FC = () => {
           <i aria-hidden="true" />
         </a>
 
-        <div className="hero-copy">
+        <div className={`hero-copy ${isRevealed ? 'hero-game-revealed' : 'hero-game-hidden'}`}>
           <p className="eyebrow">
             <i /> {SITE_METADATA.eyebrow}
           </p>
@@ -248,22 +261,22 @@ export const HomePage: React.FC = () => {
               <p>
                 {lang === 'en' ? (
                   <>
-                    Hello, I’m <strong>Đặng Phương Nam</strong> — a final-year Artificial Intelligence student at <strong>FPT University</strong>. My research focuses on multimodal deep learning, adaptive RAG routing, and on-device Edge AI. <strong>First Author (Tác giả chính)</strong> of accepted &amp; presented paper at <strong>IEEE IS'26</strong>.
+                    Hello, I’m <strong>Đặng Phương Nam</strong> — widely known online as <strong>Zafkiel</strong> (an alias inspired by the Emperor of Time in <em>Date A Live</em>). I’m a final-year Artificial Intelligence student at <strong>FPT University</strong>. Through coursework and research, I’ve worked closely with <strong>Edge Devices</strong>, <strong>Agentic AI workflows</strong>, and architecture optimization. Lately, I’m particularly intrigued by human-centric domains like <strong>Emotional AI</strong>, alongside researching <strong>Multimodal Transformers for financial market forecasting</strong> (my graduation Capstone project).
                   </>
                 ) : (
                   <>
-                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, định tuyến RAG thích ứng và Edge AI tối ưu phần cứng. <strong>Tác giả chính (First Author)</strong> của công trình nghiên cứu khoa học được chấp thuận và trình bày tại hội nghị quốc tế <strong>IEEE IS'26</strong>.
+                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — hay còn được biết đến trên không gian số với biệt danh <strong>Zafkiel</strong> (bắt nguồn từ thiên sứ thời gian trong <em>Date A Live</em>). Tôi là sinh viên năm cuối ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Trong quá trình học tập và nghiên cứu, tôi đã có dịp làm quen với các chủ đề như <strong>Edge Devices</strong>, <strong>Agentic AI</strong> và tối ưu kiến trúc mô hình. Thời gian gần đây, tôi đặc biệt hứng thú với những hướng đi mới mẻ giàu tính tương tác như <strong>Emotional AI</strong> (Trí tuệ nhân tạo cảm xúc), cũng như ứng dụng <strong>Multimodal Transformers cho thị trường chứng khoán</strong> (dự án Capstone tốt nghiệp).
                   </>
                 )}
               </p>
               <p>
                 {lang === 'en' ? (
                   <>
-                    Each note deconstructs complex machine learning architectures, journal research findings, and agentic workflows through <strong>playgrounds, visualizations</strong> and clear architectural breakdowns.
+                    Away from the terminal, I’m an avid <strong>anime fan and gamer</strong>. I also hit the <strong>gym</strong> regularly to maintain self-discipline — and as an honest way to <em>"touch grass"</em> after long stretches in front of the screen. This website is my personal corner for archiving engineering prototypes, thoughts, and technical notes.
                   </>
                 ) : (
                   <>
-                    Mỗi ghi chép đều đơn giản hóa các kiến trúc học máy phức tạp, phương pháp nghiên cứu và hệ thống tác tử thông qua <strong>playgrounds, visualizations trực quan</strong> và các bài phân tích kiến trúc chi tiết.
+                    Rời khỏi màn hình máy tính, sở thích của tôi là xem <strong>anime</strong> và <strong>chơi game</strong>. Tôi cũng duy trì việc <strong>tập gym</strong> đều đặn để rèn luyện tính kỷ luật — và xem đó như một cách hiệu quả để <em>"chạm cỏ"</em> sau những giờ dài làm việc với code và dữ liệu. Đây là không gian nhỏ nơi tôi lưu trữ các thử nghiệm kỹ thuật và chia sẻ lại những điều mình học được.
                   </>
                 )}
               </p>
@@ -333,38 +346,113 @@ export const HomePage: React.FC = () => {
         </section>
       )}
 
-      {/* WRITING / ACTIVITY PULSE */}
-      <section className="writing-stats">
-        <div className="label">
-          <span>AI RESEARCH &amp; WRITING PULSE</span>
-          <span>ARCHIVE AT A GLANCE</span>
-        </div>
-        <div className="stat-row">
-          <div>
-            <b>{POSTS.length}</b>
-            <span>NOTES PUBLISHED</span>
+      {/* SECONDARY SCIENTIFIC HIGHLIGHT: ICITDA 2026 QUANT RESEARCH */}
+      <section
+        className="icitda-highlight-section"
+        style={{
+          maxWidth: '1000px',
+          margin: '24px auto 0',
+          padding: '0 24px'
+        }}
+        aria-label="ICITDA 2026 Quantitative Finance Research"
+      >
+        <div
+          style={{
+            background: 'linear-gradient(135deg, rgba(20, 32, 25, 0.85), rgba(14, 22, 18, 0.95))',
+            border: '1px solid rgba(74, 222, 128, 0.32)',
+            borderRadius: '14px',
+            padding: '28px 32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '24px',
+            flexWrap: 'wrap',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '160px',
+              height: '160px',
+              background: 'radial-gradient(circle at 100% 0%, rgba(74, 222, 128, 0.14), transparent 70%)',
+              pointerEvents: 'none'
+            }}
+          />
+          <div style={{ flex: '1 1 520px', position: 'relative', zIndex: 1 }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  background: 'rgba(74, 222, 128, 0.16)',
+                  color: '#86efac',
+                  border: '1px solid rgba(74, 222, 128, 0.45)',
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  font: '600 10px var(--mono)',
+                  letterSpacing: '0.06em'
+                }}
+              >
+                ICITDA 2026 ACCEPTED
+              </span>
+              <span style={{ color: '#6ee7b7', font: '10px var(--mono)', letterSpacing: '0.05em' }}>
+                CO-AUTHOR · QUANTITATIVE ML &amp; FINANCE (ARCHIVE MANUSCRIPT)
+              </span>
+            </div>
+            <h3
+              style={{
+                margin: '0 0 10px',
+                font: '400 clamp(19px, 2.2vw, 25px) Georgia, serif',
+                color: '#f0fdf4',
+                lineHeight: 1.25
+              }}
+            >
+              {lang === 'en'
+                ? 'Probabilistic Modeling of Stock Breakout Success in the Vietnamese Equity Market'
+                : 'Mô Hình Hóa Xác Suất Breakout Thành Công Trên TTCK Việt Nam (ICITDA 2026)'}
+            </h3>
+            <p style={{ margin: 0, color: '#a7f3d0', fontSize: '13px', lineHeight: 1.65, opacity: 0.9 }}>
+              {lang === 'en'
+                ? 'Co-authored research paper accepted at ICITDA 2026. Modeling consolidation breakouts with LightGBM and Minervini SEPA / VCP features on 255 liquid equities (HOSE/HNX, 2010–2026) under strict causal constraints. Achieved Precision@10 = 90.0% and 72.5% win rate at P > 0.8 on out-of-sample test data.'
+                : 'Công trình nghiên cứu khoa học đồng tác giả được chấp thuận tại ICITDA 2026. Ứng dụng LightGBM kết hợp bộ đặc trưng SEPA / VCP nén biến động trên 255 cổ phiếu vốn hóa lớn VNINDEX (2010–2026), đạt Precision@10 = 90.0% và Win Rate 72.5% tại ngưỡng xác suất P > 0.8 trên tập out-of-sample.'}
+            </p>
           </div>
-          <div>
-            <b>{allTags.length}</b>
-            <span>TOPICS EXPLORED</span>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+            <Link
+              to="/work/probabilistic-stock-breakout-vietnam"
+              className="project-action-btn primary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              {lang === 'en' ? 'CASE STUDY →' : 'XEM CASE STUDY →'}
+            </Link>
+            <Link
+              to="/posts/probabilistic-stock-breakout-vietnam"
+              className="project-action-btn secondary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              {lang === 'en' ? 'READ NOTE →' : 'ĐỌC BÀI VIẾT →'}
+            </Link>
+            <a
+              href="/icitda_2026_stock_breakout.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-action-btn secondary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              PDF <span>↓</span>
+            </a>
           </div>
-          <div>
-            <b>{totalReadingMinutes}</b>
-            <span>MINUTES TO READ</span>
-          </div>
-        </div>
-
-        {/* Contribution Heatmap */}
-        <div className="heatmap" aria-label="Activity heatmap">
-          {heatmapLevels.flat().map((lvl, idx) => (
-            <i
-              key={idx}
-              className={`level-${lvl}`}
-              title={`Activity block ${idx + 1}: Level ${lvl}`}
-            />
-          ))}
         </div>
       </section>
+
+      {/* GITHUB ACTIVITY & RESEARCH PULSE */}
+      <GitHubPulse
+        postsCount={POSTS.length}
+        topicsCount={allTags.length}
+        lang={lang}
+      />
 
       {/* ARTICLES SHELF */}
       <section id="articles" className="articles reading-index">
@@ -476,7 +564,7 @@ export const HomePage: React.FC = () => {
             <div>
               <span>01 / PROJECTS</span>
               <h3>Things made with intention.</h3>
-              <p>AI agent architectures, machine learning models, and interactive web experiments.</p>
+              <p>Adaptive RAG routing, quantitative equity breakouts, multimodal SLMs, and Edge AI.</p>
               <b>EXPLORE PROJECTS →</b>
             </div>
           </Link>
@@ -501,7 +589,7 @@ export const HomePage: React.FC = () => {
             <div>
               <span>02 / EDUCATION &amp; CERTS</span>
               <h3>Formal study &amp; publications.</h3>
-              <p>FPT University AI major, IEEE IS'26 First Author scientific publication, and verified credentials.</p>
+              <p>FPT University AI major, IEEE IS'26 (First Author) &amp; ICITDA 2026 conference research, and verified credentials.</p>
               <b>VIEW ACADEMIC RECORD →</b>
             </div>
           </Link>
@@ -530,6 +618,63 @@ export const HomePage: React.FC = () => {
               <b>EXPLORE TECH STACK →</b>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* CAMPFIRE RESEARCH & COLLABORATION SPOTLIGHT */}
+      <section className="partner-intro" aria-label="Collaboration and research partnerships">
+        <div className="partner-intro-aside">
+          <span>{lang === 'en' ? 'OPEN TO SELECT COLLABORATIONS' : 'MỞ RỘNG HỢP TÁC & NGHIÊN CỨU'}</span>
+          <div className="fire-gif-frame">
+            <img
+              src="/images/collaboration-fire.gif"
+              alt="Animated pixel-art fireplace Calcifer"
+              width={180}
+              height={180}
+              loading="lazy"
+            />
+            <span className="fire-glow" aria-hidden="true" />
+          </div>
+        </div>
+        <div className="partner-intro-copy">
+          <p className="eyebrow">
+            <i /> {lang === 'en' ? 'COLLABORATION & OPEN IDEAS' : 'HỢP TÁC & Ý TƯỞNG CỞI MỞ'}
+          </p>
+          <h2>
+            {lang === 'en' ? (
+              <>
+                For research labs, studios &amp; teams with a <em>story worth shaping.</em>
+              </>
+            ) : (
+              <>
+                Dành cho các phòng lab, studio &amp; đội ngũ cùng <em>kiến tạo giá trị mới.</em>
+              </>
+            )}
+          </h2>
+          <p>
+            {lang === 'en'
+              ? 'From multimodal deep learning architectures and adaptive RAG routing to Edge AI deployment and creative interactive systems—every meaningful breakthrough starts with a thoughtful conversation by the hearth.'
+              : 'Từ kiến trúc Deep Learning đa phương thức, định tuyến RAG thích ứng đến tối ưu hóa Edge AI và hệ thống tương tác—mọi công trình đột phá đều bắt đầu từ một buổi trò chuyện cởi mở bên ánh lửa.'}
+          </p>
+          <div className="partner-actions">
+            <Link to="/contact" className="partner-btn primary">
+              {lang === 'en' ? 'START A CONVERSATION →' : 'KẾT NỐI NGAY →'}
+            </Link>
+            <a
+              href="mailto:phuongnam060204@gmail.com"
+              className="partner-btn secondary"
+            >
+              phuongnam060204@gmail.com ↗
+            </a>
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              download="Dang_Phuong_Nam_CV.pdf"
+              className="partner-btn secondary"
+            >
+              {lang === 'en' ? 'DOWNLOAD CV ↓' : 'TẢI CV (PDF) ↓'}
+            </a>
+          </div>
         </div>
       </section>
 

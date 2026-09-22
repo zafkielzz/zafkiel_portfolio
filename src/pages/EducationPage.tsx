@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   EDUCATION_DATA,
-  PUBLICATION_DATA,
+  PUBLICATIONS_LIST,
   CERTIFICATES_DATA,
   FPT_BADGES_DATA,
   CertificateItem
@@ -158,129 +158,144 @@ export const EducationPage: React.FC = () => {
         </article>
       </section>
 
-      {/* PEER-REVIEWED PUBLICATION SPOTLIGHT */}
+      {/* PEER-REVIEWED PUBLICATION & RESEARCH SPOTLIGHT */}
       <section style={{ margin: '80px 0 60px' }}>
         <div className="label">
-          <span>02 / SCIENTIFIC CONTRIBUTION</span>
-          <span>PEER-REVIEWED PUBLICATION</span>
+          <span>02 / SCIENTIFIC CONTRIBUTIONS</span>
+          <span>CONFERENCE PAPERS &amp; RESEARCH ARCHIVE</span>
         </div>
 
-        <article
-          style={{
-            background: 'linear-gradient(145deg, rgba(32, 26, 21, 0.8), rgba(20, 18, 16, 0.95))',
-            border: '1px solid rgba(230, 155, 75, 0.38)',
-            borderRadius: '12px',
-            padding: '36px',
-            marginTop: '24px',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: '180px',
-              height: '180px',
-              background: 'radial-gradient(circle at 100% 0%, rgba(230, 155, 75, 0.18), transparent 70%)',
-              pointerEvents: 'none'
-            }}
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '24px' }}>
+          {PUBLICATIONS_LIST.map((pub) => {
+            const isIcitda = pub.slug.includes('stock-breakout');
+            return (
+              <article
+                key={pub.slug}
+                style={{
+                  background: isIcitda
+                    ? 'linear-gradient(145deg, rgba(22, 34, 26, 0.85), rgba(16, 24, 19, 0.95))'
+                    : 'linear-gradient(145deg, rgba(32, 26, 21, 0.8), rgba(20, 18, 16, 0.95))',
+                  border: isIcitda
+                    ? '1px solid rgba(74, 222, 128, 0.35)'
+                    : '1px solid rgba(230, 155, 75, 0.38)',
+                  borderRadius: '12px',
+                  padding: '36px',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '180px',
+                    height: '180px',
+                    background: isIcitda
+                      ? 'radial-gradient(circle at 100% 0%, rgba(74, 222, 128, 0.16), transparent 70%)'
+                      : 'radial-gradient(circle at 100% 0%, rgba(230, 155, 75, 0.18), transparent 70%)',
+                    pointerEvents: 'none'
+                  }}
+                />
 
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
-            <span
-              style={{
-                background: 'rgba(230, 155, 75, 0.22)',
-                color: '#ffe2b8',
-                border: '1px solid rgba(230, 155, 75, 0.6)',
-                padding: '4px 10px',
-                borderRadius: '4px',
-                font: '600 11px var(--mono)',
-                letterSpacing: '0.07em'
-              }}
-            >
-              {PUBLICATION_DATA.conference}
-            </span>
-            <span
-              style={{
-                color: 'var(--accent)',
-                font: '600 11px var(--mono)',
-                letterSpacing: '0.05em'
-              }}
-            >
-              ✦ {PUBLICATION_DATA.role}
-            </span>
-            <span style={{ color: 'var(--muted)', font: '11px var(--mono)', marginLeft: 'auto' }}>
-              {PUBLICATION_DATA.date} · {PUBLICATION_DATA.status}
-            </span>
-          </div>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
+                  <span
+                    style={{
+                      background: isIcitda ? 'rgba(74, 222, 128, 0.16)' : 'rgba(230, 155, 75, 0.22)',
+                      color: isIcitda ? '#86efac' : '#ffe2b8',
+                      border: isIcitda ? '1px solid rgba(74, 222, 128, 0.5)' : '1px solid rgba(230, 155, 75, 0.6)',
+                      padding: '4px 10px',
+                      borderRadius: '4px',
+                      font: '600 11px var(--mono)',
+                      letterSpacing: '0.07em'
+                    }}
+                  >
+                    {pub.conference}
+                  </span>
+                  <span
+                    style={{
+                      color: isIcitda ? '#4ade80' : 'var(--accent)',
+                      font: '600 11px var(--mono)',
+                      letterSpacing: '0.05em'
+                    }}
+                  >
+                    ✦ {pub.role}
+                  </span>
+                  <span style={{ color: 'var(--muted)', font: '11px var(--mono)', marginLeft: 'auto' }}>
+                    {pub.date} · {pub.status}
+                  </span>
+                </div>
 
-          <h2 style={{ font: '400 clamp(24px, 3vw, 32px) Georgia, serif', margin: '0 0 16px', color: '#fff4e5', lineHeight: '1.2' }}>
-            {PUBLICATION_DATA.title}
-          </h2>
+                <h2 style={{ font: '400 clamp(24px, 3vw, 32px) Georgia, serif', margin: '0 0 16px', color: '#fff4e5', lineHeight: '1.2' }}>
+                  {pub.title}
+                </h2>
 
-          <p style={{ color: '#ccbbaa', fontSize: '15px', lineHeight: '1.7', margin: '0 0 24px' }}>
-            {PUBLICATION_DATA.abstract}
-          </p>
+                <p style={{ color: '#ccbbaa', fontSize: '15px', lineHeight: '1.7', margin: '0 0 24px' }}>
+                  {pub.abstract}
+                </p>
 
-          {/* Benchmark Metrics Grid */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-              gap: '14px',
-              margin: '24px 0',
-              borderTop: '1px solid rgba(230, 155, 75, 0.2)',
-              borderBottom: '1px solid rgba(230, 155, 75, 0.2)',
-              padding: '18px 0'
-            }}
-          >
-            {PUBLICATION_DATA.metrics.map((m) => (
-              <div key={m.label} style={{ padding: '6px 0' }}>
-                <span style={{ color: '#9d8772', font: '10px var(--mono)', display: 'block', letterSpacing: '0.06em' }}>
-                  {m.label}
-                </span>
-                <b style={{ color: '#f5c682', font: '600 24px var(--mono)', display: 'block', margin: '4px 0' }}>
-                  {m.value}
-                </b>
-                <small style={{ color: '#887462', font: '10px var(--mono)' }}>{m.note}</small>
-              </div>
-            ))}
-          </div>
+                {/* Benchmark Metrics Grid */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                    gap: '14px',
+                    margin: '24px 0',
+                    borderTop: isIcitda ? '1px solid rgba(74, 222, 128, 0.2)' : '1px solid rgba(230, 155, 75, 0.2)',
+                    borderBottom: isIcitda ? '1px solid rgba(74, 222, 128, 0.2)' : '1px solid rgba(230, 155, 75, 0.2)',
+                    padding: '18px 0'
+                  }}
+                >
+                  {pub.metrics.map((m) => (
+                    <div key={m.label} style={{ padding: '6px 0' }}>
+                      <span style={{ color: isIcitda ? '#86efac' : '#9d8772', font: '10px var(--mono)', display: 'block', letterSpacing: '0.06em' }}>
+                        {m.label}
+                      </span>
+                      <b style={{ color: isIcitda ? '#86efac' : '#f5c682', font: '600 24px var(--mono)', display: 'block', margin: '4px 0' }}>
+                        {m.value}
+                      </b>
+                      <small style={{ color: '#887462', font: '10px var(--mono)' }}>{m.note}</small>
+                    </div>
+                  ))}
+                </div>
 
-          {/* Publication Links & Artifacts */}
-          <div className="project-actions" style={{ marginTop: '20px' }}>
-            <a
-              href={PUBLICATION_DATA.paperPdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-action-btn primary"
-            >
-              DOWNLOAD MANUSCRIPT (PDF) <span>↓</span>
-            </a>
-            <Link
-              to={`/work/${PUBLICATION_DATA.projectSlug}`}
-              className="project-action-btn secondary"
-            >
-              VIEW RESEARCH STUDY <span>→</span>
-            </Link>
-            <Link
-              to={`/posts/${PUBLICATION_DATA.postSlug}`}
-              className="project-action-btn secondary"
-            >
-              TECHNICAL BREAKDOWN <span>→</span>
-            </Link>
-            <a
-              href={PUBLICATION_DATA.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-action-btn secondary"
-            >
-              CODE REPO <span>↗</span>
-            </a>
-          </div>
-        </article>
+                {/* Publication Links & Artifacts */}
+                <div className="project-actions" style={{ marginTop: '20px' }}>
+                  <a
+                    href={pub.paperPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-action-btn primary"
+                  >
+                    DOWNLOAD MANUSCRIPT (PDF) <span>↓</span>
+                  </a>
+                  <Link
+                    to={`/work/${pub.projectSlug}`}
+                    className="project-action-btn secondary"
+                  >
+                    VIEW RESEARCH STUDY <span>→</span>
+                  </Link>
+                  <Link
+                    to={`/posts/${pub.postSlug}`}
+                    className="project-action-btn secondary"
+                  >
+                    TECHNICAL BREAKDOWN <span>→</span>
+                  </Link>
+                  {pub.githubUrl && (
+                    <a
+                      href={pub.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-action-btn secondary"
+                    >
+                      CODE REPO <span>↗</span>
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       {/* PROFESSIONAL CERTIFICATIONS */}

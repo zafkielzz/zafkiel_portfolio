@@ -89,8 +89,23 @@ export const ProjectsPage: React.FC = () => {
                       </a>
                     )}
                     {proj.publication && (
-                      <span className="project-badge">
-                        IEEE IS'26
+                      <span
+                        className="project-badge"
+                        style={
+                          proj.publication.conference?.includes('ICITDA')
+                            ? {
+                                color: '#4ade80',
+                                background: 'rgba(74, 222, 128, 0.12)',
+                                borderColor: 'rgba(74, 222, 128, 0.35)'
+                              }
+                            : undefined
+                        }
+                      >
+                        {proj.publication.conference?.includes('ICITDA')
+                          ? 'ICITDA 2026'
+                          : proj.publication.conference?.includes('IEEE')
+                          ? "IEEE IS'26"
+                          : 'PUBLICATION'}
                       </span>
                     )}
                     {(proj.year.includes('In Development') || proj.type.includes('Đang')) && (
