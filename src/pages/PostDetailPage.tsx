@@ -18,13 +18,13 @@ export const PostDetailPage: React.FC = () => {
   // Record visit in recently viewed notes
   useEffect(() => {
     if (!slug) return;
-    const historyKey = 'minh-notes-visits';
+    const historyKey = 'zafkiel-notes-visits';
     const existing = JSON.parse(localStorage.getItem(historyKey) || '[]');
     const updated = [slug, ...existing.filter((s: string) => s !== slug)].slice(0, 5);
     localStorage.setItem(historyKey, JSON.stringify(updated));
 
     // Check if saved in bookmarks
-    const savedKey = 'minh-notes-bookmarks';
+    const savedKey = 'zafkiel-notes-bookmarks';
     const bookmarks = JSON.parse(localStorage.getItem(savedKey) || '[]');
     setIsSaved(bookmarks.includes(slug));
   }, [slug]);
@@ -69,7 +69,7 @@ export const PostDetailPage: React.FC = () => {
   const matchingProject = PROJECTS.find((p) => p.slug === post.slug);
 
   const handleToggleSave = () => {
-    const savedKey = 'minh-notes-bookmarks';
+    const savedKey = 'zafkiel-notes-bookmarks';
     const bookmarks: string[] = JSON.parse(localStorage.getItem(savedKey) || '[]');
     let updated: string[];
     if (bookmarks.includes(post.slug)) {
@@ -378,7 +378,7 @@ export const PostDetailPage: React.FC = () => {
   return (
     <main className="article">
       <Link className="back" to="/#articles">
-        ← ALL BLOG POSTS
+        ← SELECTED NOTES
       </Link>
       <p className="eyebrow">
         {formattedDate} · {post.readingTime} MIN READ
@@ -407,7 +407,7 @@ export const PostDetailPage: React.FC = () => {
 
       <div className="tags">
         {post.tags.map((tag) => (
-          <Link key={tag} to={`/#articles`}>
+          <Link key={tag} to={`/?tag=${encodeURIComponent(tag)}#articles`}>
             #{tag}
           </Link>
         ))}
@@ -466,7 +466,11 @@ export const PostDetailPage: React.FC = () => {
             href={matchingProject.publication.pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
-            download="Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf"
+            download={
+              matchingProject.publication.pdfUrl.includes('icitda')
+                ? 'Dang_Phuong_Nam_ICITDA_2026_Stock_Breakout_Modeling.pdf'
+                : 'Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf'
+            }
             style={{
               display: 'inline-flex',
               alignItems: 'center',

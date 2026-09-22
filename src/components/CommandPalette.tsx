@@ -16,7 +16,7 @@ interface CommandItem {
 
 const STATIC_ROUTES: CommandItem[] = [
   { name: 'Index', type: 'Page', href: '/', icon: '↗' },
-  { name: 'Blog', type: 'Section', href: '/#articles', icon: '↗' },
+  { name: 'Selected Notes', type: 'Section', href: '/#articles', icon: '↗' },
   { name: 'Projects', type: 'Page', href: '/work', icon: '↗' },
   { name: 'Education & Certifications', type: 'Page', href: '/education', icon: '↗' },
   { name: 'Technical Skills & Stack', type: 'Page', href: '/skills', icon: '↗' },

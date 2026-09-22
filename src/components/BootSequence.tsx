@@ -21,7 +21,7 @@ export const BootSequence: React.FC = () => {
     // If reduced motion is requested or already booted this session
     if (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      window.sessionStorage.getItem('midnightbarista-booted')
+      window.sessionStorage.getItem('zafkiel-portfolio-booted')
     ) {
       document.documentElement.classList.add('boot-finished');
       setVisible(false);
@@ -86,7 +86,7 @@ export const BootSequence: React.FC = () => {
           setIsFading(true);
           document.documentElement.classList.add('boot-finished');
           window.dispatchEvent(new CustomEvent('boot-sequence-finished'));
-          window.sessionStorage.setItem('midnightbarista-booted', 'true');
+          window.sessionStorage.setItem('zafkiel-portfolio-booted', 'true');
 
           setTimeout(() => {
             if (active) {
@@ -104,7 +104,7 @@ export const BootSequence: React.FC = () => {
         setIsFading(true);
         document.documentElement.classList.add('boot-finished');
         window.dispatchEvent(new CustomEvent('boot-sequence-finished'));
-        window.sessionStorage.setItem('midnightbarista-booted', 'true');
+        window.sessionStorage.setItem('zafkiel-portfolio-booted', 'true');
         setTimeout(() => setVisible(false), 600);
       }
     }, 4500);

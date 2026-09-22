@@ -27,7 +27,7 @@ export const HomePage: React.FC = () => {
     if (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
       document.documentElement.classList.contains('boot-finished') ||
-      window.sessionStorage.getItem('midnightbarista-booted')
+      window.sessionStorage.getItem('zafkiel-portfolio-booted')
     ) {
       const timer = setTimeout(() => setIsRevealed(true), 60);
       return () => clearTimeout(timer);
@@ -41,6 +41,18 @@ export const HomePage: React.FC = () => {
       window.removeEventListener('boot-sequence-finished', onBootDone);
       clearTimeout(fallback);
     };
+  }, []);
+
+  // Handle URL tag parameter (e.g. from PostDetailPage tags)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tagParam = params.get('tag');
+    if (tagParam) {
+      setSelectedTag(tagParam);
+      setTimeout(() => {
+        document.getElementById('articles')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }, []);
 
   // Load atmosphere from local storage

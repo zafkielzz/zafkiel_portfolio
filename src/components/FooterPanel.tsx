@@ -42,7 +42,7 @@ export const FooterPanel: React.FC = () => {
     window.addEventListener('resize', updateTimeAndSize);
 
     // Page visit count
-    const storageKey = 'midnightbarista-page-visits';
+    const storageKey = 'zafkiel-portfolio-page-visits';
     const current = Math.max(92400, Number(window.localStorage.getItem(storageKey) || 0)) + 1;
     window.localStorage.setItem(storageKey, String(current));
     setVisits(current);
@@ -84,7 +84,7 @@ export const FooterPanel: React.FC = () => {
           <div>
             <span>
               <Link to="/">Home</Link>
-              <Link to="/#articles">Blog</Link>
+              <Link to="/#articles">Notes</Link>
               <Link to="/work">Projects</Link>
               <Link to="/education">Education &amp; Certs</Link>
               <Link to="/skills">Technical Skills</Link>
@@ -99,6 +99,9 @@ export const FooterPanel: React.FC = () => {
               </a>
               <Link to="/work/conflict-aware-rag-routing">
                 IEEE IS'26 Paper ↗
+              </Link>
+              <Link to="/work/probabilistic-stock-breakout-vietnam">
+                ICITDA 2026 Paper ↗
               </Link>
               <Link to="/contact">
                 Contact

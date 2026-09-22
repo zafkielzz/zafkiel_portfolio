@@ -7,7 +7,7 @@ export const LibraryPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'toread' | 'finished'>('toread');
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('minh-notes-bookmarks') || '[]');
+    const saved = JSON.parse(localStorage.getItem('zafkiel-notes-bookmarks') || '[]');
     setSavedSlugs(saved);
   }, []);
 
@@ -34,7 +34,7 @@ export const LibraryPage: React.FC = () => {
         if (Array.isArray(imported)) {
           const updated = Array.from(new Set([...savedSlugs, ...imported]));
           setSavedSlugs(updated);
-          localStorage.setItem('minh-notes-bookmarks', JSON.stringify(updated));
+          localStorage.setItem('zafkiel-notes-bookmarks', JSON.stringify(updated));
         }
       } catch {
         alert('Invalid library JSON file.');
