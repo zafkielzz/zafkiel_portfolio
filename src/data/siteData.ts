@@ -656,16 +656,16 @@ export const CONTACTS: ContactItem[] = [
   {
     "slug": "email",
     "title": "PRIMARY EMAIL",
-    "detail": "phuongnam.ai.work@gmail.com",
-    "href": "mailto:phuongnam.ai.work@gmail.com",
+    "detail": "dphuongthuy7@gmail.com",
+    "href": "mailto:dphuongthuy7@gmail.com",
     "group": "DIRECT CONTACT",
     "order": 1
   },
   {
     "slug": "fpt-mail",
-    "title": "FPT UNIVERSITY MAIL",
-    "detail": "namdp.fptu@gmail.com",
-    "href": "mailto:namdp.fptu@gmail.com",
+    "title": "SECONDARY EMAIL",
+    "detail": "dphuongnam2k5@gmail.com",
+    "href": "mailto:dphuongnam2k5@gmail.com",
     "group": "DIRECT CONTACT",
     "order": 2
   },
@@ -688,8 +688,8 @@ export const CONTACTS: ContactItem[] = [
   {
     "slug": "linkedin",
     "title": "LINKEDIN",
-    "detail": "Đặng Phương Nam on LinkedIn",
-    "href": "https://linkedin.com",
+    "detail": "Phương Nam Đặng on LinkedIn",
+    "href": "https://www.linkedin.com/in/phuongnam-dang/",
     "group": "SOCIAL CHANNELS",
     "order": 5
   },
@@ -705,7 +705,7 @@ export const CONTACTS: ContactItem[] = [
     "slug": "facebook",
     "title": "FACEBOOK",
     "detail": "Đặng Phương Nam",
-    "href": "https://facebook.com",
+    "href": "https://www.facebook.com/koutarou.araki.942",
     "group": "SOCIAL CHANNELS",
     "order": 7
   }
