@@ -443,7 +443,7 @@ export const PROJECTS: ProjectDetail[] = [
     "image": "/images/hud-004-cast.jpg",
     "role": "Team Leader · Computer Vision & Edge AI Engineer",
     "challenge": "Nhận diện và phân loại chính xác biển báo giao thông Việt Nam trực tiếp trên điện thoại, không cần Internet, trong điều kiện thực địa phức tạp (camera rung, ngược sáng, biển nhỏ hoặc bị che khuất). Mục tiêu đặt ra: detector mAP@0.5 ≥ 80%, classifier Top-1 ≥ 90%, tổng dung lượng model ≤ 5 MB và tối thiểu 15 FPS trên thiết bị.",
-    "outcome": "Hoàn thiện prototype chạy trên thiết bị Android thật: YOLOv8n (TFLite INT8, 3,19 MB) định vị biển báo, MobileNetV3-Small (TFLite INT8, 1,88 MB) phân loại 48 lớp theo QCVN 41:2019/BGTVT, tracker kiểu ByteTrack kết hợp Kalman filter ổn định box và nhãn. Trên tập test: detector đạt mAP@0.5 82,27% (recall 92,61%), classifier FP32 đạt Top-1 91,92% / Top-5 99,80%, bản INT8 deploy khoảng 89,6%. Tổng hai model 5,07 MB. Tốc độ trên thiết bị thử nghiệm chưa đạt mục tiêu 15 FPS — được ghi nhận rõ trong báo cáo như hướng tối ưu tiếp theo.",
+    "outcome": "Hoàn thiện prototype chạy trên thiết bị Android thật: YOLOv8n (TFLite INT8, 3,19 MB) định vị biển báo, MobileNetV3-Small (TFLite INT8, 1,88 MB) phân loại 48 lớp theo QCVN 41:2019/BGTVT, tracker kiểu ByteTrack kết hợp Kalman filter ổn định box và nhãn. Trên tập test: detector đạt mAP@0.5 82,27% (recall 92,61%), classifier FP32 đạt Top-1 91,92% / Top-5 99,80%, bản INT8 deploy khoảng 89,6%. Tổng hai model 5,07 MB. Tốc độ thực tế trên thiết bị thử nghiệm khoảng 5–6 FPS, chưa đạt mục tiêu 15 FPS — được ghi nhận rõ trong báo cáo như hướng tối ưu tiếp theo.",
     "githubUrl": "https://github.com/VietSign-Edge-AI/VietSign-Edge-AI",
     "decisions": [
       [
@@ -489,55 +489,59 @@ export const PROJECTS: ProjectDetail[] = [
   },
   {
     "slug": "luc-bat-poem-generator",
-    "name": "Lục Bát Poem Generator: Rule-Constrained Vietnamese Poetry Generation",
-    "year": "2025",
-    "type": "Natural Language Processing · Fine-tuning · Constrained Decoding",
-    "description": "Mô hình sinh thơ Lục Bát tiếng Việt áp dụng QLoRA fine-tuning kết hợp bộ giải mã Beam Search ràng buộc âm luật (Bằng/Trắc, số âm tiết, gieo vần).",
+    "name": "Lục Bát Poem Generator: Neural-Symbolic Constrained Generation for Vietnamese Poetry",
+    "year": "2026",
+    "type": "Natural Language Processing · LLM · Constrained Decoding",
+    "description": "Dự án cá nhân sinh thơ Lục Bát chúc Tết theo hướng neural-symbolic: Qwen3-8B đề xuất nội dung, Logits Processor tự viết giữ luật 6/8 tiếng, thanh điệu và vần ngay lúc sinh, verifier + N-best reranker hậu kiểm. Tỷ lệ bài hợp lệ nghiêm ngặt tăng từ 0/12 (Qwen3-8B sinh tự do) lên 12/12 trên tập prompt held-out.",
     "colors": [
       "#cce67f",
       "#3c6b43"
     ],
     "image": "/images/hud-001-kena.jpg",
-    "role": "NLP & LLM Engineer",
-    "challenge": "Thơ Lục Bát là thể thơ truyền thống của Việt Nam với các quy chuẩn luật thơ vô cùng chặt chẽ: số lượng âm tiết luân phiên (câu 6 - câu 8), quy tắc thanh điệu Bằng/Trắc tại các vị trí chẵn 2-4-6-8, và hệ thống gieo vần chéo (vần lưng, vần chân) nghiêm ngặt. Các mô hình ngôn ngữ lớn phổ thông khi sinh thơ thường bị gieo sai vần, lệch số âm tiết hoặc sai luật thanh điệu.",
-    "outcome": "Huấn luyện mô hình sinh thơ tiếng Việt với QLoRA 4-bit trên tập thơ truyền thống, kết hợp cơ chế can thiệp Logit Bias theo luật ngữ âm tại bước giải mã Beam Search, giúp cải thiện đáng kể tỷ lệ tuân thủ luật Bằng/Trắc và gieo vần so với việc sinh văn bản tự do thông thường.",
+    "role": "Solo Project · NLP & LLM Engineer",
+    "challenge": "Thơ Lục Bát có luật rất chặt: câu 6 – câu 8 tiếng luân phiên, Bằng/Trắc tại các vị trí 2-4-6-8, gieo vần lưng và vần chân. LLM giỏi ngữ nghĩa nhưng không đếm được âm tiết: Qwen3-8B sinh tự do chỉ đạt 0/12 bài hợp lệ nghiêm ngặt, điểm khớp vần (RMA) chỉ 2,8%.",
+    "outcome": "Xây dựng pipeline neural-symbolic: creative brief → plan 4 dòng → Qwen3-8B sinh N ứng viên → LucBatLogitsProcessor (ràng buộc cứng: số tiếng, biên xuống dòng, âm tiết hợp lệ; ràng buộc mềm: thanh điệu, vần) → verifier + lexical guard + N-best reranker. Trên 12 prompt held-out, pipeline đạt 12/12 bài hợp lệ với SCR/TCR/RMA = 100/100/100, chi phí can thiệp khoảng 0,84 ms/bước sinh; 195 regression test. Pilot QLoRA trên 117 bài được giữ lại như một negative result có tài liệu đầy đủ.",
     "githubUrl": "https://github.com/zafkielzz/Luc_Bat_Poem_Generator",
     "decisions": [
       [
-        "Phonological Rule Masking",
-        "Xây dựng ma trận mặt nạ ngữ âm (Phonetic Mask) tại bước sinh token, tự động hạ xác suất các token vi phạm thanh Bằng/Trắc hoặc sai vần."
+        "Deterministic → Code, Probabilistic → LLM",
+        "Giao phần đếm âm tiết, ngắt dòng và chặn token vô nghĩa (trie âm tiết) cho code; LLM chỉ đảm nhiệm cảm xúc, hình ảnh và mạch ý."
       ],
       [
-        "QLoRA Fine-tuning on Poetry Corpus",
-        "Fine-tune hiệu quả tham số trên tập dữ liệu hàng nghìn bài thơ Lục Bát chọn lọc để mô hình học cách diễn đạt và nhịp thơ."
+        "Hard vs Soft Constraints",
+        "Chỉ ép cứng (−∞) số tiếng, biên dòng và âm tiết hợp lệ; thanh điệu và vần chỉ bị phạt mềm (tone 1.5, rhyme 3.0) và cho phép vần thông, tránh ép mô hình chọn từ gượng gạo."
       ],
       [
-        "Automated Poetic Evaluation Metric",
-        "Xây dựng bộ công cụ tự động kiểm định số âm tiết, vị trí gieo vần lưng/chân và cấu trúc thanh điệu để đánh giá khách quan."
+        "Verifier, Lexical Guard & N-best Reranker",
+        "Sinh best-of-8, kiểm luật lại sau khi sinh, chặn từ ghép sai ngữ cảnh và xếp hạng ứng viên; bài không đạt sẽ bị REJECT thay vì trả ra thơ sai luật."
+      ],
+      [
+        "Baseline-First & Honest Evaluation",
+        "Đo baseline Qwen3-8B chưa fine-tune trước khi đầu tư SFT; tách bạch metric luật (SCR/TCR/RMA) với chất lượng thơ và thiết kế rubric human evaluation blind 5 tiêu chí."
       ]
     ],
     "detail": {
       "timeline": [
         [
-          "01 / DATA CORPUS & PHONETIC RULES",
-          "Số hóa và làm sạch tập thơ Lục Bát, xây dựng từ điển luật vần và quy tắc âm luật tiếng Việt."
+          "01 / PHONETIC RULES & SYLLABLE ASSETS",
+          "Xây dựng module thanh điệu, vần, vần thông và trie âm tiết tiếng Việt; bộ evaluator SCR/TCR/RMA."
         ],
         [
-          "02 / FINE-TUNING & CONSTRAINED DECODER",
-          "Áp dụng QLoRA 4-bit và cài đặt cơ chế beam search kiểm soát logit bias theo thời gian thực."
+          "02 / LOGITS ENGINE & RERANKER",
+          "Cài đặt LucBatLogitsProcessor với ràng buộc cứng/mềm, verifier, lexical guard và N-best reranker; ablation từng thành phần."
         ],
         [
-          "03 / BENCHMARK & EVALUATION",
-          "Đo lường tỷ lệ chuẩn luật trên tập thơ sinh ra để đối chuẩn và tinh chỉnh bộ mặt nạ ngữ âm."
+          "03 / QLORA PILOT & EVALUATION",
+          "Pilot QLoRA 2 epoch trên 117 bài (96 train / 21 dev); đánh giá held-out 12 prompt và ghi nhận giới hạn về độ tự nhiên."
         ]
       ],
       "artifacts": [
-        "Vietnamese Poetry QLoRA Adapters",
-        "Constrained Beam Search Decoding Engine",
-        "Automated Meter & Rhyme Checker Library",
-        "Interactive Poetry Generation Playground"
+        "LucBatLogitsProcessor (Hard/Soft Constraint Engine)",
+        "Phonetics Library: Tone, Rhyme & Slant-Rhyme Checker",
+        "Verifier, Lexical Guard & N-best Reranker",
+        "195 Regression Tests & Human Evaluation Rubric"
       ],
-      "reflection": "Cơ chế can thiệp logit bias theo quy tắc âm luật tại bước giải mã giúp mô hình tuân thủ cấu trúc thể thơ chặt chẽ hơn nhiều so với việc chỉ dựa vào khả năng học ngầm của mô hình ngôn ngữ tự do."
+      "reflection": "Đúng luật chưa phải là hay. Pipeline kiểm soát hình thức đạt 100%, nhưng khi bị ép theo thanh và vần, mô hình vẫn có lúc chọn từ gượng gạo. Phân biệt rõ ràng giữa \"đúng luật\" và \"thơ hay\" — và báo cáo cả negative result — là bài học quan trọng nhất của dự án."
     }
   },
   {
