@@ -1130,3 +1130,45 @@ html.reveal-ready .skills-collab-card.is-revealed {
 
 
 
+
+/* Language toggle: stack EN/VI in one cell so switching never resizes the hero */
+.localized-stack {
+  display: grid;
+}
+.localized-stack > .localized-copy {
+  grid-area: 1 / 1;
+}
+.localized-stack > .localized-copy[aria-hidden='true'] {
+  visibility: hidden;
+}
+
+/* Mobile dock: drop keyboard-only / redundant items so CV and CONTACT stay visible */
+@media (max-width: 650px) {
+  .dock a:nth-of-type(2),
+  .dock > button:not(.lofi-player),
+  .dock .lofi-player,
+  .dock > span {
+    display: none;
+  }
+  .dock a,
+  .dock button {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+@media (max-width: 380px) {
+  .dock a,
+  .dock button {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Mobile hero: stronger scrim so body copy stays readable over the bright window */
+@media (max-width: 650px) {
+  .hero.hero-photo:before {
+    background: linear-gradient(0deg, #151311, rgba(21, 19, 17, 0.72) 58%, rgba(21, 19, 17, 0.45)) !important;
+  }
+}

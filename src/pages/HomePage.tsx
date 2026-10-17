@@ -252,47 +252,57 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="localized-copy" lang={lang}>
-            <h1 className="localized-title">
-              {lang === 'en' ? (
-                <>
-                  Multimodal AI,<br />
-                  systems &amp; research at<br />
-                  <em>FPT University.</em>
-                </>
-              ) : (
-                <>
-                  Trí tuệ nhân tạo,<br />
-                  hệ thống &amp; nghiên cứu<br />
-                  tại <em>Đại học FPT.</em>
-                </>
-              )}
-            </h1>
+          {/* Both languages share one grid cell so the hero height never changes on toggle */}
+          <div className="localized-stack">
+            {(['en', 'vi'] as Language[]).map((l) => (
+              <div
+                key={l}
+                className="localized-copy"
+                lang={l}
+                aria-hidden={l !== lang}
+              >
+                <h1 className="localized-title">
+                  {l === 'en' ? (
+                    <>
+                      Multimodal AI,<br />
+                      systems &amp; research at<br />
+                      <em>FPT University.</em>
+                    </>
+                  ) : (
+                    <>
+                      Trí tuệ nhân tạo,<br />
+                      hệ thống &amp; nghiên cứu<br />
+                      tại <em>Đại học FPT.</em>
+                    </>
+                  )}
+                </h1>
 
-            <div className="intro">
-              <p>
-                {lang === 'en' ? (
-                  <>
-                    Hello, I’m <strong>Đặng Phương Nam</strong> — widely known online as <strong>Zafkiel</strong> (an alias inspired by the Emperor of Time in <em>Date A Live</em>). I’m a final-year Artificial Intelligence student at <strong>FPT University</strong>. Through coursework and research, I’ve worked closely with <strong>Edge Devices</strong>, <strong>Agentic AI workflows</strong>, and architecture optimization. Lately, I’m particularly intrigued by human-centric domains like <strong>Emotional AI</strong>, alongside researching <strong>Multimodal Transformers for financial market forecasting</strong> (my graduation Capstone project).
-                  </>
-                ) : (
-                  <>
-                    Xin chào, tôi là <strong>Đặng Phương Nam</strong> — hay còn được biết đến trên không gian số với biệt danh <strong>Zafkiel</strong> (bắt nguồn từ thiên sứ thời gian trong <em>Date A Live</em>). Tôi là sinh viên năm cuối ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Trong quá trình học tập và nghiên cứu, tôi đã có dịp làm quen với các chủ đề như <strong>Edge Devices</strong>, <strong>Agentic AI</strong> và tối ưu kiến trúc mô hình. Thời gian gần đây, tôi đặc biệt hứng thú với những hướng đi mới mẻ giàu tính tương tác như <strong>Emotional AI</strong> (Trí tuệ nhân tạo cảm xúc), cũng như ứng dụng <strong>Multimodal Transformers cho thị trường chứng khoán</strong> (dự án Capstone tốt nghiệp).
-                  </>
-                )}
-              </p>
-              <p>
-                {lang === 'en' ? (
-                  <>
-                    Away from the terminal, I’m an avid <strong>anime fan and gamer</strong>. I also hit the <strong>gym</strong> regularly to maintain self-discipline — and as an honest way to <em>"touch grass"</em> after long stretches in front of the screen. This website is my personal corner for archiving engineering prototypes, thoughts, and technical notes.
-                  </>
-                ) : (
-                  <>
-                    Rời khỏi màn hình máy tính, sở thích của tôi là xem <strong>anime</strong> và <strong>chơi game</strong>. Tôi cũng duy trì việc <strong>tập gym</strong> đều đặn để rèn luyện tính kỷ luật — và xem đó như một cách hiệu quả để <em>"chạm cỏ"</em> sau những giờ dài làm việc với code và dữ liệu. Đây là không gian nhỏ nơi tôi lưu trữ các thử nghiệm kỹ thuật và chia sẻ lại những điều mình học được.
-                  </>
-                )}
-              </p>
-            </div>
+                <div className="intro">
+                  <p>
+                    {l === 'en' ? (
+                      <>
+                        Hello, I’m <strong>Đặng Phương Nam</strong> — widely known online as <strong>Zafkiel</strong> (an alias inspired by the Emperor of Time in <em>Date A Live</em>). I’m a final-year Artificial Intelligence student at <strong>FPT University</strong>. Through coursework and research, I’ve worked closely with <strong>Edge Devices</strong>, <strong>Agentic AI workflows</strong>, and architecture optimization. Lately, I’m particularly intrigued by human-centric domains like <strong>Emotional AI</strong>, alongside researching <strong>Multimodal Transformers for financial market forecasting</strong> (my graduation Capstone project).
+                      </>
+                    ) : (
+                      <>
+                        Xin chào, tôi là <strong>Đặng Phương Nam</strong> — hay còn được biết đến trên không gian số với biệt danh <strong>Zafkiel</strong> (bắt nguồn từ thiên sứ thời gian trong <em>Date A Live</em>). Tôi là sinh viên năm cuối ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Trong quá trình học tập và nghiên cứu, tôi đã có dịp làm quen với các chủ đề như <strong>Edge Devices</strong>, <strong>Agentic AI</strong> và tối ưu kiến trúc mô hình. Thời gian gần đây, tôi đặc biệt hứng thú với những hướng đi mới mẻ giàu tính tương tác như <strong>Emotional AI</strong> (Trí tuệ nhân tạo cảm xúc), cũng như ứng dụng <strong>Multimodal Transformers cho thị trường chứng khoán</strong> (dự án Capstone tốt nghiệp).
+                      </>
+                    )}
+                  </p>
+                  <p>
+                    {l === 'en' ? (
+                      <>
+                        Away from the terminal, I’m an avid <strong>anime fan and gamer</strong>. I also hit the <strong>gym</strong> regularly to maintain self-discipline — and as an honest way to <em>"touch grass"</em> after long stretches in front of the screen. This website is my personal corner for archiving engineering prototypes, thoughts, and technical notes.
+                      </>
+                    ) : (
+                      <>
+                        Rời khỏi màn hình máy tính, sở thích của tôi là xem <strong>anime</strong> và <strong>chơi game</strong>. Tôi cũng duy trì việc <strong>tập gym</strong> đều đặn để rèn luyện tính kỷ luật — và xem đó như một cách hiệu quả để <em>"chạm cỏ"</em> sau những giờ dài làm việc với code và dữ liệu. Đây là không gian nhỏ nơi tôi lưu trữ các thử nghiệm kỹ thuật và chia sẻ lại những điều mình học được.
+                      </>
+                    )}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="hero-actions">
