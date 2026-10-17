@@ -7,7 +7,6 @@ export const FooterPanel: React.FC = () => {
     size: '—',
     browser: 'Browser'
   });
-  const [visits, setVisits] = useState(0);
 
   useEffect(() => {
     const updateTimeAndSize = () => {
@@ -40,12 +39,6 @@ export const FooterPanel: React.FC = () => {
     updateTimeAndSize();
     const interval = window.setInterval(updateTimeAndSize, 1000);
     window.addEventListener('resize', updateTimeAndSize);
-
-    // Page visit count
-    const storageKey = 'zafkiel-portfolio-page-visits';
-    const current = Math.max(92400, Number(window.localStorage.getItem(storageKey) || 0)) + 1;
-    window.localStorage.setItem(storageKey, String(current));
-    setVisits(current);
 
     return () => {
       window.clearInterval(interval);
@@ -111,7 +104,10 @@ export const FooterPanel: React.FC = () => {
         </div>
 
         <p className="visit-counter">
-          <i>✦</i> PAGE VISITS <b>{visits.toLocaleString()}</b>
+          <i>✦</i> DESIGN ADAPTED FROM{' '}
+          <a href="https://midnightbarista-work.vercel.app/" target="_blank" rel="noreferrer">
+            <b>MIDNIGHT BARISTA</b>
+          </a>
         </p>
       </section>
 

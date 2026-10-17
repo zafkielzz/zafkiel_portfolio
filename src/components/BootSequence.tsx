@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 const PRELOAD_IMAGES = [
-  '/images/studio-cafe.jpg',
-  '/images/hero-projects.png',
-  '/images/hero-photos.png',
-  '/images/hero-partners.png',
-  '/images/hero-contact.png',
+  '/images/studio-cafe.webp',
+  '/images/hero-projects.webp',
+  '/images/hero-photos.webp',
+  '/images/hero-partners.webp',
+  '/images/hero-contact.webp',
   '/images/collection-projects.jpg',
   '/images/collection-partners.jpg',
   '/images/collaboration-fire.gif'
@@ -34,7 +34,7 @@ export const BootSequence: React.FC = () => {
     const getStatusText = (val: number) => {
       if (val < 28) return 'INITIALIZING NEURAL MATRICES';
       if (val < 65) return 'LOADING MULTIMODAL ROUTERS';
-      if (val < 92) return 'CALIBRATING CAFE ATMOSPHERE';
+      if (val < 92) return 'CALIBRATING ATMOSPHERE';
       return 'AI STUDIO ONLINE · READY';
     };
 
@@ -122,7 +122,7 @@ export const BootSequence: React.FC = () => {
     <div
       className={`boot-sequence boot-ready ${isFading ? 'boot-fading' : ''}`}
       role="status"
-      aria-label="Loading Midnight Barista Archive"
+      aria-label="Loading portfolio"
     >
       <div>
         <div className="boot-ember-wrapper">

@@ -57,7 +57,7 @@ export const SkillsPage: React.FC = () => {
             bottom: 0,
             color: 'transparent'
           }}
-          src="/images/hero-partners.png"
+          src="/images/hero-partners.webp"
         />
         <span className="page-section-hero-shade" />
         <div className="page-section-hero-content">

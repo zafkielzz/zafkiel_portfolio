@@ -208,8 +208,8 @@ export const PROJECTS: ProjectDetail[] = [
       "#e6aa60",
       "#5e320f"
     ],
-    "image": "/images/design-desk.png",
-    "role": "First Author (Tác giả chính) · AI Researcher",
+    "image": "/images/design-desk.webp",
+    "role": "First Author · AI Researcher",
     "challenge": "Các bộ định tuyến RAG thích ứng hiện nay chủ yếu dựa vào độ tương đồng hoặc điểm tin cậy xếp hạng (RRF), không đánh giá liệu các đoạn văn bản được nạp vào có mâu thuẫn dữ kiện với nhau hay không. Khi tài liệu truy xuất chứa mâu thuẫn nội tại hoặc thông tin gây nhiễu, các mô hình nhỏ gọn (SLM) rất dễ bị suy giảm suy luận, trong khi việc gọi API LLM lớn cho mọi câu hỏi gây lãng phí chi phí và độ trễ.",
     "outcome": "Đề xuất mô hình Random Forest 5 đặc trưng (Context Conflict C, Query Length, Context Length, Chunk Overlap, RRF Confidence) với quy trình hiệu chuẩn ngân sách lồng (nested 5-fold calibration chống rò rỉ dữ liệu). Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki) với Qwen2.5-1.5B-Instruct và DeepSeek-V4-Flash: ở mức ~65% lượt gọi, router tiết kiệm ~35% API calls trong khi giữ lại 83.2%–92.2% F1 của Always-LLM. Trong nhóm truy vấn có RRF cao nhưng mâu thuẫn cao (high-RRF/high-conflict), router can thiệp chuyển tiếp lên LLM, đạt F1 gain +14.35 trên HotpotQA và +6.50 trên 2Wiki so với RRF.",
     "decisions": [
@@ -539,58 +539,54 @@ export const PROJECTS: ProjectDetail[] = [
   {
     "slug": "verba-ai-meeting",
     "name": "Verba: AI-Powered Meeting Minutes & Speech-to-Text Platform",
-    "year": "2025",
+    "year": "2026",
     "type": "Speech AI · Full-Stack Platform · LLM Summarization",
-    "description": "Nền tảng hỗ trợ gỡ băng âm thanh cuộc họp và trích xuất biên bản tự động với Faster-Whisper, VAD lọc khoảng lặng, phân tách người nói và LLM tóm tắt có cấu trúc.",
+    "description": "Nền tảng gỡ băng và tóm tắt cuộc họp: người dùng tải lên file ghi âm (.mp3, .wav), hệ thống chuyển giọng nói thành văn bản bằng PhoWhisper/faster-whisper và tóm tắt bằng Gemini API thành nội dung chính, quyết định, công việc và deadline.",
     "colors": [
       "#77b6ff",
       "#0f325e"
     ],
     "image": "/images/hud-005-menu.jpg",
-    "role": "Full-Stack & AI Systems Engineer",
-    "challenge": "Biến các bản ghi âm cuộc họp thành tài liệu biên bản họp có cấu trúc rõ ràng (tóm tắt điều hành, các quyết định chính, danh sách công việc bàn giao - Action Items) trong điều kiện âm thanh nhiều tạp âm, người nói chen lấn và tiếng Việt tự nhiên.",
-    "outcome": "Hiện thực hóa pipeline xử lý âm thanh luồng bất đồng bộ: Silero VAD lọc khoảng lặng tạp âm, Faster-Whisper ASR gỡ băng và PyAnnote phân tách người nói; tích hợp LLM tóm tắt trích xuất danh sách công việc và giao diện web Next.js hỗ trợ đồng bộ âm thanh với văn bản.",
+    "role": "Full-Stack Engineer",
+    "challenge": "Ghi chép biên bản họp thủ công tốn thời gian và dễ bỏ sót các quyết định, đầu việc và deadline quan trọng — đặc biệt với các cuộc họp tiếng Việt dài, nhiều người nói.",
+    "outcome": "Hoàn thiện nền tảng web cho phép người dùng đăng ký tài khoản, tải lên file ghi âm cuộc họp (.mp3, .wav), theo dõi tiến trình xử lý và xem bản gỡ băng. Giọng nói được chuyển thành văn bản bằng PhoWhisper/faster-whisper và lưu trữ trong PostgreSQL; Gemini API tóm tắt thành nội dung chính, quyết định, công việc và deadline. Trình phát âm thanh đồng bộ với văn bản cho phép chỉnh sửa và xuất kết quả ra file .docx, giúp giảm việc ghi chép thủ công và làm nổi bật các nội dung, deadline quan trọng.",
     "githubUrl": "https://github.com/Biggbros/Verba-AI-Meeting-Recognition",
     "decisions": [
       [
-        "Distributed Asynchronous Pipeline",
-        "Sử dụng FastAPI kết hợp Celery và Redis để xử lý song song các tác vụ phân tích âm thanh nặng mà không gây nghẽn máy chủ web."
+        "PhoWhisper / faster-whisper Speech-to-Text",
+        "Tích hợp PhoWhisper (tối ưu cho tiếng Việt) cùng faster-whisper để gỡ băng file ghi âm cuộc họp, lưu bản gỡ băng vào PostgreSQL."
       ],
       [
-        "Faster-Whisper & Speaker Diarization",
-        "Tối ưu hóa mô hình nhận dạng giọng nói với CTranslate2 và phân cụm giọng nói người tham gia họp."
+        "Structured Summarization with Gemini API",
+        "Tóm tắt bản gỡ băng bằng Gemini API thành các phần có cấu trúc: tóm tắt nội dung, quyết định, công việc và deadline."
       ],
       [
-        "Structured LLM Prompt Pipelines",
-        "Thiết kế chuỗi prompt phân tích gỡ băng nhiều chặng: trích xuất tóm tắt điều hành, bảng phân công nhiệm vụ và lịch trình dự án."
-      ],
-      [
-        "Audio-Text Sync Frontend",
-        "Frontend Next.js cho phép nhấp vào từng câu thoại để tua ngay đến vị trí âm thanh tương ứng trong bản ghi âm."
+        "Synchronized Audio Player, Editing & .docx Export",
+        "Trình phát âm thanh đồng bộ với văn bản giúp người dùng đối chiếu, chỉnh sửa bản gỡ băng và xuất kết quả ra file .docx."
       ]
     ],
     "detail": {
       "timeline": [
         [
-          "01 / SPEECH PROCESSING PIPELINE",
-          "Tích hợp VAD lọc tạp âm, Faster-Whisper ASR và mô hình phân tách người nói PyAnnote."
+          "01 / UPLOAD & PROCESSING FLOW",
+          "Xây dựng luồng đăng ký tài khoản, tải lên file ghi âm (.mp3, .wav) và theo dõi tiến trình xử lý với FastAPI."
         ],
         [
-          "02 / ASYNC QUEUE & BACKEND SERVICE",
-          "Xây dựng hàng đợi tác vụ phân tán với Celery và Redis, quản trị lưu trữ media an toàn."
+          "02 / SPEECH-TO-TEXT & SUMMARIZATION",
+          "Tích hợp PhoWhisper/faster-whisper gỡ băng, lưu trữ PostgreSQL và tóm tắt có cấu trúc bằng Gemini API."
         ],
         [
-          "03 / FRONTEND & REAL-TIME DASHBOARD",
-          "Hoàn thiện giao diện Next.js với trình phát âm thanh đồng bộ văn bản và công cụ xuất biên bản họp."
+          "03 / PLAYER, EDITING & EXPORT",
+          "Hoàn thiện trình phát âm thanh đồng bộ văn bản, chức năng chỉnh sửa và xuất biên bản ra .docx."
         ]
       ],
       "artifacts": [
-        "FastAPI Audio Ingestion & Diarization Microservice",
-        "Next.js Interactive Meeting Dashboard",
-        "Distributed Worker Task Queue (Celery/Redis)",
-        "Automated Minutes Generator Engine"
+        "FastAPI Backend & Audio Upload Pipeline",
+        "PhoWhisper / faster-whisper Transcription Module",
+        "Gemini API Meeting Summarization Module",
+        "Synchronized Audio Player & .docx Export"
       ],
-      "reflection": "Để biên bản họp tự động thực sự hữu ích, khâu tiền xử lý âm thanh sạch (lọc khoảng lặng và phân cụm người nói) đóng vai trò then chốt giúp LLM nắm bắt chính xác ngữ cảnh trao đổi và phân công công việc."
+      "reflection": "Giá trị của một công cụ biên bản họp không chỉ nằm ở độ chính xác gỡ băng, mà ở việc biến bản gỡ băng thô thành các quyết định, đầu việc và deadline mà người dùng có thể kiểm tra, chỉnh sửa và chia sẻ ngay."
     }
   },
   {
@@ -714,7 +710,7 @@ export const CONTACTS: ContactItem[] = [
 export const SITE_METADATA = {
   "name": "ĐẶNG PHƯƠNG NAM",
   "title": "Đặng Phương Nam — AI Engineer & Researcher | FPT University",
-  "eyebrow": "ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY · AI LAB",
+  "eyebrow": "ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY ",
   "description": "Portfolio & Research Archive của Đặng Phương Nam — Sinh viên năm cuối ngành Trí tuệ Nhân tạo (AI) tại Đại học FPT. Tác giả chính (First Author) công bố khoa học tại IEEE IS'26.",
   "tagline": "Deep Learning, Intelligent Systems & Scientific Publication.",
   "bioEn": "Hello, I’m Đặng Phương Nam — a final-year Artificial Intelligence student at FPT University. My research focuses on multimodal deep learning, adaptive RAG routing, and on-device Edge AI. First Author of accepted & presented paper at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems.",
@@ -723,16 +719,16 @@ export const SITE_METADATA = {
   "timezone": "BANGKOK / HANOI / GMT+7",
   "location": "Hanoi, Vietnam",
   "university": "FPT University",
-  "degree": "Bachelor of Science in Artificial Intelligence (Expected 2026)",
+  "degree": "Bachelor of Science in Artificial Intelligence (Expected Dec 2027)",
   "cvUrl": "/cv.pdf"
 };
 
 export const EDUCATION_DATA: EducationItem = {
-  degree: "Bachelor of Science in Information Technology",
+  degree: "Bachelor of Science in Artificial Intelligence",
   major: "Artificial Intelligence (Trí tuệ Nhân tạo)",
   institution: "FPT University (Đại học FPT)",
   location: "Hanoi, Vietnam",
-  period: "2022 – 2026 (Expected Graduation)",
+  period: "Oct 2023 – Dec 2027 (Expected Graduation)",
   status: "Final-year Student / Senior Undergraduate",
   description: "Chuyên sâu vào nghiên cứu và phát triển hệ thống Trí tuệ Nhân tạo hiện đại: Deep Learning đa phương thức, tối ưu hóa suy luận mô hình ngôn ngữ lớn (LLM/SLM), kiến trúc định tuyến RAG thích ứng và triển khai Edge AI tối ưu phần cứng.",
   focusAreas: [
@@ -762,7 +758,9 @@ export const PUBLICATION_DATA: PublicationItem = {
   abstract: "Adaptive model routing reduces Retrieval-Augmented Generation (RAG) cost, but traditional retrieval confidence fails when retrieved passages contradict each other. We propose a bidirectional NLI context-conflict scoring mechanism and a 5-feature hybrid random forest router. Evaluated across 3,000 multi-hop reasoning questions (MuSiQue, HotpotQA, 2WikiMultiHopQA), our pipeline saves ~35% of frontier API calls while retaining 83.2%–92.2% of Always-LLM F1 score, with subgroup F1 gains up to +14.35 points in conflicting context scenarios.",
   authors: [
     "Đặng Phương Nam (First Author - FPT University)",
-    "AI Lab Faculty & Research Mentors"
+    "Tran Huy Tuan (FPT University)",
+    "Doan Duy Long (FPT University)",
+    "Cao Van Mai (Faculty of Artificial Intelligence, FPT University)"
   ],
   paperPdf: "/paper_93.pdf",
   projectSlug: "conflict-aware-rag-routing",
@@ -813,8 +811,8 @@ export const CERTIFICATES_DATA: CertificateItem[] = [
     title: "Reinforcement Learning Specialization",
     issuer: "University of Alberta • Alberta Machine Intelligence Institute (Amii)",
     issueDate: "July 2026",
-    credentialId: "UAlberta-Amii-RL-2026",
-    credentialUrl: "https://www.coursera.org/verify/specialization/",
+    credentialId: "6YIVZZJXFS9D",
+    credentialUrl: "https://www.coursera.org/verify/specialization/6YIVZZJXFS9D",
     category: "Advanced AI & Research",
     featured: true,
     skills: [

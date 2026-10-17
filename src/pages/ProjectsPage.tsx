@@ -18,7 +18,7 @@ export const ProjectsPage: React.FC = () => {
             bottom: 0,
             color: 'transparent'
           }}
-          src="/images/hero-projects.png"
+          src="/images/hero-projects.webp"
         />
         <span className="page-section-hero-shade" />
         <div className="page-section-hero-content">

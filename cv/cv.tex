@@ -1,0 +1,154 @@
+% CV — Dang Phuong Nam (based on Jake's Resume template). Build: tectonic cv.tex
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% ---------- Commands ----------
+\newcommand{\resumeItem}[1]{\item\small{{#1 \vspace{-2pt}}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumePubHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{p{0.9\textwidth}@{\extracolsep{\fill}}r}
+      \small\textbf{#1} & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+% ---------- Heading ----------
+\begin{center}
+    \textbf{\Huge \scshape Dang Phuong Nam} \\ \vspace{1pt}
+    \small \href{mailto:dphuongthuy7@gmail.com}{\underline{dphuongthuy7@gmail.com}} $|$
+    \href{https://www.linkedin.com/in/phuongnam-dang/}{\underline{linkedin.com/in/phuongnam-dang}} $|$
+    \href{https://github.com/zafkielzz}{\underline{github.com/zafkielzz}}
+\end{center}
+
+% ---------- Education ----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {FPT University}{Hanoi, Vietnam}
+      {Bachelor of Artificial Intelligence}{Oct 2023 -- Dec 2027 (Expected)}
+  \resumeSubHeadingListEnd
+
+% ---------- Publications ----------
+\section{Publications}
+  \resumeSubHeadingListStart
+    \resumePubHeading
+      {Conflict-Aware RAG Routing: Balancing Cost and Accuracy via Context Contradiction}{2026}
+      \resumeItemListStart
+        \resumeItem{\textbf{Dang Phuong Nam}, Tran Huy Tuan, Doan Duy Long, Cao Van Mai. \textit{13th IEEE International Conference on Intelligent Systems (IEEE IS'26)}. \textbf{First author}; accepted \& presented.}
+      \resumeItemListEnd
+    \resumePubHeading
+      {Probabilistic Modeling of Stock Breakout Success during Consolidation Phases in the Vietnamese Equity Market}{2026}
+      \resumeItemListStart
+        \resumeItem{Doan Duy Long, Tran Huy Tuan, \textbf{Dang Phuong Nam}, Cao Van Mai. \textit{11th International Conference on Information Technology and Digital Applications (ICITDA 2026)}. Accepted.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+% ---------- Experience ----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Full-stack Developer Intern}{Aug 2025 -- Dec 2025}
+      {XTEK}{Hanoi, Vietnam}
+      \resumeItemListStart
+        \resumeItem{Learned full-stack web development through mentored internship projects using React.js and Spring Boot}
+        \resumeItem{Built the frontend of a shoe e-commerce website with React.js}
+        \resumeItem{Developed the backend of a student management system with Spring Boot}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+% ---------- Projects ----------
+\section{Projects}
+  \resumeSubHeadingListStart
+    \resumeProjectHeading
+      {\textbf{Conflict-Aware RAG Routing} $|$ \emph{First Author $|$ Python, PyTorch, Hugging Face, scikit-learn}}{2026}
+      \resumeItemListStart
+        \resumeItem{Designed a bidirectional NLI context-conflict score (DeBERTa-v3 cross-encoder) and a 5-feature Random Forest router deciding between a local Qwen2.5-1.5B and the DeepSeek-V4-Flash API}
+        \resumeItem{Built leakage-resistant nested 5-fold budget calibration; evaluated on 3,000 multi-hop questions}
+        \resumeItem{Saved \textbf{$\sim$35\% of API calls} while retaining \textbf{83.2--92.2\% of Always-LLM F1}; \textbf{+14.35 F1} over RRF-only routing in the high-conflict HotpotQA subgroup ($p = 0.006$)}
+      \resumeItemListEnd
+    \resumeProjectHeading
+      {\textbf{Multi-Task Stock Transformer} $|$ \emph{Capstone, Team Leader $|$ PyTorch, Qwen2.5, PatchTST, QLoRA}}{2026 -- Present}
+      \resumeItemListStart
+        \resumeItem{Leading the design of a shared decoder-only SLM (Qwen2.5-0.5B) that fuses PatchTST price patches, financial text and ESG features for trend classification and generated rationale}
+        \resumeItem{Proposed an NLI-based consistency loss that penalizes rationales contradicting the predicted trend}
+      \resumeItemListEnd
+    \resumeProjectHeading
+      {\textbf{VietSign Edge AI} $|$ \emph{YOLOv8n, MobileNetV3, ByteTrack, TFLite, Android CameraX}}{2025}
+      \resumeItemListStart
+        \resumeItem{Built a two-stage on-device pipeline: YOLOv8n sign detection followed by MobileNetV3-Small classification of 48 Vietnamese traffic sign classes (QCVN 41:2019)}
+        \resumeItem{Added ByteTrack tracking and INT8 TFLite quantization for offline real-time inference on Android}
+      \resumeItemListEnd
+    \resumeProjectHeading
+      {\textbf{Verba} $|$ \emph{Full-Stack Engineer $|$ FastAPI, PostgreSQL, PhoWhisper, Gemini}}{Jan 2026 -- Apr 2026}
+      \resumeItemListStart
+        \resumeItem{Users upload meeting audio and get transcripts summarized into key points, decisions, tasks and deadlines}
+        \resumeItem{Integrated PhoWhisper/faster-whisper STT, Gemini summarization, synced audio player and .docx export}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+% ---------- Skills ----------
+\section{Technical Skills \& Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, Java, TypeScript / JavaScript, SQL} \\
+     \textbf{ML \& Deep Learning}{: PyTorch, Hugging Face Transformers, scikit-learn, LightGBM, QLoRA / PEFT} \\
+     \textbf{LLM \& RAG}{: Hybrid retrieval (BM25 + dense, RRF), NLI cross-encoders, LLM APIs (DeepSeek, Gemini), Whisper} \\
+     \textbf{Computer Vision \& Edge}{: YOLOv8, MobileNetV3, OpenCV, TFLite (INT8)} \\
+     \textbf{Backend \& Tools}{: FastAPI, Spring Boot, React.js, PostgreSQL / pgvector, Docker, Git, Linux} \\
+     \textbf{Certifications}{: NLP Spec. (DeepLearning.AI), Reinforcement Learning Spec. (U. of Alberta), Fundamentals of Deep Learning (NVIDIA), AI Enterprise Workflow (IBM)}
+    }}
+ \end{itemize}
+
+\end{document}

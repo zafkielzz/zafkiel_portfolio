@@ -179,7 +179,7 @@ export const HomePage: React.FC = () => {
       {/* HERO SECTION */}
       <section className={`hero hero-photo mood-${atmosphere}`} data-atmosphere={atmosphere}>
         <img
-          alt="Barista and creative studio workspace bathed in warm morning light"
+          alt="Warm, softly lit study workspace"
           className="hero-photo-image"
           style={{
             position: 'absolute',
@@ -190,7 +190,7 @@ export const HomePage: React.FC = () => {
             right: 0,
             bottom: 0
           }}
-          src="/images/studio-cafe.jpg"
+          src="/images/studio-cafe.webp"
         />
 
         <div
@@ -339,7 +339,7 @@ export const HomePage: React.FC = () => {
               <i /> ACCEPTED &amp; PRESENTED AT IEEE IS'26 CONFERENCE
             </p>
             <span className="featured-meta">
-              IEEE IS'26 · FIRST AUTHOR (TÁC GIẢ CHÍNH) · CONFLICT-AWARE RAG ROUTING
+              IEEE IS'26 · FIRST AUTHOR  · CONFLICT-AWARE RAG ROUTING
             </span>
             <h2>
               {lang === 'en'
@@ -596,7 +596,7 @@ export const HomePage: React.FC = () => {
                 bottom: 0,
                 objectPosition: '63% center'
               }}
-              src="/images/studio-cafe.jpg"
+              src="/images/studio-cafe.webp"
             />
             <div>
               <span>02 / EDUCATION &amp; CERTS</span>
@@ -655,28 +655,28 @@ export const HomePage: React.FC = () => {
           <h2>
             {lang === 'en' ? (
               <>
-                For research labs, studios &amp; teams with a <em>story worth shaping.</em>
+                For research labs &amp; engineering teams with <em>problems worth solving.</em>
               </>
             ) : (
               <>
-                Dành cho các phòng lab, studio &amp; đội ngũ cùng <em>kiến tạo giá trị mới.</em>
+                Dành cho các phòng lab &amp; đội ngũ kỹ thuật cùng <em>giải những bài toán đáng giá.</em>
               </>
             )}
           </h2>
           <p>
             {lang === 'en'
-              ? 'From multimodal deep learning architectures and adaptive RAG routing to Edge AI deployment and creative interactive systems—every meaningful breakthrough starts with a thoughtful conversation by the hearth.'
-              : 'Từ kiến trúc Deep Learning đa phương thức, định tuyến RAG thích ứng đến tối ưu hóa Edge AI và hệ thống tương tác—mọi công trình đột phá đều bắt đầu từ một buổi trò chuyện cởi mở bên ánh lửa.'}
+              ? 'From multimodal deep learning architectures and adaptive RAG routing to Edge AI deployment and interactive AI systems—I am open to research collaborations, internships, and full-time AI engineering roles.'
+              : 'Từ kiến trúc Deep Learning đa phương thức, định tuyến RAG thích ứng đến tối ưu hóa Edge AI và hệ thống AI tương tác—tôi sẵn sàng cho các cơ hội hợp tác nghiên cứu, thực tập và vị trí AI Engineer toàn thời gian.'}
           </p>
           <div className="partner-actions">
             <Link to="/contact" className="partner-btn primary">
               {lang === 'en' ? 'START A CONVERSATION →' : 'KẾT NỐI NGAY →'}
             </Link>
             <a
-              href="mailto:phuongnam060204@gmail.com"
+              href="mailto:dphuongthuy7@gmail.com"
               className="partner-btn secondary"
             >
-              phuongnam060204@gmail.com ↗
+              dphuongthuy7@gmail.com ↗
             </a>
             <a
               href="/cv.pdf"

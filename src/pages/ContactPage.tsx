@@ -30,7 +30,7 @@ export const ContactPage: React.FC = () => {
             bottom: 0,
             color: 'transparent'
           }}
-          src="/images/hero-contact.png"
+          src="/images/hero-contact.webp"
         />
         <span className="page-section-hero-shade" />
         <div className="page-section-hero-content">

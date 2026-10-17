@@ -37,7 +37,7 @@ export const EducationPage: React.FC = () => {
             bottom: 0,
             color: 'transparent'
           }}
-          src="/images/hero-photos.png"
+          src="/images/hero-photos.webp"
         />
         <span className="page-section-hero-shade" />
         <div className="page-section-hero-content">
