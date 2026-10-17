@@ -148,7 +148,7 @@ export const POSTS: Post[] = [
     "slug": "stock-multitask-transformer",
     "title": "Multi-Task Transformer for Stock Trend Prediction & Self-Rationalization",
     "date": "2026-05-18T00:00:00.000Z",
-    "summary": "Đồ án tốt nghiệp tại ĐH FPT (Đặng Phương Nam - Team Leader): Thiết kế kiến trúc Decoder-Only SLM đa nhiệm xử lý dữ liệu lai (chuỗi thời gian giá, văn bản tài chính, ESG) nhằm dự báo xu hướng và tự động sinh giải trình.",
+    "summary": "Đồ án tốt nghiệp tại ĐH FPT (Đặng Phương Nam - Phó nhóm): Thiết kế kiến trúc Decoder-Only SLM đa nhiệm xử lý dữ liệu lai (chuỗi thời gian giá, văn bản tài chính, ESG) nhằm dự báo xu hướng và tự động sinh giải trình.",
     "tags": [
       "capstone",
       "multimodal",
@@ -332,7 +332,7 @@ export const PROJECTS: ProjectDetail[] = [
       "#252ed9"
     ],
     "image": "/images/hud-002-investigation.jpg",
-    "role": "Team Leader · AI System Architect (Đang nghiên cứu & phát triển)",
+    "role": "Vice Team Leader · AI System Architect (Đang nghiên cứu & phát triển)",
     "challenge": "Dự báo thị trường chứng khoán thường đòi hỏi tổng hòa từ nhiều nguồn dữ liệu không đồng nhất: chuỗi thời gian giá (OHLCV), văn bản tài chính (MD&A, Earnings Calls) và chỉ số bền vững (ESG). Các phương pháp truyền thống thường xử lý rời rạc từng nguồn dữ liệu, dẫn đến việc bỏ lỡ tương quan chéo và thiếu cơ chế tự giải trình minh bạch giữa quyết định phân loại và lý lẽ tài chính.",
     "outcome": "Đề xuất và đang hiện thực kiến trúc Shared Decoder-Only SLM (dựa trên Qwen2.5-0.5B) xử lý chuỗi biểu diễn lai từ PatchTST (chuỗi thời gian), Segment Embedding (văn bản) và Continuous Embedding (ESG). Đề xuất hàm mục tiêu Consistency Loss qua NLI để hạn chế mâu thuẫn giữa nhãn phân loại xu hướng và văn bản giải trình, hướng tới mục tiêu triển khai on-premise với chi phí phần cứng tối ưu.",
     "decisions": [
@@ -433,54 +433,58 @@ export const PROJECTS: ProjectDetail[] = [
   {
     "slug": "vietsign-edge-ai",
     "name": "VietSign Edge AI: On-Device Traffic Sign Detection & Classification",
-    "year": "2025",
+    "year": "2026",
     "type": "Computer Vision · Edge AI · Android TFLite",
-    "description": "Nhận diện và phân loại 48 nhóm biển báo giao thông Việt Nam thời gian thực trên thiết bị Android bằng pipeline 2 giai đoạn YOLOv8n + MobileNetV3 và ByteTrack.",
+    "description": "Nhận diện và phân loại 48 lớp biển báo giao thông Việt Nam hoàn toàn trên thiết bị Android bằng pipeline 2 giai đoạn YOLOv8n + MobileNetV3-Small; classifier được nén bằng knowledge distillation, pruning và INT8 QAT. Detector đạt 82,27% mAP@0.5, classifier đạt 91,92% Top-1, tổng hai model chỉ 5,07 MB.",
     "colors": [
       "#ffaa40",
       "#9b3010"
     ],
     "image": "/images/hud-004-cast.jpg",
-    "role": "Computer Vision & Edge AI Engineer",
-    "challenge": "Nhận diện và phân loại chính xác biển báo giao thông Việt Nam trực tiếp trên thiết bị di động trong điều kiện thực địa phức tạp (camera rung lắc khi di chuyển, thời tiết mưa nắng, ngược sáng, biển báo bị che khuất) với yêu cầu tốc độ thời gian thực (>= 30 FPS) mà không cần Internet.",
-    "outcome": "Thử nghiệm thành công pipeline nối tầng hai giai đoạn: Giai đoạn 1 dùng YOLOv8n để xác định vùng chứa biển báo, giai đoạn 2 dùng MobileNetV3-Small phân loại chi tiết 48 nhóm biển báo theo quy chuẩn QCVN 41:2019/BGTVT. Tích hợp thuật toán ByteTrack theo dõi ID đối tượng và lượng tử hóa INT8 TFLite, đạt hiệu năng xử lý ổn định trên camera Android CameraX.",
+    "role": "Team Leader · Computer Vision & Edge AI Engineer",
+    "challenge": "Nhận diện và phân loại chính xác biển báo giao thông Việt Nam trực tiếp trên điện thoại, không cần Internet, trong điều kiện thực địa phức tạp (camera rung, ngược sáng, biển nhỏ hoặc bị che khuất). Mục tiêu đặt ra: detector mAP@0.5 ≥ 80%, classifier Top-1 ≥ 90%, tổng dung lượng model ≤ 5 MB và tối thiểu 15 FPS trên thiết bị.",
+    "outcome": "Hoàn thiện prototype chạy trên thiết bị Android thật: YOLOv8n (TFLite INT8, 3,19 MB) định vị biển báo, MobileNetV3-Small (TFLite INT8, 1,88 MB) phân loại 48 lớp theo QCVN 41:2019/BGTVT, tracker kiểu ByteTrack kết hợp Kalman filter ổn định box và nhãn. Trên tập test: detector đạt mAP@0.5 82,27% (recall 92,61%), classifier FP32 đạt Top-1 91,92% / Top-5 99,80%, bản INT8 deploy khoảng 89,6%. Tổng hai model 5,07 MB. Tốc độ trên thiết bị thử nghiệm chưa đạt mục tiêu 15 FPS — được ghi nhận rõ trong báo cáo như hướng tối ưu tiếp theo.",
     "githubUrl": "https://github.com/VietSign-Edge-AI/VietSign-Edge-AI",
     "decisions": [
       [
         "Two-Stage Cascaded Detection",
-        "Giai đoạn 1 dùng YOLOv8n siêu nhẹ để phát hiện ROI biển báo; Giai đoạn 2 dùng MobileNetV3-Small phân loại chi tiết 48 nhóm biển báo theo quy chuẩn QCVN 41:2019/BGTVT."
+        "Giai đoạn 1 dùng YOLOv8n siêu nhẹ để phát hiện ROI biển báo; giai đoạn 2 crop ROI (padding 10%) và dùng MobileNetV3-Small 96×96 phân loại chi tiết 48 lớp biển báo."
       ],
       [
-        "ByteTrack & Kalman Filter Tracking",
-        "Lưu vết ID biển báo qua chuỗi khung hình, loại bỏ hiện tượng nhấp nháy phát hiện và bảo toàn kết quả khi biển báo bị che khuất tạm thời."
+        "Knowledge Distillation, Pruning & QAT",
+        "Chưng cất tri thức từ teacher ResNet-50 sang student MobileNetV3-Small, L1 pruning 3 vòng (~50% sparsity) và chuyển từ PTQ sang Quantization-Aware Training khi PTQ làm giảm mạnh accuracy; export PyTorch → ONNX → TFLite còn 1,88 MB."
       ],
       [
-        "Zero-Copy CameraX Pipeline",
-        "Tối ưu hóa bộ đệm phân tích hình ảnh của Android CameraX và lượng tử hóa INT8, giảm thiểu tối đa độ trễ truyền dữ liệu."
+        "ByteTrack-style Tracking & Kalman Filter",
+        "Lưu vết ID biển báo qua chuỗi khung hình với Kalman filter vận tốc không đổi, giảm rung bounding box và hiện tượng nhảy nhãn giữa các frame."
+      ],
+      [
+        "Honest Test/Deploy Metrics",
+        "Validation đạt ~98% mAP và >99% accuracy, nhưng nhóm chủ động báo cáo kết quả trên tập test và bản deploy TFLite (82,27% mAP@0.5; 91,92% Top-1) vì gần điều kiện thực tế hơn."
       ]
     ],
     "detail": {
       "timeline": [
         [
-          "01 / DATASET CURATION & STANDARDIZATION",
-          "Thu thập và chuẩn hóa ảnh biển báo giao thông thực tế tại đường phố Việt Nam theo chuẩn QCVN."
+          "01 / DATA & 48-CLASS MAPPING",
+          "Chuẩn hóa 10.031 crop biển báo thuộc 48 lớp (chia 70/15/15), xây dựng file mapping lớp thống nhất giữa dữ liệu, model và ứng dụng Android."
         ],
         [
-          "02 / MODEL TRAINING & PRUNING",
-          "Huấn luyện detector YOLOv8n và MobileNetV3 classifier trên PyTorch; cắt tỉa trọng số và lượng tử hóa INT8."
+          "02 / TRAINING & COMPRESSION",
+          "Huấn luyện YOLOv8n và MobileNetV3-Small; distillation từ ResNet-50, pruning ~50% sparsity, QAT INT8 và export TFLite."
         ],
         [
-          "03 / ANDROID INTEGRATION & ROAD TEST",
-          "Đóng gói TFLite vào ứng dụng Android native với CameraX, kiểm thử thực tế trên đường phố."
+          "03 / ANDROID INTEGRATION & DEVICE TEST",
+          "Tích hợp hai model TFLite vào ứng dụng Kotlin + CameraX, xử lý mapping tọa độ preview, tracker và kiểm thử trên thiết bị thật."
         ]
       ],
       "artifacts": [
-        "TFLite INT8 Quantized Model Weights",
-        "Android Native CameraX Application Source Code",
-        "ByteTrack Multi-Object Tracking Module",
-        "Vietnamese Traffic Sign Benchmark Report"
+        "TFLite INT8 Detector (3,19 MB) & Classifier (1,88 MB)",
+        "Android Kotlin + CameraX Application Source Code",
+        "Distillation, Pruning & QAT Training Pipeline",
+        "Project Report with Test/Deploy Benchmark"
       ],
-      "reflection": "Trong triển khai thị giác máy tính trên thiết bị di động, việc tách bài toán thành hai giai đoạn (phát hiện nhanh vùng quan tâm và phân loại chi tiết) giúp đạt tốc độ xử lý khung hình mượt mà mà vẫn đảm bảo độ chính xác phân loại trên tập biển báo đa dạng."
+      "reflection": "Khoảng cách giữa validation (~98% mAP) và test/deploy (82,27%) là bài học lớn nhất: metric nội bộ cao chưa phản ánh trải nghiệm thật khi có domain shift và mất cân bằng lớp. Báo cáo trung thực theo kết quả test/deploy giúp nhìn rõ hướng cải thiện tiếp theo — dữ liệu Việt Nam đa dạng hơn và tối ưu tốc độ trên thiết bị."
     }
   },
   {

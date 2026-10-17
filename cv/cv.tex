@@ -119,22 +119,17 @@
         \resumeItem{Saved \textbf{$\sim$35\% of API calls} while retaining \textbf{83.2--92.2\% of Always-LLM F1}; \textbf{+14.35 F1} over RRF-only routing in the high-conflict HotpotQA subgroup ($p = 0.006$)}
       \resumeItemListEnd
     \resumeProjectHeading
-      {\textbf{Multi-Task Stock Transformer} $|$ \emph{Capstone, Team Leader $|$ PyTorch, Qwen2.5, PatchTST, QLoRA}}{2026 -- Present}
+      {\textbf{Multi-Task Stock Transformer} $|$ \emph{Capstone, Vice Team Leader $|$ PyTorch, Qwen2.5, PatchTST}}{2026 -- Present}
       \resumeItemListStart
-        \resumeItem{Leading the design of a shared decoder-only SLM (Qwen2.5-0.5B) that fuses PatchTST price patches, financial text and ESG features for trend classification and generated rationale}
+        \resumeItem{Co-designing a shared decoder-only SLM (Qwen2.5-0.5B) that fuses PatchTST price patches, financial text and ESG features for trend classification and generated rationale}
         \resumeItem{Proposed an NLI-based consistency loss that penalizes rationales contradicting the predicted trend}
       \resumeItemListEnd
     \resumeProjectHeading
-      {\textbf{VietSign Edge AI} $|$ \emph{YOLOv8n, MobileNetV3, ByteTrack, TFLite, Android CameraX}}{2025}
+      {\textbf{VietSign Edge AI} $|$ \emph{Team Leader $|$ PyTorch, YOLOv8n, MobileNetV3, TFLite, Android}}{2026}
       \resumeItemListStart
-        \resumeItem{Built a two-stage on-device pipeline: YOLOv8n sign detection followed by MobileNetV3-Small classification of 48 Vietnamese traffic sign classes (QCVN 41:2019)}
-        \resumeItem{Added ByteTrack tracking and INT8 TFLite quantization for offline real-time inference on Android}
-      \resumeItemListEnd
-    \resumeProjectHeading
-      {\textbf{Verba} $|$ \emph{Full-Stack Engineer $|$ FastAPI, PostgreSQL, PhoWhisper, Gemini}}{Jan 2026 -- Apr 2026}
-      \resumeItemListStart
-        \resumeItem{Users upload meeting audio and get transcripts summarized into key points, decisions, tasks and deadlines}
-        \resumeItem{Integrated PhoWhisper/faster-whisper STT, Gemini summarization, synced audio player and .docx export}
+        \resumeItem{Led a team building a fully offline Android pipeline: YOLOv8n sign detection followed by MobileNetV3-Small classification of 48 Vietnamese traffic sign classes}
+        \resumeItem{Owned the data and classifier pipeline: knowledge distillation from ResNet-50, $\sim$50\% L1 pruning and INT8 QAT, shrinking the classifier to 1.88 MB (5.07 MB for both models)}
+        \resumeItem{Reached \textbf{82.3\% mAP@0.5} (92.6\% recall) for the INT8 detector and \textbf{91.9\% Top-1} for the classifier on held-out test sets}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 
@@ -144,8 +139,8 @@
     \small{\item{
      \textbf{Languages}{: Python, Java, TypeScript / JavaScript, SQL} \\
      \textbf{ML \& Deep Learning}{: PyTorch, Hugging Face Transformers, scikit-learn, LightGBM, QLoRA / PEFT} \\
-     \textbf{LLM \& RAG}{: Hybrid retrieval (BM25 + dense, RRF), NLI cross-encoders, LLM APIs (DeepSeek, Gemini), Whisper} \\
-     \textbf{Computer Vision \& Edge}{: YOLOv8, MobileNetV3, OpenCV, TFLite (INT8)} \\
+     \textbf{LLM \& RAG}{: Hybrid retrieval (BM25 + dense, RRF), NLI cross-encoders, LLM APIs (DeepSeek, Gemini)} \\
+     \textbf{Computer Vision \& Edge}{: YOLOv8, MobileNetV3, OpenCV, TFLite, knowledge distillation, pruning, INT8 QAT} \\
      \textbf{Backend \& Tools}{: FastAPI, Spring Boot, React.js, PostgreSQL / pgvector, Docker, Git, Linux} \\
      \textbf{Certifications}{: NLP Spec. (DeepLearning.AI), Reinforcement Learning Spec. (U. of Alberta), Fundamentals of Deep Learning (NVIDIA), AI Enterprise Workflow (IBM)}
     }}
