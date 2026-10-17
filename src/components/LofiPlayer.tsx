@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLang } from '../i18n';
 
 const CHORD_FREQUENCIES = [
   261.63, 329.63, 392, 329.63,
@@ -8,6 +9,7 @@ const CHORD_FREQUENCIES = [
 ];
 
 export const LofiPlayer: React.FC = () => {
+  const { t } = useLang();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const timerRef = useRef<number | null>(null);
@@ -91,9 +93,9 @@ export const LofiPlayer: React.FC = () => {
     <button
       className={`lofi-player ${isPlaying ? 'is-playing' : ''}`}
       onClick={togglePlay}
-      aria-label={isPlaying ? 'Pause lofi ambience' : 'Play lofi ambience'}
+      aria-label={isPlaying ? t({ en: 'Pause lofi ambience', vi: 'Tạm dừng nhạc lofi' }) : t({ en: 'Play lofi ambience', vi: 'Phát nhạc lofi' })}
       aria-pressed={isPlaying}
-      title={isPlaying ? 'Pause lofi ambience' : 'Play lofi ambience'}
+      title={isPlaying ? t({ en: 'Pause lofi ambience', vi: 'Tạm dừng nhạc lofi' }) : t({ en: 'Play lofi ambience', vi: 'Phát nhạc lofi' })}
       type="button"
     >
       <i aria-hidden="true">♫</i>

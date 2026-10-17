@@ -7,18 +7,21 @@ import {
   FPT_BADGES_DATA,
   CertificateItem
 } from '../data/siteData';
+import { useLang } from '../i18n';
 
 export const EducationPage: React.FC = () => {
+  const { t } = useLang();
+  // Filter key is the English category label so the selection survives a language switch.
   const [activeCertCategory, setActiveCertCategory] = useState<string>('all');
 
   const categories = useMemo(() => {
-    const all = CERTIFICATES_DATA.map((c) => c.category);
-    return ['all', ...Array.from(new Set(all))];
+    const byKey = new Map(CERTIFICATES_DATA.map((c) => [c.category.en, c.category]));
+    return Array.from(byKey.values());
   }, []);
 
   const filteredCerts = useMemo(() => {
     if (activeCertCategory === 'all') return CERTIFICATES_DATA;
-    return CERTIFICATES_DATA.filter((c) => c.category === activeCertCategory);
+    return CERTIFICATES_DATA.filter((c) => c.category.en === activeCertCategory);
   }, [activeCertCategory]);
 
   return (
@@ -26,7 +29,7 @@ export const EducationPage: React.FC = () => {
       {/* SECTION HERO */}
       <section className="page-section-hero education-page-hero">
         <img
-          alt="Academic and research library atmosphere"
+          alt={t({ en: 'Academic and research library atmosphere', vi: 'Không gian thư viện học thuật và nghiên cứu' })}
           style={{
             position: 'absolute',
             height: '100%',
@@ -42,14 +45,17 @@ export const EducationPage: React.FC = () => {
         <span className="page-section-hero-shade" />
         <div className="page-section-hero-content">
           <Link className="back" to="/">
-            ← INDEX
+            ← {t({ en: 'INDEX', vi: 'TRANG CHỦ' })}
           </Link>
-          <p className="eyebrow">ACADEMIC FOUNDATIONS &amp; CERTIFICATIONS</p>
+          <p className="eyebrow">{t({ en: 'ACADEMIC FOUNDATIONS & CERTIFICATIONS', vi: 'NỀN TẢNG HỌC THUẬT & CHỨNG CHỈ' })}</p>
           <h1>
-            Rigorous study, research &amp; <em>credentials.</em>
+            {t({ en: 'Rigorous study, research & ', vi: 'Học tập nghiêm túc, nghiên cứu & ' })}<em>{t({ en: 'credentials.', vi: 'chứng chỉ.' })}</em>
           </h1>
           <p className="photos-lede" style={{ maxWidth: '640px' }}>
-            A formal record of academic study at FPT University, peer-reviewed scientific contributions, and specialized professional certifications in Artificial Intelligence.
+            {t({
+              en: 'A formal record of academic study at FPT University, peer-reviewed scientific contributions, and specialized professional certifications in Artificial Intelligence.',
+              vi: 'Hồ sơ chính thức về quá trình học tập tại Đại học FPT, các đóng góp khoa học đã qua bình duyệt và các chứng chỉ chuyên môn về Trí tuệ Nhân tạo.'
+            })}
           </p>
         </div>
       </section>
@@ -57,8 +63,8 @@ export const EducationPage: React.FC = () => {
       {/* FORMAL UNIVERSITY EDUCATION */}
       <section style={{ margin: '70px 0 60px', borderTop: '1px solid var(--line)', paddingTop: '40px' }}>
         <div className="label">
-          <span>01 / UNIVERSITY DEGREE</span>
-          <span>FORMAL EDUCATION</span>
+          <span>{t({ en: '01 / UNIVERSITY DEGREE', vi: '01 / BẰNG ĐẠI HỌC' })}</span>
+          <span>{t({ en: 'FORMAL EDUCATION', vi: 'GIÁO DỤC CHÍNH QUY' })}</span>
         </div>
 
         <article
@@ -74,13 +80,13 @@ export const EducationPage: React.FC = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <span style={{ color: 'var(--accent)', font: '600 11px var(--mono)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                {EDUCATION_DATA.institution} · {EDUCATION_DATA.location}
+                {t(EDUCATION_DATA.institution)} · {t(EDUCATION_DATA.location)}
               </span>
               <h2 style={{ margin: '10px 0 6px', font: '400 clamp(26px, 3.5vw, 36px) Georgia, serif', color: 'var(--text)' }}>
-                {EDUCATION_DATA.major}
+                {t(EDUCATION_DATA.major)}
               </h2>
               <p style={{ margin: 0, color: 'var(--muted)', font: '500 14px var(--mono)' }}>
-                {EDUCATION_DATA.degree}
+                {t(EDUCATION_DATA.degree)}
               </p>
             </div>
             <div style={{ textAlign: 'right' }}>
@@ -96,27 +102,27 @@ export const EducationPage: React.FC = () => {
                   letterSpacing: '0.05em'
                 }}
               >
-                {EDUCATION_DATA.period}
+                {t(EDUCATION_DATA.period)}
               </span>
               <p style={{ margin: '8px 0 0', color: 'var(--muted)', font: '11px var(--mono)' }}>
-                {EDUCATION_DATA.status}
+                {t(EDUCATION_DATA.status)}
               </p>
             </div>
           </div>
 
           <p style={{ color: '#d5c8b6', fontSize: '15px', lineHeight: '1.65', margin: '22px 0 28px' }}>
-            {EDUCATION_DATA.description}
+            {t(EDUCATION_DATA.description)}
           </p>
 
           {/* Research & Focus Areas */}
           <div style={{ borderTop: '1px solid var(--line)', paddingTop: '22px', marginBottom: '24px' }}>
             <span style={{ color: 'var(--accent)', font: '600 10px var(--mono)', letterSpacing: '0.09em', display: 'block', marginBottom: '12px' }}>
-              CORE RESEARCH &amp; SPECIALIZATION FOCUS
+              {t({ en: 'CORE RESEARCH & SPECIALIZATION FOCUS', vi: 'HƯỚNG NGHIÊN CỨU & CHUYÊN SÂU CHÍNH' })}
             </span>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {EDUCATION_DATA.focusAreas.map((area) => (
                 <span
-                  key={area}
+                  key={area.en}
                   style={{
                     background: 'rgba(255, 255, 255, 0.035)',
                     border: '1px solid rgba(220, 186, 136, 0.2)',
@@ -126,7 +132,7 @@ export const EducationPage: React.FC = () => {
                     font: '12px var(--sans)'
                   }}
                 >
-                  ✦ {area}
+                  ✦ {t(area)}
                 </span>
               ))}
             </div>
@@ -135,12 +141,12 @@ export const EducationPage: React.FC = () => {
           {/* Key Coursework */}
           <div style={{ borderTop: '1px solid var(--line)', paddingTop: '22px' }}>
             <span style={{ color: '#a28f7a', font: '600 10px var(--mono)', letterSpacing: '0.09em', display: 'block', marginBottom: '12px' }}>
-              KEY TECHNICAL COURSEWORK COMPLETED
+              {t({ en: 'KEY TECHNICAL COURSEWORK COMPLETED', vi: 'CÁC MÔN HỌC KỸ THUẬT CHÍNH ĐÃ HOÀN THÀNH' })}
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px' }}>
               {EDUCATION_DATA.coursework.map((course) => (
                 <div
-                  key={course}
+                  key={course.en}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -150,7 +156,7 @@ export const EducationPage: React.FC = () => {
                   }}
                 >
                   <span style={{ color: 'var(--accent)', fontSize: '10px' }}>▪</span>
-                  <span>{course}</span>
+                  <span>{t(course)}</span>
                 </div>
               ))}
             </div>
@@ -161,8 +167,8 @@ export const EducationPage: React.FC = () => {
       {/* PEER-REVIEWED PUBLICATION & RESEARCH SPOTLIGHT */}
       <section style={{ margin: '80px 0 60px' }}>
         <div className="label">
-          <span>02 / SCIENTIFIC CONTRIBUTIONS</span>
-          <span>CONFERENCE PAPERS &amp; RESEARCH ARCHIVE</span>
+          <span>{t({ en: '02 / SCIENTIFIC CONTRIBUTIONS', vi: '02 / ĐÓNG GÓP KHOA HỌC' })}</span>
+          <span>{t({ en: 'CONFERENCE PAPERS & RESEARCH ARCHIVE', vi: 'BÀI BÁO HỘI NGHỊ & LƯU TRỮ NGHIÊN CỨU' })}</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', marginTop: '24px' }}>
@@ -210,7 +216,7 @@ export const EducationPage: React.FC = () => {
                       letterSpacing: '0.07em'
                     }}
                   >
-                    {pub.conference}
+                    {t(pub.conference)}
                   </span>
                   <span
                     style={{
@@ -219,10 +225,10 @@ export const EducationPage: React.FC = () => {
                       letterSpacing: '0.05em'
                     }}
                   >
-                    ✦ {pub.role}
+                    ✦ {t(pub.role)}
                   </span>
                   <span style={{ color: 'var(--muted)', font: '11px var(--mono)', marginLeft: 'auto' }}>
-                    {pub.date} · {pub.status}
+                    {t(pub.date)} · {t(pub.status)}
                   </span>
                 </div>
 
@@ -231,7 +237,7 @@ export const EducationPage: React.FC = () => {
                 </h2>
 
                 <p style={{ color: '#ccbbaa', fontSize: '15px', lineHeight: '1.7', margin: '0 0 24px' }}>
-                  {pub.abstract}
+                  {t(pub.abstract)}
                 </p>
 
                 {/* Benchmark Metrics Grid */}
@@ -247,14 +253,14 @@ export const EducationPage: React.FC = () => {
                   }}
                 >
                   {pub.metrics.map((m) => (
-                    <div key={m.label} style={{ padding: '6px 0' }}>
+                    <div key={m.label.en} style={{ padding: '6px 0' }}>
                       <span style={{ color: isIcitda ? '#86efac' : '#9d8772', font: '10px var(--mono)', display: 'block', letterSpacing: '0.06em' }}>
-                        {m.label}
+                        {t(m.label)}
                       </span>
                       <b style={{ color: isIcitda ? '#86efac' : '#f5c682', font: '600 24px var(--mono)', display: 'block', margin: '4px 0' }}>
-                        {m.value}
+                        {t(m.value)}
                       </b>
-                      <small style={{ color: '#887462', font: '10px var(--mono)' }}>{m.note}</small>
+                      <small style={{ color: '#887462', font: '10px var(--mono)' }}>{t(m.note)}</small>
                     </div>
                   ))}
                 </div>
@@ -267,19 +273,19 @@ export const EducationPage: React.FC = () => {
                     rel="noopener noreferrer"
                     className="project-action-btn primary"
                   >
-                    DOWNLOAD MANUSCRIPT (PDF) <span>↓</span>
+                    {t({ en: 'DOWNLOAD MANUSCRIPT (PDF)', vi: 'TẢI BẢN THẢO (PDF)' })} <span>↓</span>
                   </a>
                   <Link
                     to={`/work/${pub.projectSlug}`}
                     className="project-action-btn secondary"
                   >
-                    VIEW RESEARCH STUDY <span>→</span>
+                    {t({ en: 'VIEW RESEARCH STUDY', vi: 'XEM NGHIÊN CỨU' })} <span>→</span>
                   </Link>
                   <Link
                     to={`/posts/${pub.postSlug}`}
                     className="project-action-btn secondary"
                   >
-                    TECHNICAL BREAKDOWN <span>→</span>
+                    {t({ en: 'TECHNICAL BREAKDOWN', vi: 'PHÂN TÍCH KỸ THUẬT' })} <span>→</span>
                   </Link>
                   {pub.githubUrl && (
                     <a
@@ -288,7 +294,7 @@ export const EducationPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className="project-action-btn secondary"
                     >
-                      CODE REPO <span>↗</span>
+                      {t({ en: 'CODE REPO', vi: 'MÃ NGUỒN' })} <span>↗</span>
                     </a>
                   )}
                 </div>
@@ -301,13 +307,13 @@ export const EducationPage: React.FC = () => {
       {/* PROFESSIONAL CERTIFICATIONS */}
       <section style={{ margin: '80px 0 40px' }}>
         <div className="label">
-          <span>03 / VERIFIED CERTIFICATIONS</span>
-          <span>SPECIALIZED COURSES</span>
+          <span>{t({ en: '03 / VERIFIED CERTIFICATIONS', vi: '03 / CHỨNG CHỈ ĐÃ XÁC THỰC' })}</span>
+          <span>{t({ en: 'SPECIALIZED COURSES', vi: 'KHÓA HỌC CHUYÊN SÂU' })}</span>
         </div>
 
         {/* Category Filters */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '24px 0 32px' }}>
-          {categories.map((cat) => (
+          {[{ key: 'all', label: { en: 'ALL CERTIFICATIONS', vi: 'TẤT CẢ CHỨNG CHỈ' } }, ...categories.map((c) => ({ key: c.en, label: c }))].map(({ key: cat, label }) => (
             <button
               key={cat}
               type="button"
@@ -325,7 +331,7 @@ export const EducationPage: React.FC = () => {
                 textTransform: 'uppercase'
               }}
             >
-              {cat === 'all' ? 'ALL CERTIFICATIONS' : cat}
+              {t(label)}
             </button>
           ))}
         </div>
@@ -369,7 +375,7 @@ export const EducationPage: React.FC = () => {
 
                 {/* 3. Date */}
                 <div style={{ color: 'var(--muted)', font: '11px var(--mono)', marginBottom: '10px' }}>
-                  {cert.issueDate}
+                  {t(cert.issueDate)}
                 </div>
 
                 {/* 4. Credential ID */}
@@ -394,14 +400,14 @@ export const EducationPage: React.FC = () => {
 
                 {/* 4. Technical Summary */}
                 <p style={{ color: '#beafa0', fontSize: '13px', lineHeight: '1.6', margin: '0 0 16px' }}>
-                  {cert.summary}
+                  {t(cert.summary)}
                 </p>
 
                 {/* 5. Key Skills Covered */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
                   {cert.skills.map((skill) => (
                     <span
-                      key={skill}
+                      key={skill.en}
                       style={{
                         background: 'rgba(255, 255, 255, 0.03)',
                         border: '1px solid rgba(220, 186, 136, 0.15)',
@@ -411,7 +417,7 @@ export const EducationPage: React.FC = () => {
                         font: '10px var(--mono)'
                       }}
                     >
-                      {skill}
+                      {t(skill)}
                     </span>
                   ))}
                 </div>
@@ -428,7 +434,7 @@ export const EducationPage: React.FC = () => {
                 }}
               >
                 <span style={{ color: '#887563', font: '600 10px var(--mono)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                  {cert.category}
+                  {t(cert.category)}
                 </span>
                 {cert.credentialUrl && (
                   <a
@@ -446,7 +452,7 @@ export const EducationPage: React.FC = () => {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    VERIFY CREDENTIAL <span>↗</span>
+                    {t({ en: 'VERIFY CREDENTIAL', vi: 'XÁC THỰC CHỨNG CHỈ' })} <span>↗</span>
                   </a>
                 )}
               </div>
@@ -458,8 +464,8 @@ export const EducationPage: React.FC = () => {
       {/* ACADEMIC BADGES & DIGITAL TRANSFORMATION (FPT UNIVERSITY) */}
       <section style={{ margin: '80px 0 40px' }}>
         <div className="label">
-          <span>04 / ACADEMIC BADGES &amp; DIGITAL TRANSFORMATION</span>
-          <span>FPT UNIVERSITY · KS57 PROGRAM</span>
+          <span>{t({ en: '04 / ACADEMIC BADGES & DIGITAL TRANSFORMATION', vi: '04 / HUY HIỆU HỌC THUẬT & CHUYỂN ĐỔI SỐ' })}</span>
+          <span>{t({ en: 'FPT UNIVERSITY · KS57 PROGRAM', vi: 'ĐẠI HỌC FPT · CHƯƠNG TRÌNH KS57' })}</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px', marginTop: '24px' }}>
@@ -490,7 +496,7 @@ export const EducationPage: React.FC = () => {
               <div>
                 {/* 1. Title */}
                 <h3 style={{ font: '400 22px Georgia, serif', margin: '0 0 10px', color: 'var(--text)', lineHeight: '1.25' }}>
-                  {badge.title}
+                  {t(badge.title)}
                 </h3>
 
                 {/* 2. Issuer */}
@@ -508,12 +514,12 @@ export const EducationPage: React.FC = () => {
                   >
                     {badge.code}
                   </span>
-                  <span>{badge.issuer}</span>
+                  <span>{t(badge.issuer)}</span>
                 </div>
 
                 {/* 3. Program */}
                 <div style={{ color: 'var(--muted)', font: '11px var(--mono)', marginBottom: '10px' }}>
-                  {badge.program}
+                  {t(badge.program)}
                 </div>
 
                 {/* 4. Credential ID */}
@@ -538,14 +544,14 @@ export const EducationPage: React.FC = () => {
 
                 {/* 4. Description */}
                 <p style={{ color: '#c9bba9', fontSize: '13px', lineHeight: '1.65', margin: '0 0 20px' }}>
-                  {badge.description}
+                  {t(badge.description)}
                 </p>
 
                 {/* 5. Focus Areas */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {badge.focus.map((f) => (
                     <span
-                      key={f}
+                      key={f.en}
                       style={{
                         background: 'rgba(255, 255, 255, 0.035)',
                         border: '1px solid rgba(220, 186, 136, 0.16)',
@@ -555,7 +561,7 @@ export const EducationPage: React.FC = () => {
                         font: '10px var(--mono)'
                       }}
                     >
-                      ✦ {f}
+                      ✦ {t(f)}
                     </span>
                   ))}
                 </div>
@@ -573,7 +579,7 @@ export const EducationPage: React.FC = () => {
                 }}
               >
                 <span style={{ color: '#8d7a68', font: '600 10px var(--mono)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                  DIGITAL TRANSFORMATION
+                  {t({ en: 'DIGITAL TRANSFORMATION', vi: 'CHUYỂN ĐỔI SỐ' })}
                 </span>
                 {badge.credentialUrl ? (
                   <a
@@ -591,11 +597,11 @@ export const EducationPage: React.FC = () => {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    VERIFY CREDENTIAL <span>↗</span>
+                    {t({ en: 'VERIFY CREDENTIAL', vi: 'XÁC THỰC CHỨNG CHỈ' })} <span>↗</span>
                   </a>
                 ) : (
                   <span style={{ color: 'var(--accent)', font: '11px var(--mono)', whiteSpace: 'nowrap' }}>
-                    VERIFIED ✦
+                    {t({ en: 'VERIFIED', vi: 'ĐÃ XÁC THỰC' })} ✦
                   </span>
                 )}
               </div>
@@ -607,10 +613,13 @@ export const EducationPage: React.FC = () => {
       {/* FOOTER CALLOUT / RESEARCH PHILOSOPHY */}
       <section style={{ margin: '80px 0 20px', padding: '28px', border: '1px dashed var(--line)', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.01)' }}>
         <span style={{ color: 'var(--accent)', font: '600 10px var(--mono)', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>
-          ACADEMIC &amp; SCIENTIFIC ETHOS
+          {t({ en: 'ACADEMIC & SCIENTIFIC ETHOS', vi: 'TINH THẦN HỌC THUẬT & KHOA HỌC' })}
         </span>
         <p style={{ margin: 0, color: '#c4b5a4', fontSize: '14px', lineHeight: '1.65' }}>
-          "Every theoretical derivation should withstand rigorous empirical benchmarking, and every model architecture deserves transparent, open-source reproducibility."
+          {t({
+            en: '"Every theoretical derivation should withstand rigorous empirical benchmarking, and every model architecture deserves transparent, open-source reproducibility."',
+            vi: '“Mọi suy diễn lý thuyết đều phải đứng vững trước benchmark thực nghiệm nghiêm ngặt, và mọi kiến trúc mô hình đều xứng đáng được tái lập minh bạch, mã nguồn mở.”'
+          })}
         </p>
       </section>
     </main>

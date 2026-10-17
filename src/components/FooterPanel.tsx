@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLang } from '../i18n';
 
 export const FooterPanel: React.FC = () => {
+  const { t } = useLang();
   const [meta, setMeta] = useState({
     time: '--:--:--',
     size: '—',
@@ -52,59 +54,59 @@ export const FooterPanel: React.FC = () => {
         <div className="footer-meta">
           <div>
             <span>
-              <strong>IDENTITY</strong>ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY
+              <strong>{t({ en: 'IDENTITY', vi: 'DANH TÍNH' })}</strong>ĐẶNG PHƯƠNG NAM · {t({ en: 'FPT UNIVERSITY', vi: 'ĐẠI HỌC FPT' })}
             </span>
             <span>
-              <strong>BROWSER</strong>{meta.browser}
+              <strong>{t({ en: 'BROWSER', vi: 'TRÌNH DUYỆT' })}</strong>{meta.browser}
             </span>
             <span>
-              <strong>LOCAL TIME</strong>{meta.time}
+              <strong>{t({ en: 'LOCAL TIME', vi: 'GIỜ ĐỊA PHƯƠNG' })}</strong>{meta.time}
             </span>
             <span>
-              <strong>VIEWPORT</strong>{meta.size}
+              <strong>{t({ en: 'VIEWPORT', vi: 'KHUNG HÌNH' })}</strong>{meta.size}
             </span>
             <span>
-              <strong>TIMEZONE</strong>HANOI / GMT+7
+              <strong>{t({ en: 'TIMEZONE', vi: 'MÚI GIỜ' })}</strong>{t({ en: 'HANOI / GMT+7', vi: 'HÀ NỘI / GMT+7' })}
             </span>
             <span>
-              <strong>STATUS</strong>ONLINE
+              <strong>{t({ en: 'STATUS', vi: 'TRẠNG THÁI' })}</strong>{t({ en: 'ONLINE', vi: 'TRỰC TUYẾN' })}
             </span>
           </div>
         </div>
 
         <div className="footer-links">
-          <b>EXPLORE</b>
+          <b>{t({ en: 'EXPLORE', vi: 'KHÁM PHÁ' })}</b>
           <div>
             <span>
-              <Link to="/">Home</Link>
-              <Link to="/#articles">Notes</Link>
-              <Link to="/work">Projects</Link>
-              <Link to="/education">Education &amp; Certs</Link>
-              <Link to="/skills">Technical Skills</Link>
-              <Link to="/contact">Contact</Link>
+              <Link to="/">{t({ en: 'Home', vi: 'Trang chủ' })}</Link>
+              <Link to="/#articles">{t({ en: 'Notes', vi: 'Bài viết' })}</Link>
+              <Link to="/work">{t({ en: 'Projects', vi: 'Dự án' })}</Link>
+              <Link to="/education">{t({ en: 'Education & Certs', vi: 'Học vấn & Chứng chỉ' })}</Link>
+              <Link to="/skills">{t({ en: 'Technical Skills', vi: 'Kỹ năng' })}</Link>
+              <Link to="/contact">{t({ en: 'Contact', vi: 'Liên hệ' })}</Link>
             </span>
             <span>
               <a href="https://github.com/zafkielzz" target="_blank" rel="noreferrer">
                 GitHub
               </a>
               <a href="/cv.pdf" target="_blank" download="Dang_Phuong_Nam_CV.pdf">
-                Download CV ↗
+                {t({ en: 'Download CV ↗', vi: 'Tải CV ↗' })}
               </a>
               <Link to="/work/conflict-aware-rag-routing">
-                IEEE IS'26 Paper ↗
+                {t({ en: "IEEE IS'26 Paper ↗", vi: "Bài báo IEEE IS'26 ↗" })}
               </Link>
               <Link to="/work/probabilistic-stock-breakout-vietnam">
-                ICITDA 2026 Paper ↗
+                {t({ en: 'ICITDA 2026 Paper ↗', vi: 'Bài báo ICITDA 2026 ↗' })}
               </Link>
               <Link to="/contact">
-                Contact
+                {t({ en: 'Contact', vi: 'Liên hệ' })}
               </Link>
             </span>
           </div>
         </div>
 
         <p className="visit-counter">
-          <i>✦</i> DESIGN ADAPTED FROM{' '}
+          <i>✦</i> {t({ en: 'DESIGN ADAPTED FROM', vi: 'THIẾT KẾ DỰA TRÊN' })}{' '}
           <a href="https://midnightbarista-work.vercel.app/" target="_blank" rel="noreferrer">
             <b>MIDNIGHT BARISTA</b>
           </a>
@@ -113,7 +115,7 @@ export const FooterPanel: React.FC = () => {
 
       <footer>
         <span>© 2026 ĐẶNG PHƯƠNG NAM</span>
-        <span>FPT UNIVERSITY · AI RESEARCH ARCHIVE</span>
+        <span>{t({ en: 'FPT UNIVERSITY · AI RESEARCH ARCHIVE', vi: 'ĐẠI HỌC FPT · KHO LƯU TRỮ NGHIÊN CỨU AI' })}</span>
       </footer>
     </>
   );

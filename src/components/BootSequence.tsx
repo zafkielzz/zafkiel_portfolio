@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLang } from '../i18n';
 
 const PRELOAD_IMAGES = [
   '/images/hero-home.webp',
@@ -12,10 +13,11 @@ const PRELOAD_IMAGES = [
 ];
 
 export const BootSequence: React.FC = () => {
+  const { t } = useLang();
   const [visible, setVisible] = useState(true);
   const [isFading, setIsFading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState('INITIALIZING AI ARCHIVE · 000%');
+  const [status, setStatus] = useState(t({ en: 'INITIALIZING AI ARCHIVE · 000%', vi: 'ĐANG KHỞI ĐỘNG KHO LƯU TRỮ AI · 000%' }));
 
   useEffect(() => {
     // If reduced motion is requested or already booted this session
@@ -32,10 +34,10 @@ export const BootSequence: React.FC = () => {
     let currentProgress = 0;
 
     const getStatusText = (val: number) => {
-      if (val < 28) return 'INITIALIZING NEURAL MATRICES';
-      if (val < 65) return 'LOADING MULTIMODAL ROUTERS';
-      if (val < 92) return 'CALIBRATING ATMOSPHERE';
-      return 'AI STUDIO ONLINE · READY';
+      if (val < 28) return t({ en: 'INITIALIZING NEURAL MATRICES', vi: 'ĐANG KHỞI TẠO MẠNG NƠ-RON' });
+      if (val < 65) return t({ en: 'LOADING MULTIMODAL ROUTERS', vi: 'ĐANG NẠP BỘ ĐỊNH TUYẾN ĐA PHƯƠNG THỨC' });
+      if (val < 92) return t({ en: 'CALIBRATING ATMOSPHERE', vi: 'ĐANG CHỈNH ÁNH SÁNG' });
+      return t({ en: 'AI STUDIO ONLINE · READY', vi: 'AI STUDIO ĐÃ SẴN SÀNG' });
     };
 
     // Smooth incremental progression for authentic game boot pacing (~1.2s)
@@ -79,7 +81,7 @@ export const BootSequence: React.FC = () => {
         if (!active) return;
         clearInterval(progressInterval);
         setProgress(100);
-        setStatus('AI STUDIO ONLINE · READY · 100%');
+        setStatus(t({ en: 'AI STUDIO ONLINE · READY · 100%', vi: 'AI STUDIO ĐÃ SẴN SÀNG · 100%' }));
 
         setTimeout(() => {
           if (!active) return;
@@ -122,19 +124,19 @@ export const BootSequence: React.FC = () => {
     <div
       className={`boot-sequence boot-ready ${isFading ? 'boot-fading' : ''}`}
       role="status"
-      aria-label="Loading portfolio"
+      aria-label={t({ en: 'Loading portfolio', vi: 'Đang tải portfolio' })}
     >
       <div>
         <div className="boot-ember-wrapper">
           <img
             src="/images/collaboration-fire.gif"
-            alt="Warm pixel hearth flame"
+            alt={t({ en: 'Warm pixel hearth flame', vi: 'Ngọn lửa pixel ấm áp' })}
             className="boot-ember-sprite"
             width={52}
             height={52}
           />
         </div>
-        <span>ĐẶNG PHƯƠNG NAM · FPT UNIVERSITY</span>
+        <span>ĐẶNG PHƯƠNG NAM · {t({ en: 'FPT UNIVERSITY', vi: 'ĐẠI HỌC FPT' })}</span>
         <b>
           Zafkiel
           <br />

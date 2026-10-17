@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
-import { POSTS, PROJECTS, Post } from '../data/siteData';
+import { POSTS, PROJECTS } from '../data/siteData';
+import { useLang } from '../i18n';
 
 export const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { t, lang } = useLang();
   const postIndex = POSTS.findIndex((p) => p.slug === slug);
   const post = POSTS[postIndex];
 
@@ -84,7 +86,7 @@ export const PostDetailPage: React.FC = () => {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    alert('Link copied to clipboard!');
+    alert(t({ en: 'Link copied to clipboard!', vi: 'Đã sao chép liên kết!' }));
   };
 
   const handleReaction = (key: string) => {
@@ -254,7 +256,7 @@ export const PostDetailPage: React.FC = () => {
 
       if (trimmed.startsWith('<PostCallout')) {
         const titleMatch = trimmed.match(/title="([^"]+)"/);
-        const title = titleMatch ? titleMatch[1] : 'Note';
+        const title = titleMatch ? titleMatch[1] : t({ en: 'Note', vi: 'Ghi chú' });
         const innerText = trimmed.replace(/<[^>]+>/g, '').trim();
         return (
           <aside
@@ -289,12 +291,12 @@ export const PostDetailPage: React.FC = () => {
           >
             {columns.map((colStr, cIdx) => {
               const tMatch = colStr.match(/title="([^"]+)"/);
-              const t = tMatch ? tMatch[1] : '';
+              const colTitle = tMatch ? tMatch[1] : '';
               const c = colStr.replace(/<[^>]+>/g, '').trim();
               return (
                 <div key={cIdx} style={{ padding: '20px', border: '1px solid var(--line)', borderRadius: '8px' }}>
                   <b style={{ font: '12px var(--mono)', color: 'var(--accent)', display: 'block', marginBottom: '8px' }}>
-                    {t}
+                    {colTitle}
                   </b>
                   <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.55', color: 'var(--muted)' }}>
                     {renderInline(c)}
@@ -369,7 +371,7 @@ export const PostDetailPage: React.FC = () => {
     });
   };
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+  const formattedDate = new Date(post.date).toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
@@ -378,21 +380,21 @@ export const PostDetailPage: React.FC = () => {
   return (
     <main className="article">
       <Link className="back" to="/#articles">
-        ← SELECTED NOTES
+        {t({ en: '← SELECTED NOTES', vi: '← BÀI VIẾT CHỌN LỌC' })}
       </Link>
       <p className="eyebrow">
-        {formattedDate} · {post.readingTime} MIN READ
+        {formattedDate} · {post.readingTime} {t({ en: 'MIN READ', vi: 'PHÚT ĐỌC' })}
       </p>
-      <h1>{post.title}</h1>
-      <p className="lede">{post.summary}</p>
+      <h1>{t(post.title)}</h1>
+      <p className="lede">{t(post.summary)}</p>
 
       <aside className="reading-ritual">
         <div>
-          <span>BREW TIME</span>
-          <b>{post.readingTime} MIN</b>
+          <span>{t({ en: 'BREW TIME', vi: 'THỜI GIAN ĐỌC' })}</span>
+          <b>{post.readingTime} {t({ en: 'MIN', vi: 'PHÚT' })}</b>
         </div>
         <div>
-          <span>PAGE MARK</span>
+          <span>{t({ en: 'PAGE MARK', vi: 'ĐÃ ĐỌC' })}</span>
           <b>{scrollPercent}%</b>
         </div>
         <button
@@ -401,7 +403,7 @@ export const PostDetailPage: React.FC = () => {
             window.scrollBy({ top: 350, behavior: 'smooth' });
           }}
         >
-          START READING ↓
+          {t({ en: 'START READING ↓', vi: 'BẮT ĐẦU ĐỌC ↓' })}
         </button>
       </aside>
 
@@ -414,14 +416,22 @@ export const PostDetailPage: React.FC = () => {
       </div>
 
       <div className="reading-settings" style={{ marginTop: '20px' }}>
-        <span>READING COMFORT:</span>
-        <button type="button" onClick={() => setReadingScale((s) => Math.max(0.85, s - 0.08))}>
+        <span>{t({ en: 'READING COMFORT:', vi: 'CỠ CHỮ:' })}</span>
+        <button
+          type="button"
+          onClick={() => setReadingScale((s) => Math.max(0.85, s - 0.08))}
+          aria-label={t({ en: 'Decrease text size', vi: 'Giảm cỡ chữ' })}
+        >
           A-
         </button>
         <button type="button" onClick={() => setReadingScale(1)}>
-          RESET
+          {t({ en: 'RESET', vi: 'ĐẶT LẠI' })}
         </button>
-        <button type="button" onClick={() => setReadingScale((s) => Math.min(1.3, s + 0.08))}>
+        <button
+          type="button"
+          onClick={() => setReadingScale((s) => Math.min(1.3, s + 0.08))}
+          aria-label={t({ en: 'Increase text size', vi: 'Tăng cỡ chữ' })}
+        >
           A+
         </button>
         <i />
@@ -430,16 +440,20 @@ export const PostDetailPage: React.FC = () => {
           onClick={() => setIsFocusMode(!isFocusMode)}
           style={{ borderColor: isFocusMode ? 'var(--accent)' : undefined }}
         >
-          {isFocusMode ? 'EXIT FOCUS' : 'FOCUS MODE'}
+          {isFocusMode
+            ? t({ en: 'EXIT FOCUS', vi: 'THOÁT TẬP TRUNG' })
+            : t({ en: 'FOCUS MODE', vi: 'CHẾ ĐỘ TẬP TRUNG' })}
         </button>
       </div>
 
       <div className="article-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
         <button type="button" onClick={handleToggleSave} aria-pressed={isSaved}>
-          {isSaved ? '★ SAVED IN SHELF' : '☆ SAVE'}
+          {isSaved
+            ? t({ en: '★ SAVED IN SHELF', vi: '★ ĐÃ LƯU VÀO KỆ' })
+            : t({ en: '☆ SAVE', vi: '☆ LƯU' })}
         </button>
         <button type="button" onClick={handleCopyLink}>
-          ↗ COPY LINK
+          {t({ en: '↗ COPY LINK', vi: '↗ SAO CHÉP LIÊN KẾT' })}
         </button>
         {matchingProject && (
           <Link
@@ -458,7 +472,7 @@ export const PostDetailPage: React.FC = () => {
               letterSpacing: '0.04em'
             }}
           >
-            💼 VIEW CASE STUDY →
+            {t({ en: '💼 VIEW CASE STUDY →', vi: '💼 XEM CASE STUDY →' })}
           </Link>
         )}
         {matchingProject?.publication?.pdfUrl && (
@@ -485,7 +499,7 @@ export const PostDetailPage: React.FC = () => {
               letterSpacing: '0.04em'
             }}
           >
-            📄 PAPER PDF ↓
+            {t({ en: '📄 PAPER PDF ↓', vi: '📄 PDF BÀI BÁO ↓' })}
           </a>
         )}
         {matchingProject?.githubUrl && (
@@ -507,12 +521,12 @@ export const PostDetailPage: React.FC = () => {
               letterSpacing: '0.04em'
             }}
           >
-            ⚡ GITHUB REPO ↗
+            {t({ en: '⚡ GITHUB REPO ↗', vi: '⚡ REPO GITHUB ↗' })}
           </a>
         )}
       </div>
 
-      <article>{renderContent(post.content)}</article>
+      <article>{renderContent(t(post.content))}</article>
 
       {matchingProject && (
         <aside
@@ -531,10 +545,13 @@ export const PostDetailPage: React.FC = () => {
         >
           <div>
             <span style={{ font: '10px var(--mono)', color: 'var(--accent)', letterSpacing: '0.08em', display: 'block', marginBottom: '6px' }}>
-              PROJECT CASE STUDY &amp; REPRODUCIBILITY
+              {t({ en: 'PROJECT CASE STUDY & REPRODUCIBILITY', vi: 'CASE STUDY DỰ ÁN & KHẢ NĂNG TÁI LẬP' })}
             </span>
             <p style={{ margin: 0, fontSize: '15px', color: '#e8ded0', fontFamily: 'Georgia, serif' }}>
-              Detailed architectural decisions, milestone logs, and verification artifacts.
+              {t({
+                en: 'Detailed architectural decisions, milestone logs, and verification artifacts.',
+                vi: 'Chi tiết các quyết định kiến trúc, nhật ký cột mốc và tài liệu kiểm chứng.'
+              })}
             </p>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -553,7 +570,7 @@ export const PostDetailPage: React.FC = () => {
                 textDecoration: 'none'
               }}
             >
-              EXPLORE CASE STUDY →
+              {t({ en: 'EXPLORE CASE STUDY →', vi: 'KHÁM PHÁ CASE STUDY →' })}
             </Link>
             {matchingProject.githubUrl && (
               <a
@@ -573,7 +590,7 @@ export const PostDetailPage: React.FC = () => {
                   textDecoration: 'none'
                 }}
               >
-                GITHUB REPO ↗
+                {t({ en: 'GITHUB REPO ↗', vi: 'REPO GITHUB ↗' })}
               </a>
             )}
           </div>
@@ -592,7 +609,7 @@ export const PostDetailPage: React.FC = () => {
           marginTop: '60px'
         }}
       >
-        <span style={{ font: '10px var(--mono)', color: 'var(--muted)' }}>SIGNAL RESPONSE:</span>
+        <span style={{ font: '10px var(--mono)', color: 'var(--muted)' }}>{t({ en: 'SIGNAL RESPONSE:', vi: 'PHẢN HỒI:' })}</span>
         <button
           type="button"
           onClick={() => handleReaction('warm')}
@@ -606,7 +623,7 @@ export const PostDetailPage: React.FC = () => {
             font: '11px var(--mono)'
           }}
         >
-          ☕ Warm ({reactions.warm})
+          ☕ {t({ en: 'Warm', vi: 'Ấm áp' })} ({reactions.warm})
         </button>
         <button
           type="button"
@@ -621,7 +638,7 @@ export const PostDetailPage: React.FC = () => {
             font: '11px var(--mono)'
           }}
         >
-          ✦ Thoughtful ({reactions.thoughtful})
+          ✦ {t({ en: 'Thoughtful', vi: 'Sâu sắc' })} ({reactions.thoughtful})
         </button>
         <button
           type="button"
@@ -636,19 +653,19 @@ export const PostDetailPage: React.FC = () => {
             font: '11px var(--mono)'
           }}
         >
-          💡 Inspired ({reactions.inspired})
+          💡 {t({ en: 'Inspired', vi: 'Truyền cảm hứng' })} ({reactions.inspired})
         </button>
       </div>
 
       {/* NAV */}
       <nav className="article-nav" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', margin: '40px 0' }}>
         <Link to={`/posts/${prevPost.slug}`} style={{ textDecoration: 'none', padding: '16px', border: '1px solid var(--line)', borderRadius: '6px' }}>
-          <span style={{ font: '10px var(--mono)', color: 'var(--muted)', display: 'block' }}>← PREVIOUS</span>
-          <b style={{ font: '400 18px Georgia, serif', color: 'var(--text)' }}>{prevPost.title}</b>
+          <span style={{ font: '10px var(--mono)', color: 'var(--muted)', display: 'block' }}>{t({ en: '← PREVIOUS', vi: '← BÀI TRƯỚC' })}</span>
+          <b style={{ font: '400 18px Georgia, serif', color: 'var(--text)' }}>{t(prevPost.title)}</b>
         </Link>
         <Link to={`/posts/${nextPost.slug}`} style={{ textDecoration: 'none', padding: '16px', border: '1px solid var(--line)', borderRadius: '6px', textAlign: 'right' }}>
-          <span style={{ font: '10px var(--mono)', color: 'var(--muted)', display: 'block' }}>NEXT NOTE →</span>
-          <b style={{ font: '400 18px Georgia, serif', color: 'var(--text)' }}>{nextPost.title}</b>
+          <span style={{ font: '10px var(--mono)', color: 'var(--muted)', display: 'block' }}>{t({ en: 'NEXT NOTE →', vi: 'BÀI TIẾP THEO →' })}</span>
+          <b style={{ font: '400 18px Georgia, serif', color: 'var(--text)' }}>{t(nextPost.title)}</b>
         </Link>
       </nav>
     </main>

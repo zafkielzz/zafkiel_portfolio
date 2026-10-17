@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LofiPlayer } from './LofiPlayer';
+import { useLang } from '../i18n';
 
 interface DockProps {
   onOpenCommand: () => void;
@@ -9,6 +10,7 @@ interface DockProps {
 export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { lang, setLang, t } = useLang();
   const [activeHash, setActiveHash] = useState<'index' | 'articles' | null>(null);
 
   const isHome = location.pathname === '/';
@@ -105,10 +107,10 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
   };
 
   return (
-    <nav className="dock">
+    <nav className="dock" aria-label={t({ en: 'Main navigation', vi: 'Điều hướng chính' })}>
       <a
         className="mark"
-        aria-label="Home"
+        aria-label={t({ en: 'Home', vi: 'Trang chủ' })}
         href="/"
         onClick={handleNavClick('/', 'index')}
       >
@@ -119,39 +121,45 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
         href="/#index"
         onClick={handleNavClick('/', 'index')}
       >
-        INDEX
+        {t({ en: 'INDEX', vi: 'MỤC LỤC' })}
       </a>
       <a
         className={isBlogActive ? 'active' : ''}
         href="/#articles"
         onClick={handleNavClick('/', 'articles')}
       >
-        BLOG
+        {t({ en: 'BLOG', vi: 'BÀI VIẾT' })}
       </a>
       <a
         className={isProjects ? 'active' : ''}
         href="/work"
         onClick={handleNavClick('/work')}
       >
-        PROJECTS
+        {t({ en: 'PROJECTS', vi: 'DỰ ÁN' })}
       </a>
       <a
         className={isEducation ? 'active' : ''}
         href="/education"
         onClick={handleNavClick('/education')}
       >
-        EDUCATION
+        {t({ en: 'EDUCATION', vi: 'HỌC VẤN' })}
       </a>
       <a
         className={isSkills ? 'active' : ''}
         href="/skills"
         onClick={handleNavClick('/skills')}
       >
-        SKILLS
+        {t({ en: 'SKILLS', vi: 'KỸ NĂNG' })}
       </a>
 
-      <button type="button" onClick={onOpenCommand} title="Open command palette (Ctrl+K)">
-        CMD
+      <button
+        type="button"
+        className="dock-search"
+        onClick={onOpenCommand}
+        title={t({ en: 'Search (Ctrl+K)', vi: 'Tìm kiếm (Ctrl+K)' })}
+        aria-label={t({ en: 'Search the site', vi: 'Tìm kiếm trên trang' })}
+      >
+        ⌕
       </button>
 
       <LofiPlayer />
@@ -162,7 +170,7 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
         href="/cv.pdf"
         target="_blank"
         download="Dang_Phuong_Nam_CV.pdf"
-        title="Download Curriculum Vitae (PDF)"
+        title={t({ en: 'Download CV (PDF)', vi: 'Tải CV (PDF)' })}
         style={{ color: 'var(--accent)' }}
       >
         CV ↓
@@ -173,8 +181,19 @@ export const Dock: React.FC<DockProps> = ({ onOpenCommand }) => {
         href="/contact"
         onClick={handleNavClick('/contact')}
       >
-        CONTACT ↗
+        {t({ en: 'CONTACT ↗', vi: 'LIÊN HỆ ↗' })}
       </a>
+
+      <button
+        type="button"
+        className="dock-lang"
+        onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+        title={t({ en: 'Chuyển sang tiếng Việt', vi: 'Switch to English' })}
+        aria-label={t({ en: 'Switch language to Vietnamese', vi: 'Chuyển ngôn ngữ sang tiếng Anh' })}
+      >
+        <b className={lang === 'en' ? 'on' : ''}>EN</b>
+        <b className={lang === 'vi' ? 'on' : ''}>VI</b>
+      </button>
     </nav>
   );
 };

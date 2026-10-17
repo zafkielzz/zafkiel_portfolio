@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useLang } from '../i18n';
 
 export const AmbientEffects: React.FC = () => {
+  const { t } = useLang();
   const [showBackToTop, setShowBackToTop] = useState(false);
   const location = useLocation();
 
@@ -113,9 +115,9 @@ export const AmbientEffects: React.FC = () => {
         type="button"
         className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
+        aria-label={t({ en: 'Back to top', vi: 'Lên đầu trang' })}
       >
-        ↑ <span>TOP</span>
+        ↑ <span>{t({ en: 'TOP', vi: 'LÊN' })}</span>
       </button>
     </>
   );

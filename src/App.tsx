@@ -14,11 +14,13 @@ import { SkillsPage } from './pages/SkillsPage';
 import { LibraryPage } from './pages/LibraryPage';
 import { ContactPage } from './pages/ContactPage';
 import { PostDetailPage } from './pages/PostDetailPage';
+import { LanguageProvider } from './i18n';
 
 export const App: React.FC = () => {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
   return (
+    <LanguageProvider>
     <BrowserRouter>
       {/* Cinematic Boot sequence loader */}
       <BootSequence />
@@ -53,6 +55,7 @@ export const App: React.FC = () => {
       {/* System Technical Footer Panel */}
       <FooterPanel />
     </BrowserRouter>
+    </LanguageProvider>
   );
 };
 

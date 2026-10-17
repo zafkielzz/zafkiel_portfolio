@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { POSTS, PROJECTS, SKILLS_DATA, CERTIFICATES_DATA } from '../data/siteData';
+import { POSTS, PROJECTS, SKILLS_DATA, SKILL_CATEGORY_LABELS, CERTIFICATES_DATA } from '../data/siteData';
+import { useLang, Localized } from '../i18n';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -14,94 +15,83 @@ interface CommandItem {
   icon: string;
 }
 
-const STATIC_ROUTES: CommandItem[] = [
-  { name: 'Index', type: 'Page', href: '/', icon: '↗' },
-  { name: 'Selected Notes', type: 'Section', href: '/#articles', icon: '↗' },
-  { name: 'Projects', type: 'Page', href: '/work', icon: '↗' },
-  { name: 'Education & Certifications', type: 'Page', href: '/education', icon: '↗' },
-  { name: 'Technical Skills & Stack', type: 'Page', href: '/skills', icon: '↗' },
-  { name: 'Library', type: 'Page', href: '/library', icon: '↗' },
-  { name: 'Contact', type: 'Page', href: '/contact', icon: '↗' }
+interface StaticRoute {
+  name: Localized;
+  type: Localized;
+  href: string;
+}
+
+const PAGE: Localized = { en: 'Page', vi: 'Trang' };
+
+const STATIC_ROUTES: StaticRoute[] = [
+  { name: { en: 'Index', vi: 'Trang chủ' }, type: PAGE, href: '/' },
+  { name: { en: 'Selected Notes', vi: 'Bài viết chọn lọc' }, type: { en: 'Section', vi: 'Mục' }, href: '/#articles' },
+  { name: { en: 'Projects', vi: 'Dự án' }, type: PAGE, href: '/work' },
+  { name: { en: 'Education & Certifications', vi: 'Học vấn & Chứng chỉ' }, type: PAGE, href: '/education' },
+  { name: { en: 'Technical Skills & Stack', vi: 'Kỹ năng & Công nghệ' }, type: PAGE, href: '/skills' },
+  { name: { en: 'Library', vi: 'Thư viện' }, type: PAGE, href: '/library' },
+  { name: { en: 'Contact', vi: 'Liên hệ' }, type: PAGE, href: '/contact' }
 ];
+
+/** Search matches either language, whichever the visitor types in. */
+const matches = (q: string, ...values: (string | Localized)[]) =>
+  values.some((v) => (typeof v === 'string' ? v : `${v.en} ${v.vi}`).toLowerCase().includes(q));
 
 export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const { t } = useLang();
 
-  const results = useMemo(() => {
+  const results = useMemo<CommandItem[]>(() => {
     const q = query.toLowerCase().trim();
-    if (!q) {
-      return [
-        ...STATIC_ROUTES,
-        ...PROJECTS.map((p) => ({
-          name: p.name,
-          type: p.type,
-          href: `/work/${p.slug}`,
-          icon: '✦'
-        })),
-        ...POSTS.slice(0, 4).map((p) => ({
-          name: p.title,
-          type: p.tags.join(' · '),
-          href: `/posts/${p.slug}`,
-          icon: '#'
-        }))
-      ];
-    }
 
-    const matchedRoutes = STATIC_ROUTES.filter((r) => r.name.toLowerCase().includes(q));
-    const matchedProjects = PROJECTS.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        p.type.toLowerCase().includes(q)
-    ).map((p) => ({
-      name: p.name,
-      type: p.type,
+    const routes = STATIC_ROUTES.filter((r) => !q || matches(q, r.name)).map((r) => ({
+      name: t(r.name),
+      type: t(r.type),
+      href: r.href,
+      icon: '↗'
+    }));
+
+    const projects = PROJECTS.filter((p) => !q || matches(q, p.name, p.description, p.type)).map((p) => ({
+      name: t(p.name),
+      type: t(p.type),
       href: `/work/${p.slug}`,
       icon: '✦'
     }));
 
-    const matchedPosts = POSTS.filter(
-      (p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.summary.toLowerCase().includes(q) ||
-        p.tags.some((t) => t.toLowerCase().includes(q))
-    ).map((p) => ({
-      name: p.title,
+    const posts = POSTS.filter((p) => !q || matches(q, p.title, p.summary, ...p.tags)).map((p) => ({
+      name: t(p.title),
       type: p.tags.join(' · '),
       href: `/posts/${p.slug}`,
       icon: '#'
     }));
 
-    const matchedSkills = SKILLS_DATA.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q) ||
-        s.summary.toLowerCase().includes(q) ||
-        s.tags.some((t) => t.toLowerCase().includes(q))
-    ).slice(0, 4).map((s) => ({
-      name: s.name,
-      type: `Skill · ${s.category}`,
-      href: `/skills`,
-      icon: '⚙'
-    }));
+    if (!q) return [...routes, ...projects, ...posts.slice(0, 4)];
 
-    const matchedCerts = CERTIFICATES_DATA.filter(
-      (c) =>
-        c.title.toLowerCase().includes(q) ||
-        c.issuer.toLowerCase().includes(q) ||
-        c.skills.some((sk) => sk.toLowerCase().includes(q))
-    ).slice(0, 3).map((c) => ({
-      name: c.title,
-      type: `Certificate · ${c.issuer}`,
-      href: `/education`,
-      icon: '📜'
-    }));
+    const skills = SKILLS_DATA.filter((s) =>
+      matches(q, s.name, s.summary, SKILL_CATEGORY_LABELS[s.category], ...s.tags)
+    )
+      .slice(0, 4)
+      .map((s) => ({
+        name: t(s.name),
+        type: `${t({ en: 'Skill', vi: 'Kỹ năng' })} · ${t(SKILL_CATEGORY_LABELS[s.category])}`,
+        href: '/skills',
+        icon: '⚙'
+      }));
 
-    return [...matchedRoutes, ...matchedProjects, ...matchedSkills, ...matchedCerts, ...matchedPosts];
-  }, [query]);
+    const certs = CERTIFICATES_DATA.filter((c) => matches(q, c.title, c.issuer, ...c.skills))
+      .slice(0, 3)
+      .map((c) => ({
+        name: c.title,
+        type: `${t({ en: 'Certificate', vi: 'Chứng chỉ' })} · ${c.issuer}`,
+        href: '/education',
+        icon: '📜'
+      }));
+
+    return [...routes, ...projects, ...skills, ...certs, ...posts];
+  }, [query, t]);
 
   useEffect(() => {
     setActiveIndex(0);
@@ -154,14 +144,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
       }}
       aria-hidden={!isOpen}
     >
-      <div className="command-box" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div className="command-box" role="dialog" aria-modal="true" aria-label={t({ en: 'Search the site', vi: 'Tìm kiếm trên trang' })}>
         <div className="command-head">
           <span>⌕</span>
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search notes, pages, topics..."
+            placeholder={t({ en: 'Search notes, pages, topics...', vi: 'Tìm bài viết, trang, chủ đề...' })}
             autoComplete="off"
           />
         </div>
@@ -186,12 +176,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
             ))
           ) : (
             <p style={{ padding: '24px', textAlign: 'center', color: 'var(--muted)', font: '13px var(--mono)' }}>
-              No matching notes or pages.
+              {t({ en: 'No matching notes or pages.', vi: 'Không tìm thấy bài viết hoặc trang phù hợp.' })}
             </p>
           )}
         </div>
         <div className="command-foot">
-          ↑ ↓ NAVIGATE · ENTER OPEN · ESC CLOSE
+          {t({ en: '↑ ↓ NAVIGATE · ENTER OPEN · ESC CLOSE', vi: '↑ ↓ DI CHUYỂN · ENTER MỞ · ESC ĐÓNG' })}
         </div>
       </div>
     </div>

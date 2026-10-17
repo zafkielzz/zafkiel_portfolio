@@ -75,7 +75,7 @@ export const GitHubPulse: React.FC<GitHubPulseProps> = ({
     weeks.forEach((week, wIdx) => {
       if (week[0]) {
         const d = new Date(week[0].date);
-        const m = d.toLocaleString('en-US', { month: 'short' });
+        const m = d.toLocaleString(lang === 'vi' ? 'vi-VN' : 'en-US', { month: 'short' });
         const dayOfMonth = d.getDate();
         if (m !== lastMonth && dayOfMonth <= 14) {
           labels.push({ weekIndex: wIdx, month: m });
@@ -85,10 +85,10 @@ export const GitHubPulse: React.FC<GitHubPulseProps> = ({
     });
 
     return labels;
-  }, [weeks]);
+  }, [weeks, lang]);
 
   return (
-    <section className="writing-stats" aria-label="GitHub activity and research pulse">
+    <section className="writing-stats" aria-label={lang === 'en' ? 'GitHub activity and research pulse' : 'Hoạt động GitHub và nghiên cứu'}>
       <div className="label">
         <span>{lang === 'en' ? 'GITHUB ACTIVITY & RESEARCH PULSE' : 'HOẠT ĐỘNG GITHUB & NGHIÊN CỨU'}</span>
         <span>
@@ -124,7 +124,15 @@ export const GitHubPulse: React.FC<GitHubPulseProps> = ({
           <span>
             {hoveredDay ? (
               <>
-                <strong>{hoveredDay.count}</strong> contribution{hoveredDay.count === 1 ? '' : 's'} on {hoveredDay.date}
+                {lang === 'en' ? (
+                  <>
+                    <strong>{hoveredDay.count}</strong> contribution{hoveredDay.count === 1 ? '' : 's'} on {hoveredDay.date}
+                  </>
+                ) : (
+                  <>
+                    <strong>{hoveredDay.count}</strong> lượt đóng góp ngày {hoveredDay.date}
+                  </>
+                )}
               </>
             ) : (
               lang === 'en'
@@ -165,11 +173,11 @@ export const GitHubPulse: React.FC<GitHubPulseProps> = ({
               {/* Day of week labels */}
               <div className="github-day-labels">
                 <span></span>
-                <span>Mon</span>
+                <span>{lang === 'en' ? 'Mon' : 'T2'}</span>
                 <span></span>
-                <span>Wed</span>
+                <span>{lang === 'en' ? 'Wed' : 'T4'}</span>
                 <span></span>
-                <span>Fri</span>
+                <span>{lang === 'en' ? 'Fri' : 'T6'}</span>
                 <span></span>
               </div>
 
@@ -178,7 +186,10 @@ export const GitHubPulse: React.FC<GitHubPulseProps> = ({
                 {weeks.map((week, wIdx) => (
                   <div key={wIdx} className="github-week-col">
                     {week.map((day) => {
-                      const countText = `${day.count} contribution${day.count === 1 ? '' : 's'}`;
+                      const countText =
+                        lang === 'vi'
+                          ? `${day.count} lượt đóng góp`
+                          : `${day.count} contribution${day.count === 1 ? '' : 's'}`;
                       return (
                         <div
                           key={day.date}
