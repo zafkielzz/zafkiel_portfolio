@@ -281,22 +281,22 @@ export const HomePage: React.FC = () => {
                   <p>
                     {l === 'en' ? (
                       <>
-                        Hello, I’m <strong>Đặng Phương Nam</strong> — widely known online as <strong>Zafkiel</strong> (an alias inspired by the Emperor of Time in <em>Date A Live</em>). I’m a final-year Artificial Intelligence student at <strong>FPT University</strong>. Through coursework and research, I’ve worked closely with <strong>Edge Devices</strong>, <strong>Agentic AI workflows</strong>, and architecture optimization. Lately, I’m particularly intrigued by human-centric domains like <strong>Emotional AI</strong>, alongside researching <strong>Multimodal Transformers for financial market forecasting</strong> (my graduation Capstone project).
+                        Hello, I’m <strong>Đặng Phương Nam</strong> — known online as <strong>Zafkiel</strong>. I’m a final-year <strong>Artificial Intelligence</strong> student at <strong>FPT University</strong> and <strong>first author of an IEEE IS'26 paper</strong> on cost-aware RAG routing.
                       </>
                     ) : (
                       <>
-                        Xin chào, tôi là <strong>Đặng Phương Nam</strong> — hay còn được biết đến trên không gian số với biệt danh <strong>Zafkiel</strong> (bắt nguồn từ thiên sứ thời gian trong <em>Date A Live</em>). Tôi là sinh viên năm cuối ngành Trí tuệ Nhân tạo tại <strong>Đại học FPT</strong>. Trong quá trình học tập và nghiên cứu, tôi đã có dịp làm quen với các chủ đề như <strong>Edge Devices</strong>, <strong>Agentic AI</strong> và tối ưu kiến trúc mô hình. Thời gian gần đây, tôi đặc biệt hứng thú với những hướng đi mới mẻ giàu tính tương tác như <strong>Emotional AI</strong> (Trí tuệ nhân tạo cảm xúc), cũng như ứng dụng <strong>Multimodal Transformers cho thị trường chứng khoán</strong> (dự án Capstone tốt nghiệp).
+                        Xin chào, tôi là <strong>Đặng Phương Nam</strong> — biệt danh <strong>Zafkiel</strong>. Tôi là sinh viên năm cuối ngành <strong>Trí tuệ Nhân tạo</strong> tại <strong>Đại học FPT</strong> và là <strong>tác giả chính của bài báo tại IEEE IS'26</strong> về định tuyến RAG tối ưu chi phí.
                       </>
                     )}
                   </p>
                   <p>
                     {l === 'en' ? (
                       <>
-                        Away from the terminal, I’m an avid <strong>anime fan and gamer</strong>. I also hit the <strong>gym</strong> regularly to maintain self-discipline — and as an honest way to <em>"touch grass"</em> after long stretches in front of the screen. This website is my personal corner for archiving engineering prototypes, thoughts, and technical notes.
+                        I build <strong>LLM &amp; RAG systems</strong>, <strong>on-device computer vision</strong> and <strong>constrained LLM decoding</strong>, and I’m open to <strong>AI engineering &amp; research roles</strong>.
                       </>
                     ) : (
                       <>
-                        Rời khỏi màn hình máy tính, sở thích của tôi là xem <strong>anime</strong> và <strong>chơi game</strong>. Tôi cũng duy trì việc <strong>tập gym</strong> đều đặn để rèn luyện tính kỷ luật — và xem đó như một cách hiệu quả để <em>"chạm cỏ"</em> sau những giờ dài làm việc với code và dữ liệu. Đây là không gian nhỏ nơi tôi lưu trữ các thử nghiệm kỹ thuật và chia sẻ lại những điều mình học được.
+                        Tôi xây dựng <strong>hệ thống LLM &amp; RAG</strong>, <strong>thị giác máy tính trên thiết bị</strong> và <strong>sinh văn bản có ràng buộc</strong>, và đang tìm kiếm cơ hội ở vị trí <strong>AI Engineer &amp; nghiên cứu</strong>.
                       </>
                     )}
                   </p>
@@ -707,6 +707,21 @@ export const HomePage: React.FC = () => {
           <h2>
             A quiet corner for <em>AI engineering, research notes, systems</em> and the ideas I build with intention.
           </h2>
+          <p className="about-note">
+            {lang === 'en' ? (
+              <>
+                Away from the terminal, I’m an avid anime fan and gamer, and I hit the gym regularly to stay disciplined —
+                an honest way to “touch grass” after long stretches in front of the screen. This site is where I archive
+                prototypes, research notes and things I’ve learned.
+              </>
+            ) : (
+              <>
+                Rời khỏi màn hình máy tính, tôi thích xem anime, chơi game và duy trì tập gym đều đặn để rèn tính kỷ luật —
+                một cách “chạm cỏ” sau những giờ dài làm việc với code và dữ liệu. Đây là nơi tôi lưu trữ các thử nghiệm,
+                ghi chép nghiên cứu và những điều mình học được.
+              </>
+            )}
+          </p>
           <p>
             <Link to="/education">ACADEMIC RECORD ↗</Link>
             <Link to="/skills">TECH STACK ↗</Link>

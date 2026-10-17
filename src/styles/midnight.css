@@ -45,7 +45,7 @@ html.route-changing main {
     min-height: min(720px, 100vh) !important;
     height: auto !important;
     padding-top: 86px !important;
-    padding-bottom: 56px !important;
+    padding-bottom: 92px !important;
   }
 }
 
@@ -244,6 +244,7 @@ html.route-changing main {
 }
 
 .hero-actions .random-note {
+  margin-top: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
@@ -1171,4 +1172,13 @@ html.reveal-ready .skills-collab-card.is-revealed {
   .hero.hero-photo:before {
     background: linear-gradient(0deg, #151311, rgba(21, 19, 17, 0.72) 58%, rgba(21, 19, 17, 0.45)) !important;
   }
+}
+
+.about p.about-note {
+  display: block;
+  max-width: 640px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
 }
