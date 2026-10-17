@@ -179,7 +179,7 @@ export const HomePage: React.FC = () => {
       {/* HERO SECTION */}
       <section className={`hero hero-photo mood-${atmosphere}`} data-atmosphere={atmosphere}>
         <img
-          alt="Warm, softly lit study workspace"
+          alt="Late-night study corner by a rainy Hanoi window"
           className="hero-photo-image"
           style={{
             position: 'absolute',
@@ -190,7 +190,7 @@ export const HomePage: React.FC = () => {
             right: 0,
             bottom: 0
           }}
-          src="/images/studio-cafe.webp"
+          src="/images/hero-home.webp"
         />
 
         <div
@@ -606,7 +606,7 @@ export const HomePage: React.FC = () => {
                 bottom: 0,
                 objectPosition: '63% center'
               }}
-              src="/images/studio-cafe.webp"
+              src="/images/hero-home.webp"
             />
             <div>
               <span>02 / EDUCATION &amp; CERTS</span>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const PRELOAD_IMAGES = [
-  '/images/studio-cafe.webp',
+  '/images/hero-home.webp',
   '/images/hero-projects.webp',
   '/images/hero-photos.webp',
   '/images/hero-partners.webp',

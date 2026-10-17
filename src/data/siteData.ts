@@ -440,7 +440,7 @@ export const PROJECTS: ProjectDetail[] = [
       "#ffaa40",
       "#9b3010"
     ],
-    "image": "/images/hud-004-cast.jpg",
+    "image": "/images/project-vietsign.webp",
     "role": "Team Leader · Computer Vision & Edge AI Engineer",
     "challenge": "Nhận diện và phân loại chính xác biển báo giao thông Việt Nam trực tiếp trên điện thoại, không cần Internet, trong điều kiện thực địa phức tạp (camera rung, ngược sáng, biển nhỏ hoặc bị che khuất). Mục tiêu đặt ra: detector mAP@0.5 ≥ 80%, classifier Top-1 ≥ 90%, tổng dung lượng model ≤ 5 MB và tối thiểu 15 FPS trên thiết bị.",
     "outcome": "Hoàn thiện prototype chạy trên thiết bị Android thật: YOLOv8n (TFLite INT8, 3,19 MB) định vị biển báo, MobileNetV3-Small (TFLite INT8, 1,88 MB) phân loại 48 lớp theo QCVN 41:2019/BGTVT, tracker kiểu ByteTrack kết hợp Kalman filter ổn định box và nhãn. Trên tập test: detector đạt mAP@0.5 82,27% (recall 92,61%), classifier FP32 đạt Top-1 91,92% / Top-5 99,80%, bản INT8 deploy khoảng 89,6%. Tổng hai model 5,07 MB. Tốc độ thực tế trên thiết bị thử nghiệm khoảng 5–6 FPS, chưa đạt mục tiêu 15 FPS — được ghi nhận rõ trong báo cáo như hướng tối ưu tiếp theo.",

@@ -1182,3 +1182,13 @@ html.reveal-ready .skills-collab-card.is-revealed {
   font-size: 15px;
   line-height: 1.6;
 }
+
+/* Home hero art: subject + clock sit on the right of the image */
+.hero-photo-image {
+  object-position: 92% center;
+}
+@media (max-width: 650px) {
+  .hero-photo-image {
+    object-position: 77% center;
+  }
+}
