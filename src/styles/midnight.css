@@ -1226,3 +1226,24 @@ html[lang='vi'] {
   --sans: "Be Vietnam Pro", Arial, sans-serif;
   --mono: "IBM Plex Mono", monospace;
 }
+
+/* Page heroes: one heading style everywhere, and a lighter shade so each page's art keeps its own colour */
+.page-section-hero h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  font-size: clamp(45px, 6.4vw, 78px);
+}
+.page-section-hero-shade,
+.contact-page-hero .page-section-hero-shade {
+  background:
+    linear-gradient(90deg, rgba(18, 14, 12, 0.84), rgba(18, 14, 12, 0.42) 48%, rgba(18, 14, 12, 0.04)),
+    linear-gradient(0deg, rgba(17, 14, 12, 0.88), transparent 58%);
+}
+@media (max-width: 650px) {
+  .page-section-hero-shade,
+  .contact-page-hero .page-section-hero-shade {
+    background: linear-gradient(0deg, rgba(17, 14, 12, 0.94), rgba(17, 14, 12, 0.4) 76%, rgba(17, 14, 12, 0.18));
+  }
+}
