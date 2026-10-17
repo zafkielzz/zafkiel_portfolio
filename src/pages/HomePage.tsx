@@ -8,9 +8,9 @@ import { useLang, Language, Localized } from '../i18n';
 type Atmosphere = 'morning' | 'afternoon' | 'night';
 
 const ATMOSPHERES: { id: Atmosphere; label: Localized; title: Localized }[] = [
-  { id: 'morning', label: { en: 'DAWN', vi: 'BÌNH MINH' }, title: { en: 'Morning light', vi: 'Ánh sáng ban mai' } },
-  { id: 'afternoon', label: { en: 'DAY', vi: 'BAN NGÀY' }, title: { en: 'Afternoon glow', vi: 'Nắng chiều' } },
-  { id: 'night', label: { en: 'NIGHT', vi: 'BAN ĐÊM' }, title: { en: 'After hours', vi: 'Đêm muộn' } }
+  { id: 'morning', label: { en: 'DAWN', vi: 'SÁNG' }, title: { en: 'Morning light', vi: 'Ánh sáng ban mai' } },
+  { id: 'afternoon', label: { en: 'DAY', vi: 'CHIỀU' }, title: { en: 'Afternoon glow', vi: 'Nắng chiều' } },
+  { id: 'night', label: { en: 'NIGHT', vi: 'ĐÊM' }, title: { en: 'After hours', vi: 'Đêm muộn' } }
 ];
 
 export const HomePage: React.FC = () => {
