@@ -232,7 +232,7 @@ export const PROJECTS: ProjectDetail[] = [
       "journal": "IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems",
       "authors": "Dang Phuong Nam (First Author / Tác giả chính), Tran Huy Tuan, Doan Duy Long, Cao Van Mai (Faculty of Artificial Intelligence, FPT University)",
       "date": "Accepted & Presented · 2026",
-      "status": "Accepted & Presented at IEEE IS'26 · In Publication Process",
+      "status": "Accepted & Presented at IEEE IS'26 · Proceedings to appear (DOI pending)",
       "abstract": "Adaptive model routing can reduce the cost of retrieval-augmented generation (RAG), but the routing signal must identify when a small language model (SLM) is likely to fail. We study context conflict, the contradiction among retrieved passages, as one such signal. A five-feature Random Forest combines conflict with query length, retrieved-context length, chunk overlap, and Reciprocal Rank Fusion (RRF) confidence. We evaluate the pipeline on 3,000 multi-hop questions from MuSiQue, HotpotQA, and 2WikiMultiHopQA using Qwen2.5-1.5B-Instruct locally and DeepSeek-V4-Flash through an API. Nested five-fold calibration selects budget cutoffs from inner out-of-fold rather than in-sample training scores. At an approximately 65% LLM-call rate, the hybrid router saves about 35% of API calls while retaining 83.2–92.2% of the Always-LLM F1. In high-RRF/high-conflict subgroups, hybrid-minus-RRF F1 improves by +14.35 on HotpotQA and +6.50 on 2Wiki.",
       "pdfUrl": "/paper_93.pdf"
     },
@@ -727,7 +727,7 @@ export const SITE_METADATA = {
   "timezone": "BANGKOK / HANOI / GMT+7",
   "location": "Hanoi, Vietnam",
   "university": "FPT University",
-  "degree": "Bachelor of Science in Artificial Intelligence (Expected Dec 2027)",
+  "degree": "Bachelor of Science in Artificial Intelligence (Expected Dec 2026)",
   "cvUrl": "/cv.pdf"
 };
 
@@ -736,7 +736,7 @@ export const EDUCATION_DATA: EducationItem = {
   major: "Artificial Intelligence (Trí tuệ Nhân tạo)",
   institution: "FPT University (Đại học FPT)",
   location: "Hanoi, Vietnam",
-  period: "Oct 2023 – Dec 2027 (Expected Graduation)",
+  period: "Oct 2023 – Dec 2026 (Expected Graduation)",
   status: "Final-year Student / Senior Undergraduate",
   description: "Chuyên sâu vào nghiên cứu và phát triển hệ thống Trí tuệ Nhân tạo hiện đại: Deep Learning đa phương thức, tối ưu hóa suy luận mô hình ngôn ngữ lớn (LLM/SLM), kiến trúc định tuyến RAG thích ứng và triển khai Edge AI tối ưu phần cứng.",
   focusAreas: [
@@ -762,7 +762,7 @@ export const PUBLICATION_DATA: PublicationItem = {
   conference: "IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems",
   role: "First Author (Tác giả chính: Đặng Phương Nam)",
   date: "August 2026",
-  status: "Peer-Reviewed, Accepted & Presented",
+  status: "Peer-Reviewed, Accepted & Presented · To appear (DOI pending)",
   abstract: "Adaptive model routing reduces Retrieval-Augmented Generation (RAG) cost, but traditional retrieval confidence fails when retrieved passages contradict each other. We propose a bidirectional NLI context-conflict scoring mechanism and a 5-feature hybrid random forest router. Evaluated across 3,000 multi-hop reasoning questions (MuSiQue, HotpotQA, 2WikiMultiHopQA), our pipeline saves ~35% of frontier API calls while retaining 83.2%–92.2% of Always-LLM F1 score, with subgroup F1 gains up to +14.35 points in conflicting context scenarios.",
   authors: [
     "Đặng Phương Nam (First Author - FPT University)",
