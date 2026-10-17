@@ -68,32 +68,6 @@ export const SKILLS_DATA: SkillItem[] = [
     relatedSlug: "conflict-aware-rag-routing",
     relatedLabel: { en: "5-Feature Router", vi: "Router 5 đặc trưng" }
   },
-  {
-    id: "tensorrt-onnx",
-    name: { en: "ONNX Runtime & TensorRT", vi: "ONNX Runtime & TensorRT" },
-    category: "AI & Deep Learning",
-    level: "Advanced",
-    summary: {
-      en: "Converting PyTorch compute graphs to ONNX, optimizing layer fusion, and applying FP16/INT8 post-training quantization for inference speedup.",
-      vi: "Chuyển đổi đồ thị tính toán PyTorch sang ONNX, tối ưu hóa layer fusion, FP16/INT8 post-training quantization để tăng tốc độ suy luận (inference speedup)."
-    },
-    tags: ["Model Optimization", "FP16 / INT8", "Graph Optimization", "Inference Acceleration"],
-    relatedSlug: "conflict-aware-rag-routing",
-    relatedLabel: { en: "Inference Optimization", vi: "Tối ưu hóa inference" }
-  },
-  {
-    id: "vllm-ollama",
-    name: { en: "vLLM & Local LLM Serving", vi: "vLLM & serving LLM cục bộ" },
-    category: "AI & Deep Learning",
-    level: "Advanced",
-    summary: {
-      en: "Serving local language models (Qwen, Llama, DeepSeek) with PagedAttention, continuous batching and high-performance KV cache management.",
-      vi: "Triển khai serving mô hình ngôn ngữ cục bộ (Qwen, Llama, DeepSeek) với PagedAttention, continuous batching và quản lý KV cache hiệu năng cao."
-    },
-    tags: ["LLM Serving", "PagedAttention", "KV-Cache", "Qwen2.5", "High Throughput"],
-    relatedSlug: "conflict-aware-rag-routing",
-    relatedLabel: { en: "SLM Deployment", vi: "Triển khai SLM" }
-  },
 
   // LLM & RAG
   {
@@ -287,15 +261,17 @@ export const SKILLS_DATA: SkillItem[] = [
     tags: ["CUDA", "Tensor Cores", "Mixed Precision", "VRAM Optimization"]
   },
   {
-    id: "edge-jetson",
-    name: { en: "Edge AI & NVIDIA Jetson", vi: "Edge AI & NVIDIA Jetson" },
+    id: "on-device-tflite",
+    name: { en: "On-Device AI (TFLite, Android)", vi: "AI trên thiết bị (TFLite, Android)" },
     category: "Hardware & Edge",
     level: "Advanced",
     summary: {
-      en: "Deploying deep learning models on embedded devices (NVIDIA Jetson, Edge TPUs), optimizing power consumption and real-time millisecond latency.",
-      vi: "Triển khai mô hình deep learning trên các thiết bị nhúng (NVIDIA Jetson, Edge TPUs), tối ưu hóa điện năng tiêu thụ và độ trễ mili-giây thời gian thực."
+      en: "Shipping vision models fully offline on Android: PyTorch → ONNX → TFLite export, INT8 quantization-aware training, knowledge distillation and pruning to fit on-device size budgets, integrated with CameraX.",
+      vi: "Đưa mô hình thị giác máy tính chạy hoàn toàn offline trên Android: export PyTorch → ONNX → TFLite, quantization-aware training INT8, knowledge distillation và pruning để vừa giới hạn dung lượng trên thiết bị, tích hợp với CameraX."
     },
-    tags: ["NVIDIA Jetson", "Embedded AI", "Low Latency", "Edge Computing"]
+    tags: ["TFLite", "INT8 QAT", "ONNX Export", "Android CameraX"],
+    relatedSlug: "vietsign-edge-ai",
+    relatedLabel: { en: "VietSign Edge AI", vi: "VietSign Edge AI" }
   },
   {
     id: "quantization-peft",
@@ -324,8 +300,8 @@ export const HARDWARE_ENVIRONMENT: HardwareEnvironmentItem[] = [
   },
   {
     label: { en: "Edge Hardware", vi: "Phần cứng Edge" },
-    value: { en: "NVIDIA Jetson Platform", vi: "Nền tảng NVIDIA Jetson" },
-    detail: { en: "On-device lightweight vision & SLM deployments", vi: "Triển khai vision nhẹ & SLM trên thiết bị" }
+    value: { en: "Android devices (TFLite)", vi: "Thiết bị Android (TFLite)" },
+    detail: { en: "Offline on-device vision inference", vi: "Suy luận thị giác máy tính offline trên thiết bị" }
   },
   {
     label: { en: "Operating System", vi: "Hệ điều hành" },
@@ -334,7 +310,7 @@ export const HARDWARE_ENVIRONMENT: HardwareEnvironmentItem[] = [
   },
   {
     label: { en: "Runtime & Drivers", vi: "Runtime & Driver" },
-    value: { en: "CUDA + cuDNN + TensorRT", vi: "CUDA + cuDNN + TensorRT" },
+    value: { en: "CUDA + cuDNN", vi: "CUDA + cuDNN" },
     detail: { en: "Low-latency tensor execution environment", vi: "Môi trường thực thi tensor độ trễ thấp" }
   }
 ];

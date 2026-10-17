@@ -94,8 +94,8 @@ export const EDUCATION_DATA: EducationItem = {
       vi: "Natural Language Inference (NLI) & Phát hiện mâu thuẫn ngữ cảnh"
     },
     {
-      en: "On-device & Edge AI Inference Optimization (Jetson / TensorRT)",
-      vi: "Tối ưu suy luận On-device & Edge AI (Jetson / TensorRT)"
+      en: "On-device & Edge AI Inference Optimization (TFLite / INT8)",
+      vi: "Tối ưu suy luận On-device & Edge AI (TFLite / INT8)"
     }
   ],
   coursework: [
@@ -389,7 +389,7 @@ export const FPT_BADGES_DATA: AcademicBadgeItem[] = [
   {
     id: "badge-ks57-1",
     code: "KS57_1",
-    title: same("Digital Ecosystem: From Governance to Business"),
+    title: { en: "Digital Ecosystem: From Governance to Business", vi: "Hệ sinh thái số (từ quản lý đến kinh doanh)" },
     issuer: { en: "FPT University & Coursera", vi: "Đại học FPT & Coursera" },
     program: {
       en: "KS57 Program: Digital Transformation for IT Talents",
@@ -411,7 +411,7 @@ export const FPT_BADGES_DATA: AcademicBadgeItem[] = [
   {
     id: "badge-ks57-2",
     code: "KS57_2",
-    title: same("Key Activities of Digital Transformation"),
+    title: { en: "Key Activities of Digital Transformation", vi: "Các hoạt động then chốt của chuyển đổi số" },
     issuer: { en: "FPT University & Coursera", vi: "Đại học FPT & Coursera" },
     program: {
       en: "KS57 Program: Digital Transformation for IT Talents (Part 2)",

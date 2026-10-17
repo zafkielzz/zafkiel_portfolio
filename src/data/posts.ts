@@ -132,8 +132,8 @@ export const POSTS: Post[] = [
     },
     "date": "2025-11-20T00:00:00.000Z",
     "summary": {
-      "en": "Practical lessons from 4 years of studying and researching AI at FPT University: from algorithms on paper to experimental models and scientific publications.",
-      "vi": "Những bài học thực tế sau 4 năm học tập và nghiên cứu AI tại Đại học FPT: Từ thuật toán trên giấy đến mô hình thực nghiệm và công bố khoa học."
+      "en": "Practical lessons from my first two years of studying and researching AI at FPT University: from algorithms on paper to experimental models and scientific publications.",
+      "vi": "Những bài học thực tế sau hơn 2 năm học tập và nghiên cứu AI tại Đại học FPT: Từ thuật toán trên giấy đến mô hình thực nghiệm và công bố khoa học."
     },
     "tags": [
       "fptu",
