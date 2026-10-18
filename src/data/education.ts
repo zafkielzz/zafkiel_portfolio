@@ -246,7 +246,7 @@ export const ACADEMIC_SERVICE_DATA: ServiceItem[] = [
     id: "service-rivf-2026",
     role: { en: "Technical Program Committee (TPC) Reviewer", vi: "Thành viên Ban Chương trình (TPC) · Phản biện" },
     conference: "RIVF 2026: The 20th International Conference on Computing and Communication Technologies",
-    organizer: { en: "VinUniversity", vi: "VinUniversity" },
+    organizer: { en: "Hosted by VinUniversity", vi: "Đăng cai bởi VinUniversity" },
     date: { en: "December 18–20, 2026", vi: "18–20/12/2026" },
     location: { en: "Hanoi, Vietnam", vi: "Hà Nội, Việt Nam" },
     sponsor: "Technically co-sponsored by IEEE and the IEEE Vietnam Section",
