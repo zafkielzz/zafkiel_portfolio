@@ -228,7 +228,37 @@ export const PUBLICATIONS_LIST: PublicationItem[] = [
   ICITDA_PUBLICATION_DATA
 ];
 
-const CAT_ADVANCED_AI: Localized = { en: "Advanced AI & Research", vi: "AI nâng cao & Nghiên cứu" };
+export interface ServiceItem {
+  id: string;
+  role: Localized;
+  /** Official conference name: identical in both languages. */
+  conference: string;
+  organizer: Localized;
+  date: Localized;
+  location: Localized;
+  sponsor: string;
+  description: Localized;
+  url: string;
+}
+
+export const ACADEMIC_SERVICE_DATA: ServiceItem[] = [
+  {
+    id: "service-rivf-2026",
+    role: { en: "Technical Program Committee (TPC) Reviewer", vi: "Thành viên Ban Chương trình (TPC) · Phản biện" },
+    conference: "RIVF 2026: The 20th International Conference on Computing and Communication Technologies",
+    organizer: { en: "VinUniversity", vi: "VinUniversity" },
+    date: { en: "December 18–20, 2026", vi: "18–20/12/2026" },
+    location: { en: "Hanoi, Vietnam", vi: "Hà Nội, Việt Nam" },
+    sponsor: "Technically co-sponsored by IEEE and the IEEE Vietnam Section",
+    description: {
+      en: "Serving on the Technical Program Committee: reviewing submitted manuscripts for technical soundness, novelty and clarity to help select the conference program.",
+      vi: "Tham gia Ban Chương trình (TPC): phản biện các bản thảo được gửi về về tính đúng đắn kỹ thuật, tính mới và độ rõ ràng, góp phần tuyển chọn chương trình hội nghị."
+    },
+    url: "https://rivf2026.org/"
+  }
+];
+
+const CAT_ADVANCED_AI: Localized ={ en: "Advanced AI & Research", vi: "AI nâng cao & Nghiên cứu" };
 const CAT_ENTERPRISE_AI: Localized = { en: "Enterprise AI & Systems", vi: "AI doanh nghiệp & Hệ thống" };
 const CAT_SOFTWARE_ENG: Localized = { en: "Software Engineering", vi: "Kỹ thuật phần mềm" };
 const CAT_ENG_MANAGEMENT: Localized = { en: "Engineering & Management", vi: "Kỹ thuật & Quản lý" };

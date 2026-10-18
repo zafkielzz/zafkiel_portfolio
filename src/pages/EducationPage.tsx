@@ -4,6 +4,7 @@ import {
   EDUCATION_DATA,
   PUBLICATIONS_LIST,
   CERTIFICATES_DATA,
+  ACADEMIC_SERVICE_DATA,
   FPT_BADGES_DATA,
   CertificateItem
 } from '../data/siteData';
@@ -304,10 +305,56 @@ export const EducationPage: React.FC = () => {
         </div>
       </section>
 
+      {/* ACADEMIC SERVICE */}
+      <section style={{ margin: '80px 0 60px' }}>
+        <div className="label">
+          <span>{t({ en: '03 / ACADEMIC SERVICE', vi: '03 / HOẠT ĐỘNG HỌC THUẬT' })}</span>
+          <span>{t({ en: 'PEER REVIEW & PROGRAM COMMITTEES', vi: 'PHẢN BIỆN & BAN CHƯƠNG TRÌNH' })}</span>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', marginTop: '24px' }}>
+          {ACADEMIC_SERVICE_DATA.map((s) => (
+            <article
+              key={s.id}
+              style={{
+                background: 'rgba(230, 155, 75, 0.03)',
+                border: '1px solid rgba(220, 186, 136, 0.28)',
+                borderRadius: '12px',
+                padding: '28px 32px'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
+                <span style={{ color: 'var(--accent)', font: '600 11px var(--mono)', letterSpacing: '0.07em' }}>
+                  ✦ {t(s.role)}
+                </span>
+                <span style={{ color: 'var(--muted)', font: '11px var(--mono)' }}>
+                  {t(s.date)} · {t(s.location)}
+                </span>
+              </div>
+              <h3 style={{ font: '400 clamp(20px, 2.6vw, 26px) Georgia, serif', margin: '0 0 8px', color: '#fff4e5', lineHeight: '1.25' }}>
+                {s.conference}
+              </h3>
+              <div style={{ color: 'var(--muted)', font: '11px var(--mono)', marginBottom: '14px' }}>
+                {t(s.organizer)} · {s.sponsor}
+              </div>
+              <p style={{ color: '#ccbbaa', fontSize: '14px', lineHeight: '1.65', margin: '0 0 18px' }}>{t(s.description)}</p>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-action-btn secondary"
+              >
+                {t({ en: 'CONFERENCE WEBSITE', vi: 'TRANG HỘI NGHỊ' })} <span>↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* PROFESSIONAL CERTIFICATIONS */}
       <section style={{ margin: '80px 0 40px' }}>
         <div className="label">
-          <span>{t({ en: '03 / VERIFIED CERTIFICATIONS', vi: '03 / CHỨNG CHỈ ĐÃ XÁC THỰC' })}</span>
+          <span>{t({ en: '04 / VERIFIED CERTIFICATIONS', vi: '04 / CHỨNG CHỈ ĐÃ XÁC THỰC' })}</span>
           <span>{t({ en: 'SPECIALIZED COURSES', vi: 'KHÓA HỌC CHUYÊN SÂU' })}</span>
         </div>
 
@@ -464,7 +511,7 @@ export const EducationPage: React.FC = () => {
       {/* ACADEMIC BADGES & DIGITAL TRANSFORMATION (FPT UNIVERSITY) */}
       <section style={{ margin: '80px 0 40px' }}>
         <div className="label">
-          <span>{t({ en: '04 / ACADEMIC BADGES & DIGITAL TRANSFORMATION', vi: '04 / HUY HIỆU HỌC THUẬT & CHUYỂN ĐỔI SỐ' })}</span>
+          <span>{t({ en: '05 / ACADEMIC BADGES & DIGITAL TRANSFORMATION', vi: '05 / HUY HIỆU HỌC THUẬT & CHUYỂN ĐỔI SỐ' })}</span>
           <span>{t({ en: 'FPT UNIVERSITY · KS57 PROGRAM', vi: 'ĐẠI HỌC FPT · CHƯƠNG TRÌNH KS57' })}</span>
         </div>
 

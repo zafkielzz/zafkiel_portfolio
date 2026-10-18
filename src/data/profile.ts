@@ -86,8 +86,8 @@ export const SITE_METADATA = {
     vi: "Deep Learning, Hệ thống thông minh & Công bố khoa học."
   } as Localized,
   bio: {
-    en: "Hello, I’m Đặng Phương Nam — a final-year Artificial Intelligence student at FPT University. My research focuses on multimodal deep learning, adaptive RAG routing, and on-device Edge AI. First Author of accepted & presented paper at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems.",
-    vi: "Xin chào, tôi là Đặng Phương Nam — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại Đại học FPT. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, định tuyến RAG thích ứng và Edge AI tối ưu phần cứng. Tác giả chính của công trình nghiên cứu khoa học được chấp thuận và trình bày tại hội nghị quốc tế IEEE IS'26."
+    en: "Hello, I’m Đặng Phương Nam — a final-year Artificial Intelligence student at FPT University. My research focuses on multimodal deep learning, adaptive RAG routing, and on-device Edge AI. First Author of accepted & presented paper at IEEE IS'26: The 13th IEEE International Conference on Intelligent Systems. TPC Reviewer for RIVF 2026.",
+    vi: "Xin chào, tôi là Đặng Phương Nam — sinh viên năm cuối chuyên ngành Trí tuệ Nhân tạo tại Đại học FPT. Nghiên cứu của tôi tập trung vào Deep Learning đa phương thức, định tuyến RAG thích ứng và Edge AI tối ưu phần cứng. Tác giả chính của công trình nghiên cứu khoa học được chấp thuận và trình bày tại hội nghị quốc tế IEEE IS'26. Thành viên Ban Chương trình (TPC) phản biện của hội nghị RIVF 2026."
   } as Localized,
   status: {
     en: "OPEN FOR AI ENGINEER & RESEARCH ROLES",
