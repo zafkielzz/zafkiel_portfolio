@@ -356,8 +356,8 @@ export const HomePage: React.FC = () => {
             </h2>
             <p>
               {lang === 'en'
-                ? 'First-author paper accepted and presented at IEEE IS\'26: The 13th IEEE International Conference on Intelligent Systems. Evaluated across 3,000 multi-hop questions (MuSiQue, HotpotQA, 2Wiki), the hybrid router saves ~35% of API calls while retaining 83.2%–92.2% of Always-LLM F1, and recovers up to +14.35 F1 in high-RRF/high-conflict regimes.'
-                : 'Bài báo khoa học (tác giả chính) được chấp nhận và trình bày tại IEEE IS\'26: The 13th IEEE International Conference on Intelligent Systems. Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki), bộ định tuyến hybrid tiết kiệm ~35% chi phí gọi API trong khi giữ lại 83.2%–92.2% F1 của Always-LLM, đặc biệt tăng tới +14.35 F1 trong vùng dữ liệu RRF cao nhưng mâu thuẫn cao.'}
+                ? 'First-author paper accepted and presented at IEEE IS\'26: The 13th IEEE International Conference on Intelligent Systems. Evaluated across 3,000 multi-hop questions (MuSiQue, HotpotQA, 2Wiki), the hybrid router saves ~35% of API calls while retaining 83.2%–92.2% of Always-LLM F1, and, in an exploratory high-RRF/high-conflict subgroup, gains +14.35 F1 over RRF on HotpotQA.'
+                : 'Bài báo khoa học (tác giả chính) được chấp nhận và trình bày tại IEEE IS\'26: The 13th IEEE International Conference on Intelligent Systems. Đánh giá trên 3,000 câu hỏi multi-hop (MuSiQue, HotpotQA, 2Wiki), bộ định tuyến hybrid tiết kiệm ~35% chi phí gọi API trong khi giữ lại 83.2%–92.2% F1 của Always-LLM, và trong phân tích khám phá ở nhóm con RRF cao nhưng mâu thuẫn cao, tăng +14.35 F1 so với RRF trên HotpotQA.'}
             </p>
             <Link to="/work/conflict-aware-rag-routing">
               {lang === 'en' ? 'VIEW FULL IEEE IS\'26 RESEARCH CASE STUDY' : 'XEM CHI TIẾT CÔNG BỐ KHOA HỌC IEEE IS\'26'} <b>→</b>

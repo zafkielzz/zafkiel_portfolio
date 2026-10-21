@@ -126,7 +126,7 @@ export const PUBLICATION_DATA: PublicationItem = {
     vi: "Đã qua bình duyệt, được chấp nhận & đã trình bày · Sắp xuất bản (chờ DOI)"
   },
   abstract: {
-    en: "Adaptive model routing reduces Retrieval-Augmented Generation (RAG) cost, but traditional retrieval confidence fails when retrieved passages contradict each other. We propose a bidirectional NLI context-conflict scoring mechanism and a 5-feature hybrid random forest router. Evaluated across 3,000 multi-hop reasoning questions (MuSiQue, HotpotQA, 2WikiMultiHopQA), our pipeline saves ~35% of frontier API calls while retaining 83.2%–92.2% of Always-LLM F1 score, with subgroup F1 gains up to +14.35 points in conflicting context scenarios.",
+    en: "Adaptive model routing reduces Retrieval-Augmented Generation (RAG) cost, but traditional retrieval confidence fails when retrieved passages contradict each other. We propose a bidirectional NLI context-conflict scoring mechanism and a 5-feature hybrid random forest router. Evaluated across 3,000 multi-hop reasoning questions (MuSiQue, HotpotQA, 2WikiMultiHopQA), our pipeline saves ~35% of frontier API calls while retaining 83.2%–92.2% of Always-LLM F1 score, with an exploratory subgroup gain of +14.35 F1 over RRF on HotpotQA when retrieval is confident but passages conflict.",
     vi: "Định tuyến mô hình thích ứng giúp giảm chi phí Retrieval-Augmented Generation (RAG), nhưng độ tin cậy truy xuất truyền thống thất bại khi các đoạn văn được truy xuất mâu thuẫn với nhau. Chúng tôi đề xuất cơ chế chấm điểm mâu thuẫn ngữ cảnh bằng NLI hai chiều và một router random forest lai dùng 5 đặc trưng. Đánh giá trên 3.000 câu hỏi suy luận multi-hop (MuSiQue, HotpotQA, 2WikiMultiHopQA), pipeline của chúng tôi tiết kiệm ~35% lượt gọi API frontier trong khi giữ lại 83,2%–92,2% điểm F1 của Always-LLM, với mức tăng F1 theo nhóm con lên tới +14,35 điểm trong các tình huống ngữ cảnh mâu thuẫn."
   },
   authors: [
@@ -157,8 +157,8 @@ export const PUBLICATION_DATA: PublicationItem = {
       label: { en: "Subgroup F1 Gain", vi: "Mức tăng F1 nhóm con" },
       value: { en: "+14.35 pts", vi: "+14,35 điểm" },
       note: {
-        en: "High-conflict scenarios (p = 0.006)",
-        vi: "Tình huống mâu thuẫn cao (p = 0,006)"
+        en: "Exploratory high-RRF/high-conflict subgroup, HotpotQA (n = 114, Holm p = 0.006)",
+        vi: "Nhóm con khám phá RRF cao/mâu thuẫn cao, HotpotQA (n = 114, Holm p = 0,006)"
       }
     },
     {
