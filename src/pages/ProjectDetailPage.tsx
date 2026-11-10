@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { PROJECTS } from '../data/siteData';
+import { PROJECTS, POSTS } from '../data/siteData';
 import { useLang } from '../i18n';
 
 export const ProjectDetailPage: React.FC = () => {
@@ -133,16 +133,30 @@ export const ProjectDetailPage: React.FC = () => {
             >
               <i>📄</i> {t({ en: 'DOWNLOAD PAPER (PDF)', vi: 'TẢI BÀI BÁO (PDF)' })} <span>↓</span>
             </a>
-            <Link
-              to={`/posts/${project.slug}`}
-              className="random-note"
-              style={{
-                textDecoration: 'none',
-                color: 'var(--text)'
-              }}
-            >
-              <i>📖</i> {t({ en: 'READ TECHNICAL NOTE', vi: 'ĐỌC GHI CHÚ KỸ THUẬT' })} <span>→</span>
-            </Link>
+            {POSTS.some((p) => p.slug === project.slug) && (
+              <Link
+                to={`/posts/${project.slug}`}
+                className="random-note"
+                style={{
+                  textDecoration: 'none',
+                  color: 'var(--text)'
+                }}
+              >
+                <i>📖</i> {t({ en: 'READ TECHNICAL NOTE', vi: 'ĐỌC GHI CHÚ KỸ THUẬT' })} <span>→</span>
+              </Link>
+            )}
+            {project.slug === 'finstar-data' && (
+              <Link
+                to="/work/stock-multitask-transformer"
+                className="random-note"
+                style={{
+                  textDecoration: 'none',
+                  color: 'var(--text)'
+                }}
+              >
+                <i>🎓</i> {t({ en: 'FINSTAR CAPSTONE PROJECT', vi: 'ĐỒ ÁN TỐT NGHIỆP FINSTAR' })} <span>→</span>
+              </Link>
+            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}

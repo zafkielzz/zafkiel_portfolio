@@ -245,7 +245,7 @@ export const COMNETSAT_PUBLICATION_DATA: PublicationItem = {
     { en: "Dien Vu (FPT University)", vi: "Dien Vu (Đại học FPT)" }
   ],
   paperPdf: "/comnetsat_2026_finstar_data.pdf",
-  projectSlug: "stock-multitask-transformer",
+  projectSlug: "finstar-data",
   githubUrl: "",
   metrics: [
     {

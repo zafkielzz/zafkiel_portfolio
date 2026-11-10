@@ -297,6 +297,83 @@ export const PROJECTS: ProjectDetail[] = [
     }
   },
   {
+    slug: 'finstar-data',
+    name: same('FinSTAR-Data: Leakage-Resistant Multimodal Data Pipeline for Vietnamese Equities'),
+    year: same('2026'),
+    type: {
+      en: 'Research Paper · IEEE COMNETSAT 2026 · FinSTAR Capstone',
+      vi: 'Bài báo khoa học · IEEE COMNETSAT 2026 · Đồ án FinSTAR'
+    },
+    description: {
+      en: 'Co-first-author paper accepted at IEEE COMNETSAT 2026, written for our FinSTAR graduation capstone: the auditable, leakage-resistant data pipeline that feeds FinSTAR’s forecasts and explanations for 48 Vietnamese equities (2020–2026).',
+      vi: 'Bài báo (đồng tác giả chính) được chấp nhận tại IEEE COMNETSAT 2026, phục vụ đồ án tốt nghiệp FinSTAR: pipeline dữ liệu có thể kiểm toán, chống rò rỉ, cung cấp dữ liệu cho phần dự báo và giải thích của FinSTAR trên 48 cổ phiếu Việt Nam (2020–2026).'
+    },
+    colors: ['#5fd4ff', '#123a8c'],
+    role: {
+      en: 'Co-First Author · Data Engineering',
+      vi: 'Đồng tác giả chính · Kỹ thuật dữ liệu'
+    },
+    challenge: {
+      en: 'Quantitative AI in emerging markets usually fails upstream, in the data: backward-adjusted prices leak future corporate actions, data vendors silently disagree on trading volume, tokenizers shatter multi-digit monetary values, over 90% of financial disclosures are stamped scanned PDFs, and ESG reports are full of unverified claims. A forecasting model trained on such data looks good in backtests and breaks in live use.',
+      vi: 'AI định lượng ở thị trường mới nổi thường hỏng ngay từ dữ liệu: giá điều chỉnh ngược làm rò rỉ sự kiện doanh nghiệp tương lai, các nhà cung cấp lệch nhau về khối lượng mà không báo, tokenizer làm vỡ các con số tiền tệ nhiều chữ số, hơn 90% công bố tài chính là PDF scan có dấu mộc, và báo cáo ESG đầy tuyên bố chưa kiểm chứng. Mô hình học trên dữ liệu như vậy chạy backtest đẹp nhưng gãy khi chạy thật.'
+    },
+    outcome: {
+      en: 'FinSTAR-Data covers 48 equities across 10 sectors over 7 years (2020–2026), with distressed and suspended firms kept to avoid survivorship bias. It reconciles 80,832 OHLCV rows from two sources with forward point-in-time prices, extracts 1,226 scanned quarterly filings (~60,000 pages) with 100% balance-sheet parity, cuts annual-report visual processing by 93.26% on 37,765 pages, and turns 78,006 news articles into 28,321 train-ready samples. This data is the foundation of the FinSTAR capstone models and live benchmark.',
+      vi: 'FinSTAR-Data bao phủ 48 cổ phiếu thuộc 10 ngành trong 7 năm (2020–2026), giữ lại cả doanh nghiệp khó khăn, bị đình chỉ để tránh survivorship bias. Pipeline đối soát 80.832 dòng OHLCV từ hai nguồn kèm giá point-in-time điều chỉnh xuôi, trích xuất 1.226 báo cáo quý dạng scan (~60.000 trang) với bảng cân đối khớp 100%, giảm 93,26% khối lượng xử lý hình ảnh trên 37.765 trang báo cáo thường niên, và biến 78.006 bài báo thành 28.321 mẫu sẵn sàng huấn luyện. Đây là nền dữ liệu cho các mô hình và live benchmark của đồ án FinSTAR.'
+    },
+    decisions: [
+      [
+        { en: 'Point-in-time prices and a 14:45 cutoff', vi: 'Giá point-in-time và mốc cắt 14:45' },
+        {
+          en: 'Dual-source, cell-level OHLCV reconciliation with forward point-in-time adjusted prices (adj_close_pit), and a macro stream cut at the 14:45 market close, checked with 4-fold walk-forward validation for spurious alpha.',
+          vi: 'Đối soát OHLCV hai nguồn đến từng ô, kèm giá điều chỉnh xuôi point-in-time (adj_close_pit), và luồng vĩ mô cắt tại 14:45, kiểm tra alpha giả bằng walk-forward 4 fold.'
+        }
+      ],
+      [
+        { en: 'VLM cluster for scanned filings', vi: 'Cụm VLM cho báo cáo dạng scan' },
+        {
+          en: 'A distributed 3-node vision-language model cluster extracts quarterly financial statements from low-resolution scanned PDFs, validated by balance-sheet identities.',
+          vi: 'Cụm mô hình thị giác-ngôn ngữ 3 node trích xuất báo cáo tài chính quý từ PDF scan độ phân giải thấp, kiểm chứng bằng các đẳng thức bảng cân đối.'
+        }
+      ],
+      [
+        { en: 'Vector-first ESG screening', vi: 'Sàng lọc ESG vector-first' },
+        {
+          en: 'Annual reports are screened on their vector text layer first, sending only needed pages to visual processing, and ESG scores are capped (≤ 0.60) unless claims are backed by evidence: an anti-greenwashing ceiling.',
+          vi: 'Báo cáo thường niên được sàng lọc trên lớp văn bản vector trước, chỉ gửi các trang cần thiết sang xử lý hình ảnh, và điểm ESG bị giới hạn (≤ 0,60) nếu tuyên bố không có bằng chứng: trần chống greenwashing.'
+        }
+      ],
+      [
+        { en: 'News as numbers, not fragmented tokens', vi: 'Tin tức thành số, không để tokenizer làm vỡ' },
+        {
+          en: 'A 9-phase news feature store serializes 10 float scalars per sample so monetary values reach the model intact instead of being split by BPE tokenizers.',
+          vi: 'Kho đặc trưng tin tức 9 giai đoạn tuần tự hóa 10 giá trị số thực cho mỗi mẫu, để các con số tiền tệ đến mô hình nguyên vẹn thay vì bị tokenizer BPE cắt vụn.'
+        }
+      ]
+    ],
+    publication: {
+      conference: same('2026 IEEE International Conference on Communication, Networks and Satellite (COMNETSAT)'),
+      journal: same('IEEE COMNETSAT 2026: IEEE International Conference on Communication, Networks and Satellite'),
+      authors: {
+        en: 'Nguyen Nhat Bang, Dang Phuong Nam (Co-First Authors), Doan Minh Tuan, Dien Vu (Department of Artificial Intelligence, FPT University)',
+        vi: 'Nguyen Nhat Bang, Dang Phuong Nam (Đồng tác giả chính), Doan Minh Tuan, Dien Vu (Khoa Trí tuệ Nhân tạo, Đại học FPT)'
+      },
+      date: {
+        en: 'Accepted · 2026',
+        vi: 'Đã được chấp nhận · 2026'
+      },
+      status: {
+        en: 'Accepted at IEEE COMNETSAT 2026 · To appear in IEEE Xplore',
+        vi: 'Được chấp nhận tại IEEE COMNETSAT 2026 · Sắp xuất bản trên IEEE Xplore'
+      },
+      abstract: {
+        en: 'Quantitative AI in emerging equity markets is impaired by upstream data engineering failures rather than neural architecture. FinSTAR-Data is an auditable, leakage-resistant multimodal pipeline for 48 Vietnamese equities across 10 sectors (2020–2026) with five synchronized pillars: dual-source reconciled OHLCV with forward point-in-time prices; a 14:45-cutoff point-in-time macro stream; a 3-node VLM cluster for scanned quarterly filings; vector-first visual screening of annual reports with an anti-greenwashing ceiling; and a 9-phase news feature store. It is the data foundation of the FinSTAR graduation capstone.',
+        vi: 'AI định lượng ở thị trường chứng khoán mới nổi bị cản trở bởi lỗi kỹ thuật dữ liệu đầu vào hơn là kiến trúc mô hình. FinSTAR-Data là pipeline đa phương thức có thể kiểm toán, chống rò rỉ cho 48 cổ phiếu Việt Nam thuộc 10 ngành (2020–2026), gồm năm trụ cột đồng bộ: OHLCV đối soát hai nguồn kèm giá point-in-time điều chỉnh xuôi; luồng vĩ mô point-in-time cắt lúc 14:45; cụm VLM 3 node cho báo cáo quý dạng scan; sàng lọc hình ảnh vector-first cho báo cáo thường niên với trần chống greenwashing; và kho đặc trưng tin tức 9 giai đoạn. Đây là nền dữ liệu của đồ án tốt nghiệp FinSTAR.'
+      },
+      pdfUrl: '/comnetsat_2026_finstar_data.pdf'
+    }
+  },
+  {
     slug: 'stock-multitask-transformer',
     name: {
       en: 'FinSTAR: Stock Forecasting with Verified Vietnamese Explanations',
@@ -308,8 +385,8 @@ export const PROJECTS: ProjectDetail[] = [
       vi: 'Đồ án tốt nghiệp · ĐH FPT'
     },
     description: {
-      en: 'Capstone project at FPT University: each session, for 48 Vietnamese stocks, a LightGBM model forecasts whether the stock will beat, trail or match the market over the next 5 sessions, and a fine-tuned Qwen2.5-1.5B writes a Vietnamese explanation that is checked automatically before it is shown. Live demo online.',
-      vi: 'Đồ án tốt nghiệp tại ĐH FPT: mỗi phiên, với 48 mã cổ phiếu Việt Nam, mô hình LightGBM dự báo mã sẽ mạnh hơn, yếu hơn hay ngang thị trường trong 5 phiên tới, và Qwen2.5-1.5B đã fine-tune viết lời giải thích tiếng Việt được kiểm tra tự động trước khi hiển thị. Có web demo chạy thật.'
+      en: 'Capstone project at FPT University: each session, for 48 Vietnamese stocks, a LightGBM model forecasts whether the stock will beat, trail or match the market over the next 5 sessions, and a fine-tuned Qwen2.5-1.5B writes a Vietnamese explanation that is checked automatically before it is shown. Its data pipeline is published as FinSTAR-Data (IEEE COMNETSAT 2026, co-first author). Live demo online.',
+      vi: 'Đồ án tốt nghiệp tại ĐH FPT: mỗi phiên, với 48 mã cổ phiếu Việt Nam, mô hình LightGBM dự báo mã sẽ mạnh hơn, yếu hơn hay ngang thị trường trong 5 phiên tới, và Qwen2.5-1.5B đã fine-tune viết lời giải thích tiếng Việt được kiểm tra tự động trước khi hiển thị. Pipeline dữ liệu được công bố thành bài FinSTAR-Data (IEEE COMNETSAT 2026, đồng tác giả chính). Có web demo chạy thật.'
     },
     colors: ['#77b6ff', '#252ed9'],
     image: '/images/project-stock-multitask-transformer.webp',

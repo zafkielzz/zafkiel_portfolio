@@ -366,6 +366,104 @@ export const HomePage: React.FC = () => {
         </section>
       )}
 
+      {/* SCIENTIFIC HIGHLIGHT: IEEE COMNETSAT 2026, FINSTAR CAPSTONE DATA PAPER */}
+      <section
+        style={{
+          maxWidth: '1000px',
+          margin: '24px auto 0',
+          padding: '0 24px'
+        }}
+        aria-label={t({ en: 'IEEE COMNETSAT 2026 paper for the FinSTAR capstone', vi: 'Bài báo IEEE COMNETSAT 2026 của đồ án FinSTAR' })}
+      >
+        <div
+          style={{
+            background: 'linear-gradient(135deg, rgba(16, 28, 48, 0.88), rgba(11, 18, 32, 0.96))',
+            border: '1px solid rgba(119, 182, 255, 0.35)',
+            borderRadius: '14px',
+            padding: '28px 32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '24px',
+            flexWrap: 'wrap',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '160px',
+              height: '160px',
+              background: 'radial-gradient(circle at 100% 0%, rgba(119, 182, 255, 0.16), transparent 70%)',
+              pointerEvents: 'none'
+            }}
+          />
+          <div style={{ flex: '1 1 520px', position: 'relative', zIndex: 1 }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  background: 'rgba(119, 182, 255, 0.16)',
+                  color: '#bfdbfe',
+                  border: '1px solid rgba(119, 182, 255, 0.5)',
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  font: '600 10px var(--mono)',
+                  letterSpacing: '0.06em'
+                }}
+              >
+                {t({ en: 'IEEE COMNETSAT 2026 ACCEPTED', vi: 'IEEE COMNETSAT 2026 · ĐÃ CHẤP NHẬN' })}
+              </span>
+              <span style={{ color: '#93c5fd', font: '10px var(--mono)', letterSpacing: '0.05em' }}>
+                {t({ en: 'CO-FIRST AUTHOR · FINSTAR GRADUATION CAPSTONE', vi: 'ĐỒNG TÁC GIẢ CHÍNH · ĐỒ ÁN TỐT NGHIỆP FINSTAR' })}
+              </span>
+            </div>
+            <h3
+              style={{
+                margin: '0 0 10px',
+                font: '400 clamp(19px, 2.2vw, 25px) Georgia, serif',
+                color: '#eff6ff',
+                lineHeight: 1.25
+              }}
+            >
+              FinSTAR-Data: An Auditable, Leakage-Resistant Multimodal Data Engineering Pipeline for Quantitative Finance in Emerging Markets
+            </h3>
+            <p style={{ margin: 0, color: '#bfdbfe', fontSize: '13px', lineHeight: 1.65, opacity: 0.9 }}>
+              {lang === 'en'
+                ? 'Co-first-author paper accepted at IEEE COMNETSAT 2026, written for our FinSTAR graduation capstone: the data pipeline behind FinSTAR’s stock forecasts and verified Vietnamese explanations. It covers 48 Vietnamese equities (2020–2026), reconciles 80,832 OHLCV rows with point-in-time prices, extracts 1,226 scanned quarterly filings with a 3-node VLM cluster, and turns 78,006 news articles into 28,321 train-ready samples.'
+                : 'Bài báo (đồng tác giả chính) được chấp nhận tại IEEE COMNETSAT 2026, phục vụ đồ án tốt nghiệp FinSTAR: pipeline dữ liệu đứng sau phần dự báo cổ phiếu và giải thích tiếng Việt có kiểm chứng của FinSTAR. Dữ liệu gồm 48 cổ phiếu Việt Nam (2020–2026), 80.832 dòng OHLCV đối soát kèm giá point-in-time, 1.226 báo cáo quý dạng scan trích xuất bằng cụm VLM 3 node, và 78.006 bài báo biến thành 28.321 mẫu sẵn sàng huấn luyện.'}
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+            <Link
+              to="/work/finstar-data"
+              className="project-action-btn primary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              {lang === 'en' ? 'CASE STUDY →' : 'XEM CASE STUDY →'}
+            </Link>
+            <Link
+              to="/work/stock-multitask-transformer"
+              className="project-action-btn secondary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              {lang === 'en' ? 'FINSTAR CAPSTONE →' : 'ĐỒ ÁN FINSTAR →'}
+            </Link>
+            <a
+              href="/comnetsat_2026_finstar_data.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-action-btn secondary"
+              style={{ fontSize: '11px', padding: '9px 15px' }}
+            >
+              PDF <span>↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* SECONDARY SCIENTIFIC HIGHLIGHT: ICITDA 2026 QUANT RESEARCH */}
       <section
         className="icitda-highlight-section"
