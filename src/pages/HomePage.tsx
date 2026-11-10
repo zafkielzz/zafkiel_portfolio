@@ -607,7 +607,7 @@ export const HomePage: React.FC = () => {
             <div>
               <span>{t({ en: '02 / EDUCATION & CERTS', vi: '02 / HỌC VẤN & CHỨNG CHỈ' })}</span>
               <h3>{t({ en: 'Formal study & publications.', vi: 'Học tập & công bố khoa học.' })}</h3>
-              <p>{t({ en: "FPT University AI major, IEEE IS'26 (first author) & ICITDA 2026 conference research, and verified credentials.", vi: "Ngành AI tại Đại học FPT, bài báo IEEE IS'26 (tác giả chính) & ICITDA 2026, cùng các chứng chỉ đã xác minh." })}</p>
+              <p>{t({ en: "FPT University AI major, IEEE IS'26 (first author), IEEE COMNETSAT 2026 (co-first author) & ICITDA 2026 conference research, and verified credentials.", vi: "Ngành AI tại Đại học FPT, bài báo IEEE IS'26 (tác giả chính), IEEE COMNETSAT 2026 (đồng tác giả chính) & ICITDA 2026, cùng các chứng chỉ đã xác minh." })}</p>
               <b>{t({ en: 'VIEW ACADEMIC RECORD →', vi: 'XEM HỒ SƠ HỌC TẬP →' })}</b>
             </div>
           </Link>

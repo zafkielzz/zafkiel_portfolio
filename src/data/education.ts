@@ -24,7 +24,8 @@ export interface PublicationItem {
   authors: Localized[];
   paperPdf: string;
   projectSlug: string;
-  postSlug: string;
+  /** Omit when no technical post exists for this paper. */
+  postSlug?: string;
   githubUrl: string;
   metrics: { label: Localized; value: Localized; note: Localized }[];
 }
@@ -223,8 +224,56 @@ export const ICITDA_PUBLICATION_DATA: PublicationItem = {
   ]
 };
 
+export const COMNETSAT_PUBLICATION_DATA: PublicationItem = {
+  slug: "finstar-data-comnetsat-2026",
+  title: "FinSTAR-Data: An Auditable, Leakage-Resistant Multimodal Data Engineering Pipeline for Quantitative Finance in Emerging Markets",
+  conference: same("IEEE COMNETSAT 2026: IEEE International Conference on Communication, Networks and Satellite"),
+  role: { en: "Co-First Author", vi: "Đồng tác giả chính" },
+  date: { en: "December 2026", vi: "Tháng 12/2026" },
+  status: {
+    en: "Peer-Reviewed & Accepted · To appear in IEEE Xplore",
+    vi: "Đã qua bình duyệt & được chấp nhận · Sắp xuất bản trên IEEE Xplore"
+  },
+  abstract: {
+    en: "Quantitative AI in emerging equity markets is held back by upstream data engineering failures rather than model architecture: lookahead contamination from backward-adjusted prices, silent inter-vendor volume divergence, tokenizer fragmentation of monetary values, scanned-PDF financial disclosures and unverified ESG claims. FinSTAR-Data is an auditable, leakage-resistant multimodal pipeline covering 48 Vietnamese equities across 10 sectors (2020–2026), built on five synchronized pillars: dual-source reconciled OHLCV with forward point-in-time prices, a 14:45 market-close point-in-time macro stream, a 3-node VLM cluster for scanned quarterly filings, a vector-first visual screening engine with an anti-greenwashing ceiling for ESG, and a 9-phase news feature store.",
+    vi: "AI định lượng ở các thị trường chứng khoán mới nổi bị cản trở bởi lỗi kỹ thuật dữ liệu đầu vào hơn là kiến trúc mô hình: rò rỉ tương lai từ giá điều chỉnh ngược, chênh lệch khối lượng âm thầm giữa các nhà cung cấp, tokenizer làm vỡ các con số tiền tệ, báo cáo tài chính dạng PDF scan và các tuyên bố ESG chưa kiểm chứng. FinSTAR-Data là pipeline dữ liệu đa phương thức có thể kiểm toán và chống rò rỉ, bao phủ 48 cổ phiếu Việt Nam thuộc 10 ngành (2020–2026), gồm năm trụ cột đồng bộ: OHLCV đối soát hai nguồn kèm giá point-in-time điều chỉnh xuôi, luồng vĩ mô point-in-time cắt lúc 14:45, cụm VLM 3 node trích xuất báo cáo quý dạng scan, bộ sàng lọc hình ảnh vector-first có trần chống greenwashing cho ESG, và kho đặc trưng tin tức 9 giai đoạn."
+  },
+  authors: [
+    { en: "Nguyen Nhat Bang (Co-First Author · FPT University)", vi: "Nguyen Nhat Bang (Đồng tác giả chính · Đại học FPT)" },
+    { en: "Đặng Phương Nam (Co-First Author · FPT University)", vi: "Đặng Phương Nam (Đồng tác giả chính · Đại học FPT)" },
+    { en: "Doan Minh Tuan (FPT University)", vi: "Doan Minh Tuan (Đại học FPT)" },
+    { en: "Dien Vu (FPT University)", vi: "Dien Vu (Đại học FPT)" }
+  ],
+  paperPdf: "/comnetsat_2026_finstar_data.pdf",
+  projectSlug: "stock-multitask-transformer",
+  githubUrl: "",
+  metrics: [
+    {
+      label: { en: "OHLCV Rows Reconciled", vi: "Dòng OHLCV đối soát" },
+      value: { en: "80,832", vi: "80.832" },
+      note: { en: "Dual-source, cell-level", vi: "Hai nguồn, từng ô dữ liệu" }
+    },
+    {
+      label: { en: "Scanned Filings Extracted", vi: "Báo cáo scan trích xuất" },
+      value: { en: "1,226", vi: "1.226" },
+      note: { en: "~60,000 pages · 100% balance-sheet parity", vi: "~60.000 trang · cân đối kế toán khớp 100%" }
+    },
+    {
+      label: { en: "Visual Processing Cut", vi: "Giảm xử lý hình ảnh" },
+      value: { en: "93.26%", vi: "93,26%" },
+      note: { en: "37,765 annual-report pages", vi: "37.765 trang báo cáo thường niên" }
+    },
+    {
+      label: { en: "News Samples", vi: "Mẫu tin tức" },
+      value: { en: "28,321", vi: "28.321" },
+      note: { en: "From 78,006 raw articles", vi: "Từ 78.006 bài báo thô" }
+    }
+  ]
+};
+
 export const PUBLICATIONS_LIST: PublicationItem[] = [
   PUBLICATION_DATA,
+  COMNETSAT_PUBLICATION_DATA,
   ICITDA_PUBLICATION_DATA
 ];
 

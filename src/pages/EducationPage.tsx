@@ -282,12 +282,14 @@ export const EducationPage: React.FC = () => {
                   >
                     {t({ en: 'VIEW RESEARCH STUDY', vi: 'XEM NGHIÊN CỨU' })} <span>→</span>
                   </Link>
-                  <Link
-                    to={`/posts/${pub.postSlug}`}
-                    className="project-action-btn secondary"
-                  >
-                    {t({ en: 'TECHNICAL BREAKDOWN', vi: 'PHÂN TÍCH KỸ THUẬT' })} <span>→</span>
-                  </Link>
+                  {pub.postSlug && (
+                    <Link
+                      to={`/posts/${pub.postSlug}`}
+                      className="project-action-btn secondary"
+                    >
+                      {t({ en: 'TECHNICAL BREAKDOWN', vi: 'PHÂN TÍCH KỸ THUẬT' })} <span>→</span>
+                    </Link>
+                  )}
                   {pub.githubUrl && (
                     <a
                       href={pub.githubUrl}
