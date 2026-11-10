@@ -101,6 +101,16 @@ export const ProjectsPage: React.FC = () => {
                         {t({ en: 'GITHUB REPO', vi: 'REPO GITHUB' })} <span>↗</span>
                       </a>
                     )}
+                    {proj.demoUrl && (
+                      <a
+                        href={proj.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-action-btn secondary"
+                      >
+                        {t({ en: 'LIVE DEMO', vi: 'WEB DEMO' })} <span>↗</span>
+                      </a>
+                    )}
                     {proj.publication && (
                       <span
                         className="project-badge"
@@ -116,6 +126,8 @@ export const ProjectsPage: React.FC = () => {
                       >
                         {conference?.includes('ICITDA')
                           ? 'ICITDA 2026'
+                          : conference?.includes('COMNETSAT')
+                          ? 'IEEE COMNETSAT 2026'
                           : conference?.includes('IEEE')
                           ? "IEEE IS'26"
                           : t({ en: 'PUBLICATION', vi: 'CÔNG BỐ' })}

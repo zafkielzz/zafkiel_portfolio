@@ -299,125 +299,148 @@ export const PROJECTS: ProjectDetail[] = [
   {
     slug: 'stock-multitask-transformer',
     name: {
-      en: 'Multi-Task Transformer for Stock Trend Prediction & Self-Rationalization',
-      vi: 'Multi-Task Transformer dự báo xu hướng cổ phiếu & tự giải trình'
+      en: 'FinSTAR: Stock Forecasting with Verified Vietnamese Explanations',
+      vi: 'FinSTAR: Dự báo cổ phiếu kèm giải thích tiếng Việt có kiểm chứng'
     },
-    year: {
-      en: '2026 (In Development)',
-      vi: '2026 (Đang phát triển)'
-    },
+    year: same('2026'),
     type: {
-      en: 'Capstone Project · FPT University (In Research & Development)',
-      vi: 'Đồ án tốt nghiệp · ĐH FPT (Đang nghiên cứu & phát triển)'
+      en: 'Capstone Project · FPT University',
+      vi: 'Đồ án tốt nghiệp · ĐH FPT'
     },
     description: {
-      en: 'Capstone project at FPT University (in development): designing a multi-task Decoder-Only SLM architecture that processes hybrid data (price time series, financial text, ESG) to forecast trends and automatically generate rationales.',
-      vi: 'Đồ án tốt nghiệp tại ĐH FPT (Đang phát triển): Thiết kế kiến trúc Decoder-Only SLM đa nhiệm xử lý dữ liệu lai (chuỗi thời gian giá, văn bản tài chính, ESG) nhằm dự báo xu hướng và tự động sinh giải trình.'
+      en: 'Capstone project at FPT University: each session, for 48 Vietnamese stocks, a LightGBM model forecasts whether the stock will beat, trail or match the market over the next 5 sessions, and a fine-tuned Qwen2.5-1.5B writes a Vietnamese explanation that is checked automatically before it is shown. Live demo online.',
+      vi: 'Đồ án tốt nghiệp tại ĐH FPT: mỗi phiên, với 48 mã cổ phiếu Việt Nam, mô hình LightGBM dự báo mã sẽ mạnh hơn, yếu hơn hay ngang thị trường trong 5 phiên tới, và Qwen2.5-1.5B đã fine-tune viết lời giải thích tiếng Việt được kiểm tra tự động trước khi hiển thị. Có web demo chạy thật.'
     },
     colors: ['#77b6ff', '#252ed9'],
     image: '/images/project-stock-multitask-transformer.webp',
     role: {
-      en: 'Vice Team Leader · AI System Architect (In Research & Development)',
-      vi: 'Phó trưởng nhóm · AI System Architect (Đang nghiên cứu & phát triển)'
+      en: 'Vice Team Leader · AI System Architect',
+      vi: 'Phó trưởng nhóm · AI System Architect'
     },
     challenge: {
-      en: 'Stock market forecasting usually requires combining many heterogeneous data sources: price time series (OHLCV), financial text (MD&A, earnings calls) and sustainability scores (ESG). Traditional methods often process each source separately, missing cross-correlations and lacking a transparent self-rationalization mechanism linking the classification decision to the financial reasoning.',
-      vi: 'Dự báo thị trường chứng khoán thường đòi hỏi tổng hòa từ nhiều nguồn dữ liệu không đồng nhất: chuỗi thời gian giá (OHLCV), văn bản tài chính (MD&A, Earnings Calls) và chỉ số bền vững (ESG). Các phương pháp truyền thống thường xử lý rời rạc từng nguồn dữ liệu, dẫn đến việc bỏ lỡ tương quan chéo và thiếu cơ chế tự giải trình minh bạch giữa quyết định phân loại và lý lẽ tài chính.'
+      en: 'Forecasting Vietnamese stocks means combining five noisy sources (prices, financial statements, annual reports and ESG, news, macro) without leaking future information, and an investor also needs to know why a forecast was made. A language model that writes explanations can easily invent numbers or contradict the forecast it is meant to explain.',
+      vi: 'Dự báo cổ phiếu Việt Nam đòi hỏi kết hợp năm nguồn dữ liệu nhiễu (giá, báo cáo tài chính, báo cáo thường niên và ESG, tin tức, vĩ mô) mà không rò rỉ thông tin tương lai, và nhà đầu tư còn cần biết vì sao có dự báo đó. Mô hình ngôn ngữ viết giải thích rất dễ bịa số liệu hoặc nói ngược với chính dự báo cần giải thích.'
     },
     outcome: {
-      en: 'Proposed and currently implementing a Shared Decoder-Only SLM architecture (based on Qwen2.5-0.5B) that processes a hybrid representation sequence from PatchTST (time series), Segment Embedding (text) and Continuous Embedding (ESG). Proposed an NLI-based Consistency Loss objective to limit contradictions between the trend classification label and the rationale text, aiming for on-premise deployment with optimized hardware cost.',
-      vi: 'Đề xuất và đang hiện thực kiến trúc Shared Decoder-Only SLM (dựa trên Qwen2.5-0.5B) xử lý chuỗi biểu diễn lai từ PatchTST (chuỗi thời gian), Segment Embedding (văn bản) và Continuous Embedding (ESG). Đề xuất hàm mục tiêu Consistency Loss qua NLI để hạn chế mâu thuẫn giữa nhãn phân loại xu hướng và văn bản giải trình, hướng tới mục tiêu triển khai on-premise với chi phí phần cứng tối ưu.'
+      en: 'Built a two-model system on a 79,676-sample dataset (57 tables, 8.66 GB). Head 1, a multi-horizon LightGBM retrained every quarter, raised development AUC from 0.534 to 0.561; on the test split, scored exactly once, AUC fell to 0.520 [0.497; 0.544], so the forecasting signal is not yet proven out of sample. Head 2, Qwen2.5-1.5B with LoRA, writes explanations of which 97.4% of 1,000 test samples pass all 7 verifier rules, with every number found in the input facts. Forecasts are sealed every session in a live benchmark against a web-search Gemini agent and naive baselines, and served on a live web demo.',
+      vi: 'Xây dựng hệ thống hai mô hình trên bộ dữ liệu 79.676 mẫu (57 bảng, 8,66 GB). Head 1 là LightGBM học 5 kỳ hạn, train lại mỗi quý, nâng AUC giai đoạn phát triển từ 0,534 lên 0,561; trên tập test chấm đúng một lần, AUC giảm còn 0,520 [0,497; 0,544], nên tín hiệu dự báo ngoài mẫu chưa được chứng minh. Head 2 là Qwen2.5-1.5B với LoRA, viết lời giải thích đạt đủ 7 tiêu chí kiểm chứng ở 97,4% trên 1.000 mẫu test, mọi con số đều có trong dữ kiện đầu vào. Dự báo được niêm phong mỗi phiên trong live benchmark so với agent Gemini có tìm kiếm web và các mốc đơn giản, và chạy trên web demo.'
     },
     decisions: [
       [
         {
-          en: 'Shared Decoder-Only SLM Backbone (Qwen2.5-0.5B)',
-          vi: 'Backbone SLM Decoder-Only dùng chung (Qwen2.5-0.5B)'
+          en: 'Split forecasting from explanation',
+          vi: 'Tách dự báo và giải thích'
         },
         {
-          en: 'Chose a compact language model as the shared backbone: the hidden state at the special [DECISION] token is extracted for classification, while its autoregressive ability is used to generate the rationale text.',
-          vi: 'Lựa chọn mô hình ngôn ngữ nhỏ gọn làm backbone chung: trích xuất hidden state tại token đặc biệt [DECISION] cho tác vụ phân loại, đồng thời tận dụng khả năng autoregressive để sinh văn bản giải trình.'
+          en: 'The first design, one fine-tuned Qwen2.5-1.5B that both forecasts and explains, lost to a LightGBM baseline in all 5 iterations (best fair run MCC 0.059 vs. 0.107 on the same data), while its explanations were good. The team split the tasks: LightGBM forecasts, the LLM only explains.',
+          vi: 'Thiết kế đầu, một Qwen2.5-1.5B fine-tune vừa dự báo vừa giải thích, thua mốc LightGBM ở cả 5 lần cải tiến (lần so sánh công bằng: MCC 0,059 so với 0,107 trên cùng dữ liệu), trong khi phần giải thích lại tốt. Nhóm tách hai việc: LightGBM dự báo, LLM chỉ giải thích.'
         }
       ],
       [
         {
-          en: 'Hybrid Input Layer',
-          vi: 'Tầng mã hóa dữ liệu lai (Hybrid Input Layer)'
+          en: 'Multi-horizon LightGBM, retrained quarterly',
+          vi: 'LightGBM học 5 kỳ hạn, train lại mỗi quý'
         },
         {
-          en: 'Experimenting with combining W=30-day time-series patches with Temporal Positional Embedding, financial text with Segment Embedding, and continuous ESG scores to avoid discretization that would lose ordinal information.',
-          vi: 'Thử nghiệm kết hợp patch chuỗi thời gian W=30 ngày với Temporal Positional Embedding, văn bản tài chính với Segment Embedding, và điểm ESG dạng liên tục tránh việc rời rạc hóa làm mất thứ bậc.'
+          en: 'Five models on 1- to 5-session labels, rank-averaged within each day and calibrated into three probabilities. Neighbouring horizons reduce label noise; this was the step that passed the pre-registered rule (gain ≥ 0.005 AUC and better in ≥ 2 of 3 periods).',
+          vi: 'Năm mô hình trên nhãn 1 đến 5 phiên, lấy trung bình hạng trong ngày rồi hiệu chỉnh thành ba xác suất. Các kỳ hạn gần nhau giúp giảm nhiễu nhãn; đây là bước qua được luật ghi trước (tăng ≥ 0,005 AUC và tốt hơn ở ≥ 2/3 giai đoạn).'
         }
       ],
       [
         {
-          en: 'Consistency Constraint via Consistency Loss',
-          vi: 'Ràng buộc nhất quán qua Consistency Loss'
+          en: 'More data is not more signal',
+          vi: 'Thêm dữ liệu không đồng nghĩa thêm tín hiệu'
         },
         {
-          en: 'Integrates a compact NLI model to apply a gradient penalty when the generated rationale logically contradicts the predicted trend label.',
-          vi: 'Tích hợp mô hình NLI nhỏ gọn để phạt gradient khi văn bản giải trình sinh ra mâu thuẫn về mặt logic với nhãn dự đoán xu hướng.'
+          en: 'Numeric financial statements, ESG scores, news embeddings, news tone, 83 extra tickers and a PatchTST ensemble were all tested and rejected under the same rule; only prices and lagged order flow contributed clearly.',
+          vi: 'Báo cáo tài chính dạng số, điểm ESG, vector nội dung tin, sắc thái tin, thêm 83 mã và ghép PatchTST đều được thử và bị loại theo cùng một luật; chỉ giá và sổ lệnh lùi 1 phiên đóng góp rõ.'
         }
       ],
       [
         {
-          en: 'On-Premise Optimization Focus',
-          vi: 'Định hướng tối ưu hóa On-Premise'
+          en: 'Explanations verified before they are shown',
+          vi: 'Giải thích được kiểm chứng trước khi hiển thị'
         },
         {
-          en: 'Designing the system for local inference on consumer hardware (RTX 4060, VRAM <8GB) to keep internal trading data private and control latency.',
-          vi: 'Thiết kế hệ thống hướng tới khả năng suy luận cục bộ trên phần cứng thương mại (RTX 4060, VRAM <8GB) nhằm bảo mật dữ liệu giao dịch nội bộ và kiểm soát độ trễ.'
+          en: 'A label-blind selector picks 6 facts per stock; the LLM writes from that fact sheet and the head-1 label. Seven rules (C1–C7) check structure, title, numbers, tickers, banned certainty words, length and honesty when facts disagree; failing the title, number or ticker rule replaces the text with a refusal. 1.5B was chosen over 3B: near-equal pass rate (99.0% vs. 99.5%) at about half the time per sample.',
+          vi: 'Bộ chọn không nhìn nhãn lấy 6 ý cho mỗi mã; LLM viết từ fact sheet đó và nhãn của head 1. Bảy tiêu chí (C1–C7) kiểm tra cấu trúc, tiêu đề, con số, mã cổ phiếu, từ khẳng định bị cấm, độ dài và sự trung thực khi dữ kiện ngược; trượt tiêu chí tiêu đề, con số hoặc mã thì lời giải thích bị thay bằng câu từ chối. Chọn 1.5B thay vì 3B: tỷ lệ đạt gần bằng (99,0% so với 99,5%) với khoảng một nửa thời gian mỗi mẫu.'
         }
       ]
     ],
+    demoUrl: 'https://finstar.pp.ua/app',
+    publication: {
+      conference: same('2026 IEEE International Conference on Communication, Networks and Satellite (COMNETSAT)'),
+      journal: same('IEEE COMNETSAT 2026: IEEE International Conference on Communication, Networks and Satellite'),
+      authors: {
+        en: 'Nguyen Nhat Bang, Dang Phuong Nam (Co-First Authors), Doan Minh Tuan, Dien Vu (FPT University)',
+        vi: 'Nguyen Nhat Bang, Dang Phuong Nam (Đồng tác giả chính), Doan Minh Tuan, Dien Vu (Đại học FPT)'
+      },
+      date: {
+        en: 'Accepted · 2026',
+        vi: 'Đã được chấp nhận · 2026'
+      },
+      status: {
+        en: 'Accepted at IEEE COMNETSAT 2026 · To appear in IEEE Xplore',
+        vi: 'Được chấp nhận tại IEEE COMNETSAT 2026 · Sắp xuất bản trên IEEE Xplore'
+      },
+      abstract: {
+        en: 'FinSTAR-Data, the data paper of this project: an auditable, leakage-resistant multimodal data pipeline for 48 Vietnamese equities (2020–2026) covering reconciled OHLCV with point-in-time prices, a point-in-time macro stream, VLM extraction of scanned quarterly filings, vector-first screening of annual reports with an anti-greenwashing ceiling for ESG, and a 9-phase news feature store.',
+        vi: 'FinSTAR-Data, bài báo dữ liệu của đồ án: pipeline dữ liệu đa phương thức có thể kiểm toán, chống rò rỉ cho 48 cổ phiếu Việt Nam (2020–2026), gồm OHLCV đối soát kèm giá point-in-time, luồng vĩ mô point-in-time, trích xuất báo cáo quý dạng scan bằng VLM, sàng lọc báo cáo thường niên vector-first có trần chống greenwashing cho ESG, và kho đặc trưng tin tức 9 giai đoạn.'
+      },
+      pdfUrl: '/comnetsat_2026_finstar_data.pdf'
+    },
     detail: {
       timeline: [
         [
-          { en: '01 / PROBLEM & HYPOTHESIS FORMULATION', vi: '01 / ĐẶT BÀI TOÁN & GIẢ THUYẾT' },
+          { en: '01 / DATA PIPELINE', vi: '01 / PIPELINE DỮ LIỆU' },
           {
-            en: 'Surveyed the problem of combining financial modalities and formulated a hypothesis about consistency between forecasts and rationale text.',
-            vi: 'Khảo sát bài toán kết hợp đa phương thức tài chính và xây dựng giả thuyết về tính nhất quán giữa dự báo và văn bản giải trình.'
+            en: 'Built point-in-time data from five sources into a 57-table warehouse, with label and leakage audits; published as the FinSTAR-Data paper (IEEE COMNETSAT 2026).',
+            vi: 'Dựng dữ liệu point-in-time từ năm nguồn thành kho 57 bảng, có kiểm tra nhãn và rò rỉ; công bố thành bài FinSTAR-Data (IEEE COMNETSAT 2026).'
           }
         ],
         [
-          { en: '02 / PIPELINE & ARCHITECTURE DESIGN', vi: '02 / THIẾT KẾ PIPELINE & KIẾN TRÚC' },
+          { en: '02 / ONE MODEL FOR BOTH TASKS (DROPPED)', vi: '02 / MỘT MÔ HÌNH CHO CẢ HAI VIỆC (ĐÃ BỎ)' },
           {
-            en: 'Collected a sample dataset (OHLCV, SEC 10-K/10-Q, ESG), built a preprocessing module that prevents look-ahead bias, and set up the Qwen2.5-0.5B backbone structure.',
-            vi: 'Thu thập tập dữ liệu mẫu (OHLCV, SEC 10-K/10-Q, ESG), xây dựng module tiền xử lý chống look-ahead bias và cấu trúc backbone Qwen2.5-0.5B.'
+            en: 'Five iterations of a fine-tuned Qwen2.5-1.5B forecasting and explaining together; forecasting stayed below simple baselines, so the design was split.',
+            vi: 'Năm lần cải tiến Qwen2.5-1.5B fine-tune vừa dự báo vừa giải thích; phần dự báo vẫn thua các mốc đơn giản nên nhóm tách thiết kế.'
           }
         ],
         [
+          { en: '03 / TWO-HEAD SYSTEM & ONE-SHOT TEST', vi: '03 / HỆ HAI HEAD & TEST CHẤM MỘT LẦN' },
           {
-            en: '03 / EXPERIMENTAL TRAINING & REFINEMENT (IN PROGRESS)',
-            vi: '03 / HUẤN LUYỆN THỬ NGHIỆM & TINH CHỈNH (ĐANG THỰC HIỆN)'
-          },
+            en: 'Multi-horizon LightGBM for forecasting and a LoRA explainer with a 7-rule verifier, selected on purged time splits (2023, 2024, 2025H1) and scored on the test split once.',
+            vi: 'LightGBM học 5 kỳ hạn cho dự báo và LLM LoRA giải thích kèm bộ kiểm 7 tiêu chí, chọn trên các giai đoạn tách theo thời gian có purge (2023, 2024, 2025H1) và chấm test đúng một lần.'
+          }
+        ],
+        [
+          { en: '04 / LIVE BENCHMARK & WEB DEMO', vi: '04 / LIVE BENCHMARK & WEB DEMO' },
           {
-            en: 'Currently running experimental QLoRA training, tuning the joint loss and measuring inference latency in a local environment.',
-            vi: 'Đang huấn luyện thử nghiệm QLoRA, tinh chỉnh hàm mất mát liên kết và đo lường độ trễ suy luận trên môi trường cục bộ.'
+            en: 'Daily sealed forecasts against a web-search Gemini agent and naive baselines (40 sessions needed before drawing conclusions), shown with SHAP drivers on the live web demo.',
+            vi: 'Dự báo niêm phong mỗi phiên so với agent Gemini có tìm kiếm web và các mốc đơn giản (cần 40 phiên mới kết luận), hiển thị kèm các yếu tố SHAP trên web demo.'
           }
         ]
       ],
       artifacts: [
         {
-          en: 'Capstone Research Proposal & Technical Specification',
-          vi: 'Đề cương nghiên cứu đồ án & Đặc tả kỹ thuật'
+          en: 'FinSTAR-Data paper (IEEE COMNETSAT 2026)',
+          vi: 'Bài báo FinSTAR-Data (IEEE COMNETSAT 2026)'
         },
         {
-          en: 'Hybrid Multimodal Ingestion & Preprocessing Pipeline',
-          vi: 'Pipeline nạp & tiền xử lý dữ liệu đa phương thức lai'
+          en: 'Multi-horizon LightGBM forecaster (frozen, with sha256 manifest)',
+          vi: 'Mô hình dự báo LightGBM 5 kỳ hạn (đã đóng băng, có manifest sha256)'
         },
         {
-          en: 'Shared Decoder-Only Architecture Implementation (PyTorch)',
-          vi: 'Hiện thực kiến trúc Shared Decoder-Only (PyTorch)'
+          en: 'Qwen2.5-1.5B LoRA explainer and C1–C7 verifier',
+          vi: 'LLM giải thích Qwen2.5-1.5B LoRA và bộ kiểm C1–C7'
         },
         {
-          en: 'Local Evaluation & Consistency Benchmark Suite',
-          vi: 'Bộ đánh giá cục bộ & benchmark tính nhất quán'
+          en: 'Pre-registered live benchmark and web demo (finstar.pp.ua/app)',
+          vi: 'Live benchmark ghi trước luật và web demo (finstar.pp.ua/app)'
         }
       ],
       reflection: {
-        en: 'A financial model cannot be a mysterious black box. The core goal of this research is to build a compact deep-learning architecture that can produce rationales consistent with its quantitative decisions, without depending on expensive cloud APIs.',
-        vi: 'Mô hình tài chính không thể là một chiếc hộp đen bí ẩn. Mục tiêu cốt lõi của nghiên cứu là xây dựng một cấu trúc học sâu nhỏ gọn, có khả năng tự giải trình nhất quán với quyết định định lượng mà không phụ thuộc vào các API đám mây đắt đỏ.'
+        en: 'Splitting the work was the right call: the explanations are reliable and every number in them can be traced. Forecasting is still the weak part; the one-shot test did not prove skill, and the live benchmark needs 40 sessions before it can say more. Reporting that honestly mattered more than a good-looking number.',
+        vi: 'Tách hai việc là đúng hướng: lời giải thích đáng tin cậy và mọi con số đều truy được nguồn. Dự báo vẫn là phần yếu; test chấm một lần chưa chứng minh được kỹ năng, và live benchmark cần đủ 40 phiên mới nói thêm được. Báo cáo trung thực điều đó quan trọng hơn một con số đẹp.'
       }
     }
   },

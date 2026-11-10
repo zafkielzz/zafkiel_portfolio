@@ -118,6 +118,8 @@ export const ProjectDetailPage: React.FC = () => {
               download={
                 project.publication.pdfUrl?.includes('icitda')
                   ? 'Dang_Phuong_Nam_ICITDA_2026_Stock_Breakout_Modeling.pdf'
+                  : project.publication.pdfUrl?.includes('comnetsat')
+                  ? 'FinSTAR_Data_IEEE_COMNETSAT_2026.pdf'
                   : 'Dang_Phuong_Nam_Conflict_Aware_RAG_Routing_IEEE_IS26.pdf'
               }
               className="random-note"
@@ -157,6 +159,25 @@ export const ProjectDetailPage: React.FC = () => {
             )}
           </div>
         </section>
+      )}
+
+      {project.demoUrl && (
+        <div style={{ margin: '24px 0 32px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="random-note"
+            style={{
+              textDecoration: 'none',
+              background: 'rgba(230, 155, 75, 0.12)',
+              borderColor: 'var(--accent)',
+              color: 'var(--text)'
+            }}
+          >
+            <i>▶</i> {t({ en: 'OPEN LIVE DEMO', vi: 'MỞ WEB DEMO' })} <span>↗</span>
+          </a>
+        </div>
       )}
 
       {project.githubUrl && !project.publication && (

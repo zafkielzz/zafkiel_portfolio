@@ -51,7 +51,7 @@
 
 \newcommand{\resumePubHeading}[2]{
     \item
-    \begin{tabular*}{0.97\textwidth}{p{0.9\textwidth}@{\extracolsep{\fill}}r}
+    \begin{tabular*}{0.97\textwidth}{p{0.84\textwidth}@{\extracolsep{\fill}}r}
       \small\textbf{#1} & #2 \\
     \end{tabular*}\vspace{-7pt}
 }
@@ -85,12 +85,12 @@
 \section{Publications}
   \resumeSubHeadingListStart
     \resumePubHeading
-      {\href{https://zafkiel-portfolio.vercel.app/paper_93.pdf}{Conflict-Aware RAG Routing: Balancing Cost and Accuracy via Context Contradiction}}{2026}
+      {\href{https://zafkiel-portfolio.vercel.app/paper_93.pdf}{Conflict-Aware RAG Routing: Balancing Cost and Accuracy via Context Contradiction}}{\href{https://zafkiel-portfolio.vercel.app/paper_93.pdf}{\underline{Paper}} $|$ 2026}
       \resumeItemListStart
         \resumeItem{\textbf{Dang Phuong Nam}, Tran Huy Tuan, Doan Duy Long, Cao Van Mai. \textit{13th IEEE International Conference on Intelligent Systems (IEEE IS'26)}. \textbf{First author}; accepted \& presented; proceedings to appear. \href{https://github.com/RAG-Routing-Via-Context-Confliction/RAG_Router_Via_Context_Conflict}{\underline{GitHub}}}
       \resumeItemListEnd
     \resumePubHeading
-      {\href{https://zafkiel-portfolio.vercel.app/comnetsat_2026_finstar_data.pdf}{FinSTAR-Data: An Auditable, Leakage-Resistant Multimodal Data Engineering Pipeline for Quantitative Finance in Emerging Markets}}{2026}
+      {\href{https://zafkiel-portfolio.vercel.app/comnetsat_2026_finstar_data.pdf}{FinSTAR-Data: An Auditable, Leakage-Resistant Multimodal Data Engineering Pipeline for Quantitative Finance in Emerging Markets}}{\href{https://zafkiel-portfolio.vercel.app/comnetsat_2026_finstar_data.pdf}{\underline{Paper}} $|$ 2026}
       \resumeItemListStart
         \resumeItem{Nguyen Nhat Bang, \textbf{Dang Phuong Nam}, Doan Minh Tuan, Dien Vu. \textit{IEEE International Conference on Communication, Networks and Satellite (COMNETSAT 2026)}. \textbf{Co-first author}; accepted; to appear in IEEE Xplore.}
       \resumeItemListEnd
@@ -120,10 +120,12 @@
 \section{Projects}
   \resumeSubHeadingListStart
     \resumeProjectHeading
-      {\textbf{Multi-Task Stock Transformer} $|$ \emph{Capstone, Vice Team Leader $|$ PyTorch, Qwen2.5, PatchTST}}{2026 -- Present}
+      {\textbf{FinSTAR Stock Forecasting} $|$ \emph{Capstone, Vice Team Leader $|$ LightGBM, Qwen2.5-1.5B LoRA}}{\href{https://finstar.pp.ua/app}{\underline{Live Demo}} $|$ 2026}
       \resumeItemListStart
-        \resumeItem{Co-designing a decoder-only SLM (Qwen2.5-0.5B) fusing price patches, financial text and ESG for trend prediction}
-        \resumeItem{Proposed an NLI-based consistency loss that penalizes rationales contradicting the predicted trend}
+        \resumeItem{5-session forecasts vs. the market for 48 Vietnamese stocks (multi-horizon LightGBM), each explained in Vietnamese by a Qwen2.5-1.5B LoRA}
+        \resumeItem{Split forecasting from explanation after a fine-tuned LLM doing both lost to LightGBM (MCC 0.059 vs. 0.107)}
+        \resumeItem{\textbf{97.4\%} of 1,000 test explanations pass a 7-rule automatic verifier, with every number traced to the input fact sheet}
+        \resumeItem{Pre-registered evaluation (purged splits, test scored once); daily sealed live benchmark vs. a web-search Gemini agent}
       \resumeItemListEnd
     \resumeProjectHeading
       {\textbf{VietSign Edge AI} $|$ \emph{Team Leader $|$ PyTorch, YOLOv8n, MobileNetV3, TFLite}}{\href{https://github.com/VietSign-Edge-AI/VietSign-Edge-AI}{\underline{GitHub}} $|$ 2026}
